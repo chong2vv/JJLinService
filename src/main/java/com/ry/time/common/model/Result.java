@@ -1,0 +1,30 @@
+package com.ry.time.common.model;
+
+import lombok.Data;
+
+import java.io.Serializable;
+
+/**
+ * 返回信息封装类
+ *
+ * @author gongjiguang
+ */
+@Data
+public class Result<T> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 错误码
+     */
+    private int errorCode;
+    /**
+     * 错误信息
+     */
+    private String errorMsg = "";
+    /**
+     * 返回数据
+     */
+    private T result;
+
+}

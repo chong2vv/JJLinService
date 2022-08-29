@@ -1,0 +1,89 @@
+package com.ry.time.admin.service.impl;
+
+
+import com.qiniu.common.QiniuException;
+import com.qiniu.http.Response;
+import com.qiniu.storage.Configuration;
+import com.qiniu.storage.Region;
+import com.qiniu.storage.UploadManager;
+import com.qiniu.storage.model.DefaultPutRet;
+import com.qiniu.util.Auth;
+import com.ry.time.admin.service.UploadToOssService;
+import com.ry.time.common.util.JsonUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+
+/**
+ * UploadToOssService实现
+ *
+ * @author gongjiguang
+ * @date 2020/9/16
+ */
+@Slf4j
+@Service
+public class UploadToOssServiceImpl implements UploadToOssService {
+
+    /**
+     * 桶名
+     */
+    private String bucketName;
+    /**
+     * id
+     */
+    private String accessKey;
+    /**
+     * secret
+     */
+    private String secretKey;
+
+
+    @Override
+    public void uploadToOss(MultipartFile file) {
+        //构造一个带指定 Region 对象的配置类
+        Configuration cfg = new Configuration(Region.huabei());
+        // 指定分片上传版本
+        cfg.resumableUploadAPIVersion = Configuration.ResumableUploadAPIVersion.V2;
+        //...其他参数参考类注释
+
+        UploadManager uploadManager = new UploadManager(cfg);
+
+        Auth auth = Auth.create(accessKey, secretKey);
+        String upToken = auth.uploadToken(bucketName);
+
+        try {
+            Response response = uploadManager.put(file.getBytes(), file.getOriginalFilename(), upToken);
+            //解析上传成功的结果
+           JsonUtil.jsonToObj(response.bodyString(), DefaultPutRet.class);
+        } catch (QiniuException ex) {
+            Response r = ex.response;
+            log.error(r.toString());
+            try {
+                log.error(r.bodyString());
+            } catch (QiniuException ex2) {
+                //ignore
+            }
+        } catch (IOException e) {
+            log.error("json error");
+        }
+    }
+
+    @Value("${oss.bucket.name}")
+    public void setBucketName(String bucketName) {
+        this.bucketName = bucketName;
+    }
+
+    @Value("${oss.key.id}")
+    public void setAccessKey(String accessKey) {
+        this.accessKey = accessKey;
+    }
+
+    @Value("${oss.key.secret}")
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
+    }
+
+}
