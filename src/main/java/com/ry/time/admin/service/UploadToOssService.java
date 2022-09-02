@@ -16,4 +16,11 @@ public interface UploadToOssService {
      * @param file 上传文件
      */
     void uploadToOss(MultipartFile file);
+
+    /**
+     * 获取上传token
+     *
+     * @return token
+     */
+    String getToken();
 }

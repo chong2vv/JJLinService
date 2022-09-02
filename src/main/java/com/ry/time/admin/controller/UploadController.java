@@ -40,4 +40,10 @@ public class UploadController {
         return ResultGenerator.genSuccessResult();
     }
 
+    @RequestMapping(value = "/token", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getToken() {
+        String token = uploadToOssService.getToken();
+        return ResultGenerator.genSuccessResult(token);
+    }
+
 }

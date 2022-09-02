@@ -51,8 +51,7 @@ public class UploadToOssServiceImpl implements UploadToOssService {
 
         UploadManager uploadManager = new UploadManager(cfg);
 
-        Auth auth = Auth.create(accessKey, secretKey);
-        String upToken = auth.uploadToken(bucketName);
+        String upToken = this.getToken();
 
         try {
             Response response = uploadManager.put(file.getBytes(), file.getOriginalFilename(), upToken);
@@ -69,6 +68,12 @@ public class UploadToOssServiceImpl implements UploadToOssService {
         } catch (IOException e) {
             log.error("json error");
         }
+    }
+
+    @Override
+    public String getToken() {
+        Auth auth = Auth.create(accessKey, secretKey);
+        return auth.uploadToken(bucketName);
     }
 
     @Value("${oss.bucket.name}")
