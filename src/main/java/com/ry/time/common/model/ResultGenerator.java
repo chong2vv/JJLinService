@@ -13,7 +13,6 @@ public class ResultGenerator {
 
     private static final String SYSTEM_ERROR_JSON = "{\"result\":false, \"error_code\":10000,\"error_msg\":\"系统错误\"}";
 
-
     public static String genSuccessResult() {
         Result<Boolean> result = new Result<>();
         result.setResult(true);
