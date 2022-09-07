@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ry.time.admin.dao.MessageDao">
+
+    <resultMap type="com.ry.time.admin.model.entity.Message" id="MessageMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="fromType" column="from_type" jdbcType="INTEGER"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="timestamp" column="timestamp" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MessageMap">
+        select
+          id, name, title, phone, content, from_type, email, status, timestamp
+        from message
+        <where>
+            <if test="title != null and title != ''">
+                and title = #{search}
+            </if>
+        </where>
+        limit #{offset}, #{count}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into message(id, name, title, phone, content, from_type, email, status, timestamp)
+        values (#{id}, #{name}, #{title}, #{phone}, #{content}, #{fromType}, #{email}, #{status}, #{timestamp})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update message
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="content != null and content != ''">
+                content = #{content},
+            </if>
+            <if test="fromType != null">
+                from_type = #{fromType},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="timestamp != null">
+                timestamp = #{timestamp},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>
+

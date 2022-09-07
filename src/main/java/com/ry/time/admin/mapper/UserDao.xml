@@ -23,8 +23,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into user(roles, avatar, username, password, nickname, status)
-        values (#{roles}, #{avatar}, #{username}, #{password}, #{nickname}, #{status})
+        insert into user(id, roles, avatar, username, password, nickname, status)
+        values (#{id}, #{role}, #{avatar}, #{username}, #{password}, #{nickname}, #{status})
     </insert>
 
 </mapper>

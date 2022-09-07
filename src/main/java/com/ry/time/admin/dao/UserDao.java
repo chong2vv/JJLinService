@@ -1,6 +1,7 @@
 package com.ry.time.admin.dao;
 
 import com.ry.time.admin.model.entity.UserInfo;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @author gongjiguang
  * @date 2022-09-03
  */
+@Mapper
 public interface UserDao {
 
     /**

@@ -6,6 +6,7 @@ import com.ry.time.admin.model.entity.UserInfo;
 import com.ry.time.admin.service.UserService;
 import com.ry.time.common.model.PagerRequestVO;
 import com.ry.time.common.util.CommonUtil;
+import com.ry.time.common.util.NumberUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void createUser(UserInfo userInfo) {
+        userInfo.setId(NumberUtil.genUid());
+        String role = String.join(",", userInfo.getRoles());
+        userInfo.setRole(role);
         userDao.insert(userInfo);
     }
 
