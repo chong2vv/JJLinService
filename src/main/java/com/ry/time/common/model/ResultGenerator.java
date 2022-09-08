@@ -15,7 +15,9 @@ public class ResultGenerator {
 
     public static String genSuccessResult() {
         Result<Boolean> result = new Result<>();
-        result.setResult(true);
+        result.setCode(200);
+        result.setMessage("请求成功");
+        result.setData(true);
         try {
             return JsonUtil.objToJson(result);
         } catch (JsonProcessingException e) {
@@ -29,7 +31,7 @@ public class ResultGenerator {
         Result<T> result = new Result<>();
         result.setCode(200);
         result.setMessage("请求成功");
-        result.setResult(data);
+        result.setData(data);
         try {
             return JsonUtil.objToJson(result);
         } catch (JsonProcessingException e) {
@@ -41,7 +43,7 @@ public class ResultGenerator {
 
     public static String genErrorResult(ResultErrorEnum resultError) {
         Result<Boolean> result = new Result<>();
-        result.setResult(null);
+        result.setData(null);
         result.setCode(resultError.getCode());
         result.setMessage(resultError.getMsg());
         try {

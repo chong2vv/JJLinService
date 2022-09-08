@@ -25,6 +25,6 @@ public class Result<T> implements Serializable {
     /**
      * 返回数据
      */
-    private T result;
+    private T data;
 
 }
