@@ -11,11 +11,13 @@ import com.ry.time.common.util.JsonUtil;
  */
 public class ResultGenerator {
 
-    private static final String SYSTEM_ERROR_JSON = "{\"result\":false, \"error_code\":10000,\"error_msg\":\"系统错误\"}";
+    private static final String SYSTEM_ERROR_JSON = "{\"result\":false, \"code\":10000,\"msg\":\"系统错误\"}";
 
     public static String genSuccessResult() {
         Result<Boolean> result = new Result<>();
-        result.setResult(true);
+        result.setCode(200);
+        result.setMessage("请求成功");
+        result.setData(true);
         try {
             return JsonUtil.objToJson(result);
         } catch (JsonProcessingException e) {
@@ -27,7 +29,9 @@ public class ResultGenerator {
 
     public static <T> String genSuccessResult(T data) {
         Result<T> result = new Result<>();
-        result.setResult(data);
+        result.setCode(200);
+        result.setMessage("请求成功");
+        result.setData(data);
         try {
             return JsonUtil.objToJson(result);
         } catch (JsonProcessingException e) {
@@ -39,9 +43,9 @@ public class ResultGenerator {
 
     public static String genErrorResult(ResultErrorEnum resultError) {
         Result<Boolean> result = new Result<>();
-        result.setResult(null);
-        result.setErrorCode(resultError.getCode());
-        result.setErrorMsg(resultError.getMsg());
+        result.setData(null);
+        result.setCode(resultError.getCode());
+        result.setMessage(resultError.getMsg());
         try {
             return JsonUtil.objToJson(result);
         } catch (JsonProcessingException e) {
