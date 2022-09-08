@@ -28,4 +28,11 @@ public interface UserService {
      * @param userInfo 用户信息
      */
     void createUser(UserInfo userInfo);
+
+    /**
+     * 判断用户是否存在
+     * @param username 用户名
+     * @return 是否存在
+     */
+    boolean existsUser(String username);
 }

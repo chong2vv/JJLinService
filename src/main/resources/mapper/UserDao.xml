@@ -21,6 +21,16 @@
         limit #{offset}, #{count}
     </select>
 
+    <select id="queryByName" resultMap="UserMap">
+        select
+          id, roles, avatar, username, password, nickname, status
+        from user
+        where username = #{username}
+        <if test="password != null and password != ''">
+            and password = #{password}
+        </if>
+    </select>
+
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into user(id, roles, avatar, username, password, nickname, status)

@@ -43,7 +43,7 @@ public enum ResultErrorEnum {
     /**
      * 该手机以注册
      */
-    PHONE_EXISTS_ERROR(10105,"该手机以注册"),
+    USERNAME_EXISTS_ERROR(10105,"该用户名以注册"),
 
     /**
      * 用户没有权限

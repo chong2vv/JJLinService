@@ -92,4 +92,5 @@ public class NumberUtil extends NumberUtils {
     public static String automaticFilling(int code, int num) {
         return String.format("%0" + num + "d", code);
     }
+
 }

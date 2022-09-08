@@ -23,6 +23,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<Message> getMessageList(MessagePagerRequestVO messagePagerRequestVO) {
+        messagePagerRequestVO.initPager();
         return messageDao.queryAllByLimit(messagePagerRequestVO.getOffset(), messagePagerRequestVO.getCount(),
                 messagePagerRequestVO.getSearchString());
     }

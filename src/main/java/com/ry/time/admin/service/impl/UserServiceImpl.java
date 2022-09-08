@@ -8,6 +8,7 @@ import com.ry.time.common.model.PagerRequestVO;
 import com.ry.time.common.util.CommonUtil;
 import com.ry.time.common.util.NumberUtil;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -28,6 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> getUserList(PagerRequestVO pagerRequestVO) {
+        pagerRequestVO.initPager();
         List<UserInfo> userInfoList = userDao.queryPager(pagerRequestVO.getOffset(), pagerRequestVO.getCount());
         return userInfoList.stream()
                 .map(this::convertUserInfoToUserDTO)
@@ -39,9 +41,24 @@ public class UserServiceImpl implements UserService {
         userInfo.setId(NumberUtil.genUid());
         String role = String.join(",", userInfo.getRoles());
         userInfo.setRole(role);
+        if (StringUtils.isBlank(userInfo.getAvatar())){
+            userInfo.setAvatar("http://rhaxmiodp.hb-bkt.clouddn.com/default_avatar.png");
+        }
         userDao.insert(userInfo);
     }
 
+    @Override
+    public boolean existsUser(String username) {
+        UserInfo userInfo = userDao.queryByName(username, null);
+        return userInfo != null;
+    }
+
+    /**
+     * 将UserInfo转换为UserDTO
+     *
+     * @param userInfo 数据库对象
+     * @return 页面对象
+     */
     private UserDTO convertUserInfoToUserDTO(UserInfo userInfo) {
         UserDTO userDTO = CommonUtil.copyVo(userInfo, UserDTO.class);
         List<String> rolesList = Arrays.asList(userInfo.getRole().split(","));

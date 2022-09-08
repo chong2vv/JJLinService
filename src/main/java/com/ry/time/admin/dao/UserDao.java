@@ -31,5 +31,14 @@ public interface UserDao {
      */
     int insert(UserInfo user);
 
+    /**
+     * 通过用户查询单条数据
+     *
+     * @param username 手机号
+     * @param password 密码
+     * @return 实例对象
+     */
+    UserInfo queryByName(String username, String password);
+
 }
 

@@ -18,4 +18,12 @@ public class PagerRequestVO {
         return (page - 1) * count;
     }
 
+    public void initPager() {
+        if (page == null || page < 1) {
+            page = 1;
+        }
+        if (count == null || count < 1) {
+            count = 20;
+        }
+    }
 }
