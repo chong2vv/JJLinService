@@ -21,7 +21,7 @@ public interface UserDao {
      * @param count  查询条数
      * @return 对象列表
      */
-    List<UserInfo> queryAllByLimit(int offset, int count);
+    List<UserInfo> queryPager(int offset, int count);
 
     /**
      * 新增数据

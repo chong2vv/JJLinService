@@ -22,6 +22,9 @@ spring:
       filters: stat,wall,log4j2
       connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
 
+server:
+  port: 8090
+
 #oss配置
 oss:
   bucket:
@@ -29,3 +32,7 @@ oss:
   key:
     id: YcOuEvnnVonyopxI02f2DBah2SATfYYynzntBTmH
     secret: KZjFeHg9hsVnFD4GFNnsNUqlGraYnU39TQPoa9hC
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.ry.time.admin.model.entity

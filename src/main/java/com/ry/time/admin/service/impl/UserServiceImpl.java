@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> getUserList(PagerRequestVO pagerRequestVO) {
-        List<UserInfo> userInfoList = userDao.queryAllByLimit(pagerRequestVO.getOffset(), pagerRequestVO.getCount());
+        List<UserInfo> userInfoList = userDao.queryPager(pagerRequestVO.getOffset(), pagerRequestVO.getCount());
         return userInfoList.stream()
                 .map(this::convertUserInfoToUserDTO)
                 .collect(Collectors.toList());
