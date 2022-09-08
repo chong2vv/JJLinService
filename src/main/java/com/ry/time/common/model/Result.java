@@ -17,11 +17,11 @@ public class Result<T> implements Serializable {
     /**
      * 错误码
      */
-    private int errorCode;
+    private int code;
     /**
      * 错误信息
      */
-    private String errorMsg = "";
+    private String message = "";
     /**
      * 返回数据
      */
