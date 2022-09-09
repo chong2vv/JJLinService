@@ -39,10 +39,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public void createUser(UserInfo userInfo) {
         userInfo.setId(NumberUtil.genUid());
-        String role = String.join(",", userInfo.getRoles());
-        userInfo.setRole(role);
+        if (userInfo.getRoles() == null) {
+            userInfo.setRole("admin");
+        }else {
+            String role = String.join(",", userInfo.getRoles());
+            userInfo.setRole(role);
+        }
         if (StringUtils.isBlank(userInfo.getAvatar())){
             userInfo.setAvatar("http://rhaxmiodp.hb-bkt.clouddn.com/default_avatar.png");
+        }
+        if (userInfo.getStatus() == null){
+            userInfo.setStatus(1);
         }
         userDao.insert(userInfo);
     }
@@ -51,6 +58,15 @@ public class UserServiceImpl implements UserService {
     public boolean existsUser(String username) {
         UserInfo userInfo = userDao.queryByName(username, null);
         return userInfo != null;
+    }
+
+    @Override
+    public UserDTO queryByUserName(String username, String password) {
+        UserInfo userInfo = userDao.queryByName(username, password);
+        if (userInfo == null) {
+            return null;
+        }
+        return convertUserInfoToUserDTO(userInfo);
     }
 
     /**

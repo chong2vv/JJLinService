@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,7 +35,7 @@ public class UserController {
         return ResultGenerator.genSuccessResult(userList);
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.ALL_VALUE)
     public String createUser(@RequestBody UserInfo userInfo) {
         boolean existsUser = userService.existsUser(userInfo.getUsername());
         if (existsUser) {
@@ -42,5 +43,14 @@ public class UserController {
         }
         userService.createUser(userInfo);
         return ResultGenerator.genSuccessResult();
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String login(@RequestBody UserInfo userInfo) {
+        UserDTO user =  userService.queryByUserName(userInfo.getUsername(), userInfo.getPassword());
+        if (user == null) {
+            return ResultGenerator.genErrorResult(ResultErrorEnum.PASSWORD_ERROR);
+        }
+        return ResultGenerator.genSuccessResult(user);
     }
 }

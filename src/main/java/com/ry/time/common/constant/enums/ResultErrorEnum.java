@@ -39,7 +39,7 @@ public enum ResultErrorEnum {
     /**
      * 密码错误
      */
-    PASSWORD_ERROR(10104,"密码错误"),
+    PASSWORD_ERROR(10104,"账号或密码错误"),
     /**
      * 该手机以注册
      */

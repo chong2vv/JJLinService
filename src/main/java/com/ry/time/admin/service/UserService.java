@@ -3,6 +3,7 @@ package com.ry.time.admin.service;
 import com.ry.time.admin.model.dto.UserDTO;
 import com.ry.time.admin.model.entity.UserInfo;
 import com.ry.time.common.model.PagerRequestVO;
+import org.apache.catalina.User;
 
 import java.util.List;
 
@@ -35,4 +36,13 @@ public interface UserService {
      * @return 是否存在
      */
     boolean existsUser(String username);
+
+    /**
+     * 通过手机号查询单条数据
+     *
+     * @param username    账号
+     * @param password 密码
+     * @return 实例对象
+     */
+    UserDTO queryByUserName(String username, String password);
 }
