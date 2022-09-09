@@ -46,6 +46,11 @@ public enum ResultErrorEnum {
     USERNAME_EXISTS_ERROR(10105,"该用户名以注册"),
 
     /**
+     * 用户被冻结
+     */
+    STATUS_ERROR(10106,"此用户被冻结"),
+
+    /**
      * 用户没有权限
      */
     ADMIN_USER_NOT_ROLE(20107,"用户没有权限");

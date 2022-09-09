@@ -45,4 +45,12 @@ public interface UserService {
      * @return 实例对象
      */
     UserDTO queryByUserName(String username, String password);
+
+    /**
+     * 通过手机号查询单条数据
+     *
+     * @param id    用户uid
+     * @return 实例对象
+     */
+    UserDTO queryByUserId(Long id);
 }

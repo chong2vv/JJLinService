@@ -40,5 +40,13 @@ public interface UserDao {
      */
     UserInfo queryByName(String username, String password);
 
+    /**
+     * 通过用户id查询单条数据
+     *
+     * @param id 用户uid
+     * @return 实例对象
+     */
+    UserInfo queryById(Long id);
+
 }
 

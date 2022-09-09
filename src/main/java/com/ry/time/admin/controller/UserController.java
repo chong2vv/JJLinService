@@ -8,10 +8,7 @@ import com.ry.time.common.model.PagerRequestVO;
 import com.ry.time.common.model.ResultGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +47,19 @@ public class UserController {
         UserDTO user =  userService.queryByUserName(userInfo.getUsername(), userInfo.getPassword());
         if (user == null) {
             return ResultGenerator.genErrorResult(ResultErrorEnum.PASSWORD_ERROR);
+        }
+        if (user.getStatus() != 1) {
+            return ResultGenerator.genErrorResult(ResultErrorEnum.STATUS_ERROR);
+        }
+        return ResultGenerator.genSuccessResult(user);
+    }
+
+    @RequestMapping(value = "/info", method = RequestMethod.GET, produces =
+            MediaType.APPLICATION_JSON_VALUE)
+    public String info(@RequestBody UserInfo userInfo) {
+        UserDTO user =  userService.queryByUserId(userInfo.getId());
+        if (user == null) {
+            return ResultGenerator.genErrorResult(ResultErrorEnum.USER_ERROR);
         }
         return ResultGenerator.genSuccessResult(user);
     }

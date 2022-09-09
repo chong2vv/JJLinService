@@ -31,6 +31,14 @@
         </if>
     </select>
 
+    <!--查询单个-->
+    <select id="queryById" resultMap="UserMap">
+        select
+            id, roles, avatar, username, password, nickname, status
+        from user
+        where uid = #{id}
+    </select>
+
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into user(id, roles, avatar, username, password, nickname, status)

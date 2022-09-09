@@ -69,6 +69,15 @@ public class UserServiceImpl implements UserService {
         return convertUserInfoToUserDTO(userInfo);
     }
 
+    @Override
+    public UserDTO queryByUserId(Long id) {
+        UserInfo userInfo = userDao.queryById(id);
+        if (userInfo == null) {
+            return null;
+        }
+        return convertUserInfoToUserDTO(userInfo);
+    }
+
     /**
      * 将UserInfo转换为UserDTO
      *
