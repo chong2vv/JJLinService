@@ -54,10 +54,9 @@ public class UserController {
         return ResultGenerator.genSuccessResult(user);
     }
 
-    @RequestMapping(value = "/info", method = RequestMethod.GET, produces =
-            MediaType.APPLICATION_JSON_VALUE)
-    public String info(@RequestBody UserInfo userInfo) {
-        UserDTO user =  userService.queryByUserId(userInfo.getId());
+    @RequestMapping(value = "/info", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String info(@RequestParam Long id) {
+        UserDTO user =  userService.queryByUserId(id);
         if (user == null) {
             return ResultGenerator.genErrorResult(ResultErrorEnum.USER_ERROR);
         }

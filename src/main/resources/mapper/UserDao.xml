@@ -36,7 +36,7 @@
         select
             id, roles, avatar, username, password, nickname, status
         from user
-        where uid = #{id}
+        where id = #{id}
     </select>
 
     <!--新增所有列-->
