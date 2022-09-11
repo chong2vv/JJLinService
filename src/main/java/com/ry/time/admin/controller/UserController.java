@@ -29,7 +29,8 @@ public class UserController {
     @RequestMapping(value = "/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public String getUserList(PagerRequestVO pagerRequestVO) {
         List<UserDTO> userList = userService.getUserList(pagerRequestVO);
-        return ResultGenerator.genSuccessResult(userList);
+        int total = userService.getUserCount();
+        return ResultGenerator.genSuccessPager(userList, total);
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.ALL_VALUE)

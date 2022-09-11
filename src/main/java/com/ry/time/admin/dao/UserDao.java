@@ -48,5 +48,11 @@ public interface UserDao {
      */
     UserInfo queryById(Long id);
 
+    /**
+     * 获取用户总数
+     *
+     * @return 用户总数
+     */
+    int count();
 }
 

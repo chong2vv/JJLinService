@@ -51,9 +51,9 @@ public enum ResultErrorEnum {
     STATUS_ERROR(10106,"此用户被冻结"),
 
     /**
-     * 用户没有权限
+     * 该分类不存在
      */
-    ADMIN_USER_NOT_ROLE(20107,"用户没有权限");
+    CLASSIFY_EXISTS_ERROR(20001,"该分类不存在");
 
     private final int code;
 

@@ -45,5 +45,11 @@
         values (#{id}, #{role}, #{avatar}, #{username}, #{password}, #{nickname}, #{status})
     </insert>
 
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Integer">
+        select count(*)
+        from user
+    </select>
+
 </mapper>
 
