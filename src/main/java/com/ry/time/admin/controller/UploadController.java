@@ -1,16 +1,19 @@
 package com.ry.time.admin.controller;
 
 import com.ry.time.admin.service.UploadToOssService;
+import com.ry.time.common.constant.enums.ResultErrorEnum;
 import com.ry.time.common.model.ResultGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import java.util.Map;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -29,15 +32,20 @@ public class UploadController {
     @RequestMapping(value = "/ossFile", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public String uploadOssFile(MultipartHttpServletRequest multipartRequest) {
         try {
-            Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
-            for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
-                MultipartFile mf = entity.getValue();
-                uploadToOssService.uploadToOss(mf);
-            }
+            MultiValueMap<String, MultipartFile> multiFileMap = multipartRequest.getMultiFileMap();
+
+            List<MultipartFile> multipartFileList = multiFileMap.values()
+                    .stream()
+                    .flatMap(List::stream)
+                    .filter(file -> file.getSize() > 0)
+                    .collect(Collectors.toList());
+
+            List<String> imgUrlList = uploadToOssService.uploadToOss(multipartFileList);
+            return ResultGenerator.genSuccessResult(imgUrlList);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return ResultGenerator.genSuccessResult();
+        return ResultGenerator.genErrorResult(ResultErrorEnum.FILE_ERROR);
     }
 
     @RequestMapping(value = "/token", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

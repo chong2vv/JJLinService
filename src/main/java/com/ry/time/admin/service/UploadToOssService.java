@@ -2,6 +2,8 @@ package com.ry.time.admin.service;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
  * 上传oss服务器上
  *
@@ -13,9 +15,10 @@ public interface UploadToOssService {
     /**
      * 上传到oss
      *
-     * @param file 上传文件
+     * @param fileList 上传文件集合
+     * @return oss地址
      */
-    void uploadToOss(MultipartFile file);
+    List<String> uploadToOss(List<MultipartFile> fileList);
 
     /**
      * 获取上传token

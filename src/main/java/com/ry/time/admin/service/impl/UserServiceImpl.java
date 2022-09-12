@@ -9,6 +9,7 @@ import com.ry.time.common.util.CommonUtil;
 import com.ry.time.common.util.NumberUtil;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -26,6 +27,8 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
+
+    private String imgUrl;
 
     @Override
     public List<UserDTO> getUserList(PagerRequestVO pagerRequestVO) {
@@ -46,7 +49,7 @@ public class UserServiceImpl implements UserService {
             userInfo.setRole(role);
         }
         if (StringUtils.isBlank(userInfo.getAvatar())){
-            userInfo.setAvatar("http://rhaxmiodp.hb-bkt.clouddn.com/default_avatar.png");
+            userInfo.setAvatar(imgUrl + "/default_avatar.png");
         }
         if (userInfo.getStatus() == null){
             userInfo.setStatus(1);
@@ -94,5 +97,10 @@ public class UserServiceImpl implements UserService {
         List<String> rolesList = Arrays.asList(userInfo.getRole().split(","));
         userDTO.setRoles(rolesList);
         return userDTO;
+    }
+
+    @Value("${img.url}")
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 }

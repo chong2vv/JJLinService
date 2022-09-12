@@ -1,11 +1,8 @@
 package com.ry.time.common.util;
 
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
-
-import java.io.IOException;
 
 /**
  * 操作json的封装方法
@@ -24,9 +21,9 @@ public class JsonUtil {
      * @param jsonStr json字符串
      * @return 对象T
      */
-    public static <T> T jsonToObj(String jsonStr, Class<T> clazz) throws IOException {
+    public static <T> T jsonToObj(String jsonStr, Class<T> clazz) throws JsonProcessingException {
         if (StringUtils.isBlank(jsonStr) || clazz == null) {
-            return null;
+            throw new JsonProcessingException("jsonStr or clazz is null") {};
         }
         return OBJECT_MAPPER.readValue(jsonStr, clazz);
     }

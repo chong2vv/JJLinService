@@ -25,6 +25,10 @@ public enum ResultErrorEnum {
      */
     MULTIPART_ERROR(10003,"请求不是multipart格式"),
     /**
+     * 上传文件失败
+     */
+    FILE_ERROR(10003,"上传文件失败"),
+    /**
      * 非法的手机号
      */
     PHONE_NUMBER_ERROR(10101,"非法的手机号"),
