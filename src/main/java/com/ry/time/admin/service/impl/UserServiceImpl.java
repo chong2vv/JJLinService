@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void createUser(UserInfo userInfo) {
+    public UserInfo createUser(UserInfo userInfo) {
         userInfo.setId(NumberUtil.genUid());
         if (userInfo.getRoles() == null) {
             userInfo.setRole("admin");
@@ -55,6 +55,7 @@ public class UserServiceImpl implements UserService {
             userInfo.setStatus(1);
         }
         userDao.insert(userInfo);
+        return userInfo;
     }
 
     @Override

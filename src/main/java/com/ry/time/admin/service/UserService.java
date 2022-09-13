@@ -28,8 +28,9 @@ public interface UserService {
      * 创建用户信息
      *
      * @param userInfo 用户信息
+     * @return 用户信息
      */
-    void createUser(UserInfo userInfo);
+    UserInfo createUser(UserInfo userInfo);
 
     /**
      * 判断用户是否存在

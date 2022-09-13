@@ -40,8 +40,8 @@ public class UserController {
         if (existsUser) {
             return ResultGenerator.genErrorResult(ResultErrorEnum.USERNAME_EXISTS_ERROR);
         }
-        userService.createUser(userInfo);
-        return ResultGenerator.genSuccessResult();
+        UserInfo newUserInfo = userService.createUser(userInfo);
+        return ResultGenerator.genSuccessResult(newUserInfo);
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
