@@ -59,6 +59,9 @@
             <if test="remark != null and remark != ''">
                 remark = #{remark},
             </if>
+            <if test="imageUrl != null and imageUrl != ''">
+                image_url = #{imageUrl},
+            </if>
         </set>
         where id = #{id}
     </update>
