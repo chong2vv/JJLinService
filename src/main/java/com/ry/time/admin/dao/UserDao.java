@@ -49,6 +49,14 @@ public interface UserDao {
     UserInfo queryById(Long id);
 
     /**
+     * 修改数据
+     *
+     * @param userInfo 实例对象
+     * @return 影响行数
+     */
+    int update(UserInfo userInfo);
+
+    /**
      * 获取用户总数
      *
      * @return 用户总数

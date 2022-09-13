@@ -86,6 +86,11 @@ public class UserServiceImpl implements UserService {
         return userDao.count();
     }
 
+    @Override
+    public void update(UserInfo userInfo) {
+        userDao.update(userInfo);
+    }
+
     /**
      * 将UserInfo转换为UserDTO
      *

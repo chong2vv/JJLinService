@@ -1,6 +1,7 @@
 package com.ry.time.admin.controller;
 
 import com.ry.time.admin.model.dto.UserDTO;
+import com.ry.time.admin.model.entity.Classify;
 import com.ry.time.admin.model.entity.UserInfo;
 import com.ry.time.admin.service.UserService;
 import com.ry.time.common.constant.enums.ResultErrorEnum;
@@ -62,5 +63,15 @@ public class UserController {
             return ResultGenerator.genErrorResult(ResultErrorEnum.USER_ERROR);
         }
         return ResultGenerator.genSuccessResult(user);
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String update(@RequestBody UserInfo userInfo) {
+        UserDTO user =  userService.queryByUserId(userInfo.getId());
+        if (user == null) {
+            return ResultGenerator.genErrorResult(ResultErrorEnum.USER_ERROR);
+        }
+        userService.update(userInfo);
+        return ResultGenerator.genSuccessResult();
     }
 }

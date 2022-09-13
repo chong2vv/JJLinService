@@ -1,6 +1,7 @@
 package com.ry.time.admin.service;
 
 import com.ry.time.admin.model.dto.UserDTO;
+import com.ry.time.admin.model.entity.Classify;
 import com.ry.time.admin.model.entity.UserInfo;
 import com.ry.time.common.model.PagerRequestVO;
 import org.apache.catalina.User;
@@ -61,4 +62,11 @@ public interface UserService {
      * @return 用户总数
      */
     int getUserCount();
+
+    /**
+     * 修改分类
+     *
+     * @param userInfo 用户信息
+     */
+    void update(UserInfo userInfo);
 }

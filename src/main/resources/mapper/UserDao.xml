@@ -45,6 +45,23 @@
         values (#{id}, #{role}, #{avatar}, #{username}, #{password}, #{nickname}, #{status})
     </insert>
 
+    <!--通过主键修改数据-->
+    <update id="update">
+        update user
+        <set>
+            <if test="nickname != null and nickname != ''">
+                nickname = #{nickname},
+            </if>
+            <if test="avatar != null and avatar != ''">
+                avatar = #{avatar},
+            </if>
+            <if test="status != null">
+                status = #{status}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Integer">
         select count(*)
