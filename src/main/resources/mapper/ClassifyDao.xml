@@ -28,6 +28,9 @@
             <if test="status != null">
                 and status = #{status}
             </if>
+            <if test="status == null">
+                and status >= 0
+            </if>
         </where>
         limit #{offset}, #{count}
     </select>
@@ -38,7 +41,7 @@
         from classify
         <where>
             <if test="status != null">
-                and status = #{status}
+                and status >= #{status}
             </if>
         </where>
     </select>
@@ -61,6 +64,9 @@
             </if>
             <if test="imageUrl != null and imageUrl != ''">
                 image_url = #{imageUrl},
+            </if>
+            <if test="status != null">
+                status = #{status}
             </if>
         </set>
         where id = #{id}

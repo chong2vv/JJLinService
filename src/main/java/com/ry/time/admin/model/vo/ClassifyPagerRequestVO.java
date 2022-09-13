@@ -21,8 +21,5 @@ public class ClassifyPagerRequestVO extends PagerRequestVO {
 
     public void initPager() {
         super.initPager();
-        if (status == null || status < -1) {
-            status = 1;
-        }
     }
 }
