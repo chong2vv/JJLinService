@@ -19,7 +19,4 @@ public class ClassifyPagerRequestVO extends PagerRequestVO {
      */
     private Integer status;
 
-    public void initPager() {
-        super.initPager();
-    }
 }

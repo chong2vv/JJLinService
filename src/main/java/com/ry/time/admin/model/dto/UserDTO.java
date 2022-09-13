@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- *
+ * 用户展示层对象
  *
  * @author gongjiguang
  * @date 2022/9/4

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ry.time.admin.dao.GoodsDao">
+
+    <resultMap type="com.ry.time.admin.model.entity.Goods" id="GoodsMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="excerpt" column="excerpt" jdbcType="VARCHAR"/>
+        <result property="size" column="size" jdbcType="VARCHAR"/>
+        <result property="material" column="material" jdbcType="VARCHAR"/>
+        <result property="pack" column="pack" jdbcType="VARCHAR"/>
+        <result property="qty" column="qty" jdbcType="VARCHAR"/>
+        <result property="timer" column="timer" jdbcType="VARCHAR"/>
+        <result property="coverImg" column="cover_img" jdbcType="VARCHAR"/>
+        <result property="imgList" column="img_list" jdbcType="VARCHAR"/>
+        <result property="tags" column="tags" jdbcType="VARCHAR"/>
+        <result property="classifyId" column="classify_id" jdbcType="INTEGER"/>
+        <result property="isHomeList" column="is_home_list" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="GoodsMap">
+        select
+          id, title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, tags, classify_id, is_home_list, status, create_time
+        from goods
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="GoodsMap">
+        select
+          id, title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, tags, classify_id, is_home_list, status, create_time
+        from goods
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="content != null and content != ''">
+                and content = #{content}
+            </if>
+            <if test="excerpt != null and excerpt != ''">
+                and excerpt = #{excerpt}
+            </if>
+            <if test="size != null and size != ''">
+                and size = #{size}
+            </if>
+            <if test="material != null and material != ''">
+                and material = #{material}
+            </if>
+            <if test="pack != null and pack != ''">
+                and pack = #{pack}
+            </if>
+            <if test="qty != null and qty != ''">
+                and qty = #{qty}
+            </if>
+            <if test="timer != null and timer != ''">
+                and timer = #{timer}
+            </if>
+            <if test="coverImg != null and coverImg != ''">
+                and cover_img = #{coverImg}
+            </if>
+            <if test="imgList != null and imgList != ''">
+                and img_list = #{imgList}
+            </if>
+            <if test="tags != null and tags != ''">
+                and tags = #{tags}
+            </if>
+            <if test="classifyId != null">
+                and classify_id = #{classifyId}
+            </if>
+            <if test="isHomeList != null">
+                and is_home_list = #{isHomeList}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from goods
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="content != null and content != ''">
+                and content = #{content}
+            </if>
+            <if test="excerpt != null and excerpt != ''">
+                and excerpt = #{excerpt}
+            </if>
+            <if test="size != null and size != ''">
+                and size = #{size}
+            </if>
+            <if test="material != null and material != ''">
+                and material = #{material}
+            </if>
+            <if test="pack != null and pack != ''">
+                and pack = #{pack}
+            </if>
+            <if test="qty != null and qty != ''">
+                and qty = #{qty}
+            </if>
+            <if test="timer != null and timer != ''">
+                and timer = #{timer}
+            </if>
+            <if test="coverImg != null and coverImg != ''">
+                and cover_img = #{coverImg}
+            </if>
+            <if test="imgList != null and imgList != ''">
+                and img_list = #{imgList}
+            </if>
+            <if test="tags != null and tags != ''">
+                and tags = #{tags}
+            </if>
+            <if test="classifyId != null">
+                and classify_id = #{classifyId}
+            </if>
+            <if test="isHomeList != null">
+                and is_home_list = #{isHomeList}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into goods(title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, tags, classify_id, is_home_list, status, create_time)
+        values (#{title}, #{content}, #{excerpt}, #{size}, #{material}, #{pack}, #{qty}, #{timer}, #{coverImg}, #{imgList}, #{tags}, #{classifyId}, #{isHomeList}, #{status}, #{createTime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into goods(title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, tags, classify_id, is_home_list, status, create_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.title}, #{entity.content}, #{entity.excerpt}, #{entity.size}, #{entity.material}, #{entity.pack}, #{entity.qty}, #{entity.timer}, #{entity.coverImg}, #{entity.imgList}, #{entity.tags}, #{entity.classifyId}, #{entity.isHomeList}, #{entity.status}, #{entity.createTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into goods(title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, tags, classify_id, is_home_list, status, create_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.title}, #{entity.content}, #{entity.excerpt}, #{entity.size}, #{entity.material}, #{entity.pack}, #{entity.qty}, #{entity.timer}, #{entity.coverImg}, #{entity.imgList}, #{entity.tags}, #{entity.classifyId}, #{entity.isHomeList}, #{entity.status}, #{entity.createTime})
+        </foreach>
+        on duplicate key update
+        title = values(title),
+        content = values(content),
+        excerpt = values(excerpt),
+        size = values(size),
+        material = values(material),
+        pack = values(pack),
+        qty = values(qty),
+        timer = values(timer),
+        cover_img = values(cover_img),
+        img_list = values(img_list),
+        tags = values(tags),
+        classify_id = values(classify_id),
+        is_home_list = values(is_home_list),
+        status = values(status),
+        create_time = values(create_time)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update goods
+        <set>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="content != null and content != ''">
+                content = #{content},
+            </if>
+            <if test="excerpt != null and excerpt != ''">
+                excerpt = #{excerpt},
+            </if>
+            <if test="size != null and size != ''">
+                size = #{size},
+            </if>
+            <if test="material != null and material != ''">
+                material = #{material},
+            </if>
+            <if test="pack != null and pack != ''">
+                pack = #{pack},
+            </if>
+            <if test="qty != null and qty != ''">
+                qty = #{qty},
+            </if>
+            <if test="timer != null and timer != ''">
+                timer = #{timer},
+            </if>
+            <if test="coverImg != null and coverImg != ''">
+                cover_img = #{coverImg},
+            </if>
+            <if test="imgList != null and imgList != ''">
+                img_list = #{imgList},
+            </if>
+            <if test="tags != null and tags != ''">
+                tags = #{tags},
+            </if>
+            <if test="classifyId != null">
+                classify_id = #{classifyId},
+            </if>
+            <if test="isHomeList != null">
+                is_home_list = #{isHomeList},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from goods where id = #{id}
+    </delete>
+
+</mapper>
+
