@@ -7,10 +7,14 @@ import com.ry.time.admin.service.GoodsService;
 import com.ry.time.common.constant.enums.ResultErrorEnum;
 import com.ry.time.common.model.ResultGenerator;
 import lombok.RequiredArgsConstructor;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 商品
@@ -33,8 +37,8 @@ public class GoodsController {
     }
 
     @RequestMapping(value = "/detail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getDetail(@RequestParam Integer id) {
-        GoodsDTO goods = goodsService.queryByGoodsd(id);
+    public String getDetail(@RequestParam Long id) {
+        GoodsDTO goods = goodsService.queryByGoodsId(id);
         return ResultGenerator.genSuccessResult(goods);
     }
 
@@ -64,13 +68,27 @@ public class GoodsController {
     }
 
     @RequestMapping(value = "/downloadExcelFile" , method = RequestMethod.POST)
-    @DownloadExcel(fileName = "goods.xls")
+//    @DownloadExcel(fileName = "goods_template.xls")
     public HSSFWorkbook downloadExcel() {
         try {
-            return goodsService.queryAllRedisOcpm(vo);
+            return goodsService.getGoodsTemplateExcel();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @RequestMapping(value = "/uploadExcelFile" , method = RequestMethod.POST)
+    public String uploadExcel(MultipartHttpServletRequest multipartRequest) {
+        Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
+        MultipartFile file = fileMap.values()
+                .stream()
+                .findFirst()
+                .orElse(null);
+        if (file == null) {
+            return ResultGenerator.genErrorResult(ResultErrorEnum.FILE_ERROR);
+        }
+        goodsService.uploadGoodsExcel(file);
+        return ResultGenerator.genSuccessResult();
     }
 }

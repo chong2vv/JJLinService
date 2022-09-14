@@ -30,7 +30,7 @@
     </select>
 
     <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="GoodsMap">
+    <select id="queryPager" resultMap="GoodsMap">
         select
           id, title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, tags, classify_id, is_home_list, status, create_time
         from goods
@@ -88,57 +88,12 @@
     </select>
 
     <!--统计总行数-->
-    <select id="count" resultType="java.lang.Long">
+    <select id="count" resultType="java.lang.Integer">
         select count(1)
         from goods
         <where>
-            <if test="id != null">
-                and id = #{id}
-            </if>
-            <if test="title != null and title != ''">
-                and title = #{title}
-            </if>
-            <if test="content != null and content != ''">
-                and content = #{content}
-            </if>
-            <if test="excerpt != null and excerpt != ''">
-                and excerpt = #{excerpt}
-            </if>
-            <if test="size != null and size != ''">
-                and size = #{size}
-            </if>
-            <if test="material != null and material != ''">
-                and material = #{material}
-            </if>
-            <if test="pack != null and pack != ''">
-                and pack = #{pack}
-            </if>
-            <if test="qty != null and qty != ''">
-                and qty = #{qty}
-            </if>
-            <if test="timer != null and timer != ''">
-                and timer = #{timer}
-            </if>
-            <if test="coverImg != null and coverImg != ''">
-                and cover_img = #{coverImg}
-            </if>
-            <if test="imgList != null and imgList != ''">
-                and img_list = #{imgList}
-            </if>
-            <if test="tags != null and tags != ''">
-                and tags = #{tags}
-            </if>
-            <if test="classifyId != null">
-                and classify_id = #{classifyId}
-            </if>
-            <if test="isHomeList != null">
-                and is_home_list = #{isHomeList}
-            </if>
             <if test="status != null">
                 and status = #{status}
-            </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
             </if>
         </where>
     </select>
@@ -152,33 +107,9 @@
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
         insert into goods(title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, tags, classify_id, is_home_list, status, create_time)
         values
-        <foreach collection="entities" item="entity" separator=",">
-        (#{entity.title}, #{entity.content}, #{entity.excerpt}, #{entity.size}, #{entity.material}, #{entity.pack}, #{entity.qty}, #{entity.timer}, #{entity.coverImg}, #{entity.imgList}, #{entity.tags}, #{entity.classifyId}, #{entity.isHomeList}, #{entity.status}, #{entity.createTime})
+        <foreach collection="goodsList" item="goods" separator=",">
+        (#{goods.title}, #{goods.content}, #{goods.excerpt}, #{goods.size}, #{goods.material}, #{goods.pack}, #{goods.qty}, #{goods.timer}, #{goods.coverImg}, #{goods.imgList}, #{goods.tags}, #{goods.classifyId}, #{goods.isHomeList}, #{goods.status}, #{goods.createTime})
         </foreach>
-    </insert>
-
-    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into goods(title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, tags, classify_id, is_home_list, status, create_time)
-        values
-        <foreach collection="entities" item="entity" separator=",">
-            (#{entity.title}, #{entity.content}, #{entity.excerpt}, #{entity.size}, #{entity.material}, #{entity.pack}, #{entity.qty}, #{entity.timer}, #{entity.coverImg}, #{entity.imgList}, #{entity.tags}, #{entity.classifyId}, #{entity.isHomeList}, #{entity.status}, #{entity.createTime})
-        </foreach>
-        on duplicate key update
-        title = values(title),
-        content = values(content),
-        excerpt = values(excerpt),
-        size = values(size),
-        material = values(material),
-        pack = values(pack),
-        qty = values(qty),
-        timer = values(timer),
-        cover_img = values(cover_img),
-        img_list = values(img_list),
-        tags = values(tags),
-        classify_id = values(classify_id),
-        is_home_list = values(is_home_list),
-        status = values(status),
-        create_time = values(create_time)
     </insert>
 
     <!--通过主键修改数据-->
@@ -227,17 +158,19 @@
             <if test="status != null">
                 status = #{status},
             </if>
-            <if test="createTime != null">
-                create_time = #{createTime},
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateStatus" parameterType="com.ry.time.admin.model.entity.Goods">
+        <set>
+            <if test="status != null">
+                status = #{status},
             </if>
         </set>
         where id = #{id}
     </update>
 
-    <!--通过主键删除-->
-    <delete id="deleteById">
-        delete from goods where id = #{id}
-    </delete>
+
 
 </mapper>
 

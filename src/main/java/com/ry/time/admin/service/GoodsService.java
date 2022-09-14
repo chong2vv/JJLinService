@@ -1,10 +1,82 @@
 package com.ry.time.admin.service;
 
+import com.ry.time.admin.model.dto.GoodsDTO;
+import com.ry.time.admin.model.entity.Goods;
+import com.ry.time.admin.model.vo.GoodsPagerRequestVO;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+
 /**
- * 〈一句话功能简述〉
+ * 商品业务接口
  *
  * @author gongjiguang
  * @date 2022/9/13
  */
 public interface GoodsService {
+
+    /**
+     * 分页查询
+     *
+     * @param goodsPagerRequestVO 商品请求参数
+     * @return 分页数据
+     */
+    List<GoodsDTO> getGoodsList(GoodsPagerRequestVO goodsPagerRequestVO);
+
+    /**
+     * 商品数量
+     *
+     * @param status 状态
+     * @return 商品数量
+     */
+    int count(Integer status);
+
+    /**
+     * 商品详情
+     *
+     * @param id 商品id
+     * @return 商品详情
+     */
+    GoodsDTO queryByGoodsId(Long id);
+
+    /**
+     * 判断商品是否存在
+     *
+     * @param id 商品id
+     * @return true 存在 false 不存在
+     */
+    boolean existByGoodsId(Long id);
+    /**
+     * 更新商品
+     *
+     * @param goods 商品
+     */
+    void update(Goods goods);
+    /**
+     * 更新商品状态
+     *
+     * @param goods 商品
+     */
+    void updateStatus(Goods goods);
+    /**
+     * 创建商品
+     *
+     * @param goods 商品
+     */
+    Goods create(Goods goods);
+
+    /**
+     * 获取商品的excel
+     *
+     * @return excel
+     */
+    HSSFWorkbook getGoodsTemplateExcel();
+
+    /**
+     * 导入商品
+     *
+     * @param file 文件
+     */
+    void uploadGoodsExcel(MultipartFile file);
 }

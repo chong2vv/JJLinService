@@ -1,8 +1,8 @@
 package com.ry.time.admin.dao;
 
 import com.ry.time.admin.model.entity.Goods;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.data.domain.Pageable;
+import com.ry.time.admin.model.vo.GoodsPagerRequestVO;
+
 import java.util.List;
 
 /**
@@ -24,19 +24,18 @@ public interface GoodsDao {
     /**
      * 查询指定行数据
      *
-     * @param goods 查询条件
-     * @param pageable         分页对象
+     * @param goodsPagerRequestVO 商品请求信息
      * @return 对象列表
      */
-    List<Goods> queryAllByLimit(Goods goods, @Param("pageable") Pageable pageable);
+    List<Goods> queryPager(GoodsPagerRequestVO goodsPagerRequestVO);
 
     /**
      * 统计总行数
      *
-     * @param goods 查询条件
+     * @param status 状态
      * @return 总行数
      */
-    long count(Goods goods);
+    int count(Integer status);
 
     /**
      * 新增数据
@@ -47,21 +46,12 @@ public interface GoodsDao {
     int insert(Goods goods);
 
     /**
-     * 批量新增数据（MyBatis原生foreach方法）
+     * 批量新增数据
      *
-     * @param entities List<Goods> 实例对象列表
+     * @param goodsList 实例对象列表
      * @return 影响行数
      */
-    int insertBatch(@Param("entities") List<Goods> entities);
-
-    /**
-     * 批量新增或按主键更新数据（MyBatis原生foreach方法）
-     *
-     * @param entities List<Goods> 实例对象列表
-     * @return 影响行数
-     * @throws org.springframework.jdbc.BadSqlGrammarException 入参是空List的时候会抛SQL语句错误的异常，请自行校验入参
-     */
-    int insertOrUpdateBatch(@Param("entities") List<Goods> entities);
+    int insertBatch(List<Goods> goodsList);
 
     /**
      * 修改数据
@@ -72,12 +62,11 @@ public interface GoodsDao {
     int update(Goods goods);
 
     /**
-     * 通过主键删除数据
+     * 修改商品状态
      *
-     * @param id 主键
+     * @param goods 实例对象
      * @return 影响行数
      */
-    int deleteById(Long id);
-
+    int updateStatus(Goods goods);
 }
 
