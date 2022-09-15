@@ -2,6 +2,9 @@ package com.ry.time.common.util;
 
 import org.springframework.beans.BeanUtils;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * 通用工具类
  *
@@ -27,5 +30,14 @@ public class CommonUtil {
             e.printStackTrace();
         }
         return vo;
+    }
+
+    /**
+     * 将字符串转化成集合
+     * @param string 字符串
+     * @return 集合对象
+     */
+    public static List<String> stringsToList(String string) {
+        return Arrays.asList(string.split(","));
     }
 }

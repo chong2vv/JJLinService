@@ -30,61 +30,28 @@
     </select>
 
     <!--查询指定行数据-->
-    <select id="queryPager" resultMap="GoodsMap">
+    <select id="queryPager" parameterType="com.ry.time.admin.model.vo.GoodsPagerRequestVO" resultMap="GoodsMap">
         select
           id, title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, tags, classify_id, is_home_list, status, create_time
         from goods
         <where>
-            <if test="id != null">
-                and id = #{id}
-            </if>
-            <if test="title != null and title != ''">
-                and title = #{title}
-            </if>
-            <if test="content != null and content != ''">
-                and content = #{content}
-            </if>
-            <if test="excerpt != null and excerpt != ''">
-                and excerpt = #{excerpt}
-            </if>
-            <if test="size != null and size != ''">
-                and size = #{size}
-            </if>
-            <if test="material != null and material != ''">
-                and material = #{material}
-            </if>
-            <if test="pack != null and pack != ''">
-                and pack = #{pack}
-            </if>
-            <if test="qty != null and qty != ''">
-                and qty = #{qty}
-            </if>
-            <if test="timer != null and timer != ''">
-                and timer = #{timer}
-            </if>
-            <if test="coverImg != null and coverImg != ''">
-                and cover_img = #{coverImg}
-            </if>
-            <if test="imgList != null and imgList != ''">
-                and img_list = #{imgList}
-            </if>
-            <if test="tags != null and tags != ''">
-                and tags = #{tags}
+            <if test="keyword != null and keyword != ''">
+                and (title = #{keyword} or content = #{keyword})
             </if>
             <if test="classifyId != null">
                 and classify_id = #{classifyId}
             </if>
-            <if test="isHomeList != null">
-                and is_home_list = #{isHomeList}
+            <if test="isHomeList == true">
+                and is_home_list = 1
+            </if>
+            <if test="isHomeList == false">
+                and is_home_list = 0
             </if>
             <if test="status != null">
                 and status = #{status}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
-            </if>
         </where>
-        limit #{pageable.offset}, #{pageable.pageSize}
+        limit #{offset}, #{count}
     </select>
 
     <!--统计总行数-->

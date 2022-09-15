@@ -12,7 +12,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -100,8 +99,7 @@ public class UserServiceImpl implements UserService {
      */
     private UserDTO convertUserInfoToUserDTO(UserInfo userInfo) {
         UserDTO userDTO = CommonUtil.copyVo(userInfo, UserDTO.class);
-        List<String> rolesList = Arrays.asList(userInfo.getRole().split(","));
-        userDTO.setRoles(rolesList);
+        userDTO.setRoles(CommonUtil.stringsToList(userInfo.getRole()));
         return userDTO;
     }
 

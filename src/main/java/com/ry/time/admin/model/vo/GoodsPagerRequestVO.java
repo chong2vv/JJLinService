@@ -34,4 +34,8 @@ public class GoodsPagerRequestVO extends PagerRequestVO {
      */
     @JsonProperty("is_home_list")
     private Boolean isHomeList;
+
+    public String getKeyword() {
+        return "%" + searchString + "%";
+    }
 }
