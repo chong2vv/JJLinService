@@ -4,6 +4,8 @@ import com.ry.time.admin.dao.MessageDao;
 import com.ry.time.admin.model.entity.Message;
 import com.ry.time.admin.model.vo.MessagePagerRequestVO;
 import com.ry.time.admin.service.MessageService;
+import com.ry.time.common.util.DateUtil;
+import com.ry.time.common.util.NumberUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,17 +26,23 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public List<Message> getMessageList(MessagePagerRequestVO messagePagerRequestVO) {
         messagePagerRequestVO.initPager();
-        return messageDao.queryAllByLimit(messagePagerRequestVO.getOffset(), messagePagerRequestVO.getCount(),
-                messagePagerRequestVO.getSearchString());
+        return messageDao.queryAllByLimit(messagePagerRequestVO);
     }
 
     @Override
     public void createMessage(Message message) {
+        message.setId(NumberUtil.genUid());
+        message.setCreateTime(DateUtil.getCurrentDateTimeStr());
         messageDao.insert(message);
     }
 
     @Override
     public void updateMessage(Message message) {
         messageDao.update(message);
+    }
+
+    @Override
+    public int getMessageCount() {
+        return messageDao.count();
     }
 }

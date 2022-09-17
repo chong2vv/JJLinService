@@ -15,6 +15,11 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class MessagePagerRequestVO extends PagerRequestVO {
 
-    @JsonProperty("search_str")
-    private String searchString;
+    private String search_str;
+
+    private Integer status;
+
+    public void initPager() {
+        super.initPager();
+    }
 }

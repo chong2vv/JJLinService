@@ -34,4 +34,11 @@ public interface MessageService {
      * @param message 用户信息
      */
     void updateMessage(Message message);
+
+    /**
+     * 获取消息总数
+     *
+     * @return 消息总数
+     */
+    int getMessageCount();
 }
