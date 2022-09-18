@@ -28,6 +28,9 @@ public class ClassifyController {
     public String getClassifyList(ClassifyPagerRequestVO classifyPagerRequestVO) {
         List<Classify> classifyList = classifyService.getClassifyList(classifyPagerRequestVO);
         int count = classifyService.count(classifyPagerRequestVO.getStatus());
+        if (classifyList.isEmpty()) {
+            return ResultGenerator.genSuccessPager(null, 0);
+        }
         return ResultGenerator.genSuccessPager(classifyList,count);
     }
 

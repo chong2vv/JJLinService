@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class ClientClientMessageServiceImpl implements ClientMessageService {
+public class ClientMessageServiceImpl implements ClientMessageService {
     private final MessageDao messageDao;
 
     @Override
