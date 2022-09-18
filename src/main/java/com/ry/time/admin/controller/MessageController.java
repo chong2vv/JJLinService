@@ -27,19 +27,23 @@ public class MessageController {
     private final MessageService messageService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getUserList(@RequestBody MessagePagerRequestVO messagePagerRequestVO) {
+    public String getMessageList(MessagePagerRequestVO messagePagerRequestVO) {
         List<Message> messageList = messageService.getMessageList(messagePagerRequestVO);
-        return ResultGenerator.genSuccessResult(messageList);
+        int total = messageService.getMessageCount();
+        if (messageList.isEmpty()) {
+            return ResultGenerator.genSuccessPager(null, 0);
+        }
+        return ResultGenerator.genSuccessPager(messageList, total);
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String createUser(@RequestBody Message message) {
+    public String createMessage(@RequestBody Message message) {
         messageService.createMessage(message);
         return ResultGenerator.genSuccessResult();
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String updateUser(@RequestBody Message message) {
+    public String updateMessage(@RequestBody Message message) {
         messageService.updateMessage(message);
         return ResultGenerator.genSuccessResult();
     }

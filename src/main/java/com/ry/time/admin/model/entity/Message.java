@@ -1,7 +1,11 @@
 package com.ry.time.admin.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -36,7 +40,18 @@ public class Message  {
     /**
      * 信息来源类型
      */
-    private Integer fromType;
+    @JsonProperty("from_type")
+    private int fromType;
+    /**
+     * 信息来源id
+     */
+    @JsonProperty("from_id")
+    private Long fromId;
+    /**
+     * 信息来源标题
+     */
+    @JsonProperty("from_title")
+    private String fromTitle;
     /**
      * 邮箱
      */
@@ -46,9 +61,18 @@ public class Message  {
      */
     private Integer status;
     /**
-     * 时间戳
+     * 创建时间
      */
-    private Date timestamp;
+    private String createTime;
 
+    /**
+     *  时间戳
+     */
+    private Long timestamp;
+
+    public Long getTimestamp() {
+        long time = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse(createTime, new ParsePosition(0)).getTime();
+        return time;
+    }
 }
 

@@ -9,19 +9,28 @@
         <result property="phone" column="phone" jdbcType="VARCHAR"/>
         <result property="content" column="content" jdbcType="VARCHAR"/>
         <result property="fromType" column="from_type" jdbcType="INTEGER"/>
+        <result property="fromId" column="from_id" jdbcType="INTEGER" />
+        <result property="fromTitle" column="from_title" jdbcType="VARCHAR" />
         <result property="email" column="email" jdbcType="VARCHAR"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
-        <result property="timestamp" column="timestamp" jdbcType="TIMESTAMP"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="MessageMap">
+    <select id="queryAllByLimit" parameterType="com.ry.time.admin.model.vo.MessagePagerRequestVO" resultMap="MessageMap">
         select
-          id, name, title, phone, content, from_type, email, status, timestamp
+          id, name, title, phone, content, from_type, from_id, from_title, email, status, create_time
         from message
         <where>
-            <if test="title != null and title != ''">
-                and title = #{search}
+            <if test="search_str != null and search_str != ''">
+                and title LIKE CONCAT('%',#{search_str},'%')
+                or content LIKE CONCAT('%',#{search_str},'%')
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="status == null">
+                and status >= 0
             </if>
         </where>
         limit #{offset}, #{count}
@@ -29,8 +38,10 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into message(id, name, title, phone, content, from_type, email, status, timestamp)
-        values (#{id}, #{name}, #{title}, #{phone}, #{content}, #{fromType}, #{email}, #{status}, #{timestamp})
+        insert into message(id, name, title, phone, content, from_type, from_id, from_title, email, status, create_time)
+        values (#{id}, #{name}, #{title}, #{phone}, #{content}, #{fromType}, #{fromId}, #{fromTitle}, #{email},
+                #{status},
+                #{createTime})
     </insert>
 
     <!--通过主键修改数据-->
@@ -52,18 +63,35 @@
             <if test="fromType != null">
                 from_type = #{fromType},
             </if>
+            <if test="fromId != null">
+                from_id = #(fromId)
+            </if>
+            <if test="fromTitle != null and fromTitle != ''">
+                from_title = #(fromTitle)
+            </if>
             <if test="email != null and email != ''">
                 email = #{email},
             </if>
             <if test="status != null">
                 status = #{status},
             </if>
-            <if test="timestamp != null">
-                timestamp = #{timestamp},
+            <if test="createTime != null">
+                create_time = #{createTime},
             </if>
         </set>
         where id = #{id}
     </update>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Integer">
+        select count(1)
+        from message
+        <where>
+            <if test="status != null">
+                and status >= #{status}
+            </if>
+        </where>
+    </select>
 
 </mapper>
 
