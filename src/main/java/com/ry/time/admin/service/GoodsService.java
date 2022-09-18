@@ -3,8 +3,7 @@ package com.ry.time.admin.service;
 import com.ry.time.admin.model.dto.GoodsDTO;
 import com.ry.time.admin.model.entity.Goods;
 import com.ry.time.admin.model.vo.GoodsPagerRequestVO;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.springframework.web.multipart.MultipartFile;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.util.List;
 
@@ -50,9 +49,9 @@ public interface GoodsService {
     /**
      * 更新商品
      *
-     * @param goods 商品
+     * @param goodsDTO 商品信息
      */
-    void update(Goods goods);
+    void update(GoodsDTO goodsDTO);
     /**
      * 更新商品状态
      *
@@ -63,20 +62,21 @@ public interface GoodsService {
      * 创建商品
      *
      * @param goods 商品
+     * @return 商品dto
      */
-    Goods create(Goods goods);
+    GoodsDTO create(Goods goods);
 
     /**
      * 获取商品的excel
      *
      * @return excel
      */
-    HSSFWorkbook getGoodsTemplateExcel();
+    XSSFWorkbook getGoodsTemplateExcel();
 
     /**
      * 导入商品
      *
-     * @param file 文件
+     * @param hssfWorkbook 文件
      */
-    void uploadGoodsExcel(MultipartFile file);
+    void uploadGoodsExcel(XSSFWorkbook hssfWorkbook);
 }

@@ -65,6 +65,11 @@ public class GoodsDTO {
      */
     private List<String> tags;
     /**
+     * 分类id
+     */
+    @JsonProperty("classify_id")
+    private Integer classifyId;
+    /**
      * 商品分类
      */
     private Classify classify;

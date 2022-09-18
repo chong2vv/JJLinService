@@ -57,7 +57,12 @@ public enum ResultErrorEnum {
     /**
      * 该分类不存在
      */
-    CLASSIFY_EXISTS_ERROR(20001,"该分类不存在");
+    CLASSIFY_EXISTS_ERROR(20001,"该分类不存在"),
+
+    /**
+     * 该商品不存在
+     */
+    GOODS_EXISTS_ERROR(30001,"该商品不存在");
 
     private final int code;
 

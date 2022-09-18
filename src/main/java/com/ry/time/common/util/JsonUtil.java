@@ -1,13 +1,10 @@
 package com.ry.time.common.util;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.Map;
 
 /**
  * 操作json的封装方法
@@ -33,6 +30,13 @@ public class JsonUtil {
         return OBJECT_MAPPER.readValue(jsonStr, clazz);
     }
 
+    public static <T> T mapToObj(Map<String,Object> map, Class<T> clazz)  {
+        if (clazz == null) {
+            return null;
+        }
+        return OBJECT_MAPPER.convertValue(map, clazz);
+    }
+
     /**
      * 对象转换成json
      *
@@ -43,14 +47,4 @@ public class JsonUtil {
         return OBJECT_MAPPER.writeValueAsString(obj);
     }
 
-    /**
-     * 将inputStream转换成JsonParser
-     *
-     * @param inputStream 输入流
-     * @return JsonParser
-     * @throws IOException io异常
-     */
-    public static JsonNode getJsonParserByInputStream(InputStream inputStream) throws IOException {
-        return OBJECT_MAPPER.readTree(inputStream);
-    }
 }

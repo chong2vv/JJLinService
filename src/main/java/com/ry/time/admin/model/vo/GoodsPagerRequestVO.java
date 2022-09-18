@@ -33,7 +33,7 @@ public class GoodsPagerRequestVO extends PagerRequestVO {
      * 是否首页推荐
      */
     @JsonProperty("is_home_list")
-    private Boolean isHomeList;
+    private Integer isHomeList;
 
     public String getKeyword() {
         return "%" + searchString + "%";

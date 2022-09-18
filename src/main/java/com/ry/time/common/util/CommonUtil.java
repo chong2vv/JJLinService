@@ -1,5 +1,6 @@
 package com.ry.time.common.util;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 
 import java.util.Arrays;
@@ -21,7 +22,7 @@ public class CommonUtil {
      * @param <R>    目标对象类型
      * @return 目标对象
      */
-    public static  <R> R copyVo(Object source, Class<R> target) {
+    public static <R> R copyVo(Object source, Class<R> target) {
         R vo = null;
         try {
             vo = target.newInstance();
@@ -34,10 +35,24 @@ public class CommonUtil {
 
     /**
      * 将字符串转化成集合
+     *
      * @param string 字符串
      * @return 集合对象
      */
     public static List<String> stringsToList(String string) {
         return Arrays.asList(string.split(","));
+    }
+
+    /**
+     * 将集合转化成字符串，中间用“,”分隔
+     *
+     * @param list 集合
+     * @return 字符串
+     */
+    public static String listToString(List<String> list) {
+        if (CollectionUtils.isNotEmpty(list)) {
+            return String.join(",", list);
+        }
+        return "";
     }
 }

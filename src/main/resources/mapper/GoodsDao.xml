@@ -23,8 +23,22 @@
 
     <!--查询单个-->
     <select id="queryById" resultMap="GoodsMap">
-        select
-          id, title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, tags, classify_id, is_home_list, status, create_time
+        select id,
+               title,
+               content,
+               excerpt,
+               size,
+               material,
+               pack,
+               qty,
+               timer,
+               cover_img,
+               img_list,
+               tags,
+               classify_id,
+               is_home_list,
+               status,
+               create_time
         from goods
         where id = #{id}
     </select>
@@ -32,23 +46,24 @@
     <!--查询指定行数据-->
     <select id="queryPager" parameterType="com.ry.time.admin.model.vo.GoodsPagerRequestVO" resultMap="GoodsMap">
         select
-          id, title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, tags, classify_id, is_home_list, status, create_time
+        id, title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, tags, classify_id,
+        is_home_list, status, create_time
         from goods
         <where>
-            <if test="keyword != null and keyword != ''">
-                and (title = #{keyword} or content = #{keyword})
+            <if test="searchString != null and searchString != ''">
+                and (title like #{keyword} or content like #{keyword})
             </if>
             <if test="classifyId != null">
                 and classify_id = #{classifyId}
             </if>
-            <if test="isHomeList == true">
-                and is_home_list = 1
-            </if>
-            <if test="isHomeList == false">
-                and is_home_list = 0
+            <if test="isHomeList != null">
+                and is_home_list = #{isHomeList}
             </if>
             <if test="status != null">
                 and status = #{status}
+            </if>
+            <if test="status == null">
+                and status >= 0
             </if>
         </where>
         limit #{offset}, #{count}
@@ -67,15 +82,20 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into goods(title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, tags, classify_id, is_home_list, status, create_time)
-        values (#{title}, #{content}, #{excerpt}, #{size}, #{material}, #{pack}, #{qty}, #{timer}, #{coverImg}, #{imgList}, #{tags}, #{classifyId}, #{isHomeList}, #{status}, #{createTime})
+        insert into goods(id, title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, tags,
+                          classify_id, is_home_list, status, create_time)
+        values (#{id}, #{title}, #{content}, #{excerpt}, #{size}, #{material}, #{pack}, #{qty}, #{timer}, #{coverImg},
+                #{imgList}, #{tags}, #{classifyId}, #{isHomeList}, #{status}, #{createTime})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into goods(title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, tags, classify_id, is_home_list, status, create_time)
+        insert into goods(id, title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, tags,
+        classify_id, is_home_list, status, create_time)
         values
         <foreach collection="goodsList" item="goods" separator=",">
-        (#{goods.title}, #{goods.content}, #{goods.excerpt}, #{goods.size}, #{goods.material}, #{goods.pack}, #{goods.qty}, #{goods.timer}, #{goods.coverImg}, #{goods.imgList}, #{goods.tags}, #{goods.classifyId}, #{goods.isHomeList}, #{goods.status}, #{goods.createTime})
+            (#{goods.id},#{goods.title}, #{goods.content}, #{goods.excerpt}, #{goods.size}, #{goods.material},
+            #{goods.pack}, #{goods.qty}, #{goods.timer}, #{goods.coverImg}, #{goods.imgList}, #{goods.tags},
+            #{goods.classifyId}, #{goods.isHomeList}, #{goods.status}, #{goods.createTime})
         </foreach>
     </insert>
 
@@ -120,23 +140,20 @@
                 classify_id = #{classifyId},
             </if>
             <if test="isHomeList != null">
-                is_home_list = #{isHomeList},
-            </if>
-            <if test="status != null">
-                status = #{status},
+                is_home_list = #{isHomeList}
             </if>
         </set>
         where id = #{id}
     </update>
-    <update id="updateStatus" parameterType="com.ry.time.admin.model.entity.Goods">
+    <update id="updateStatus">
+        update goods
         <set>
             <if test="status != null">
-                status = #{status},
+                status = #{status}
             </if>
         </set>
         where id = #{id}
     </update>
-
 
 
 </mapper>

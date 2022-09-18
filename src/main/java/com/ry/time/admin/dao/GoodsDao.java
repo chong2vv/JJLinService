@@ -2,6 +2,7 @@ package com.ry.time.admin.dao;
 
 import com.ry.time.admin.model.entity.Goods;
 import com.ry.time.admin.model.vo.GoodsPagerRequestVO;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @author makejava
  * @since 2022-09-13 17:01:12
  */
+@Mapper
 public interface GoodsDao {
 
     /**
