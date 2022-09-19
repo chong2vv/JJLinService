@@ -28,7 +28,7 @@ public class ExcelController {
 
     private final GoodsService goodsService;
 
-    @RequestMapping(value = "/goods/downloadExcelFile" , method = RequestMethod.POST)
+    @RequestMapping(value = "/goods/downloadExcelFile" , method = RequestMethod.GET)
     @DownloadExcel(fileName = "goods_template.xlsx")
     public XSSFWorkbook downloadExcel() {
         try {
