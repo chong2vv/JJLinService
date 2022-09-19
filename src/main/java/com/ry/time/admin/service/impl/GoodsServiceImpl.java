@@ -77,6 +77,12 @@ public class GoodsServiceImpl implements GoodsService {
     public GoodsDTO create(GoodsDTO goodsDTO) {
         Goods goods = convertGoodsDtoToGoods(goodsDTO);
         goods.setId(NumberUtil.genUid());
+        if (goodsDTO.getCoverImg() == null) {
+            goods.setCoverImg("");
+        }
+        if (goodsDTO.getStatus() == null) {
+            goods.setStatus(1);
+        }
         goods.setCreateTime(DateUtil.getCurrentDateTimeStr());
         goodsDao.insert(goods);
         return convertGoodsToGoodsDTO(goods);
@@ -90,7 +96,7 @@ public class GoodsServiceImpl implements GoodsService {
             FileInputStream excelFile = new FileInputStream(file);
             return new XSSFWorkbook(excelFile);
         } catch (IOException e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
         return null;
     }
@@ -98,7 +104,7 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public void uploadGoodsExcel(XSSFWorkbook hssfWorkbook) {
         XSSFSheet sheet = hssfWorkbook.getSheetAt(0);
-        ExcelUtil.removeRow(sheet,0);
+        ExcelUtil.removeRow(sheet, 0);
         try {
             List<GoodsExcelDTO> excelList = ExcelExportUtil.importList(sheet, GoodsExcelDTO.class);
             List<Goods> list = excelList.stream()
@@ -135,7 +141,7 @@ public class GoodsServiceImpl implements GoodsService {
         Goods goods = CommonUtil.copyVo(goodsExcelDTO, Goods.class);
         goods.setId(NumberUtil.genUid());
         goods.setCreateTime(DateUtil.getCurrentDateTimeStr());
-        if (goodsExcelDTO.getCoverImg()==null) {
+        if (goodsExcelDTO.getCoverImg() == null) {
             goods.setCoverImg("");
         }
         goods.setStatus(1);
