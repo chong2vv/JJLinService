@@ -62,7 +62,12 @@ public enum ResultErrorEnum {
     /**
      * 该商品不存在
      */
-    GOODS_EXISTS_ERROR(30001,"该商品不存在");
+    GOODS_EXISTS_ERROR(30001,"该商品不存在"),
+
+    /**
+     * 该blog不存在
+     */
+    BLOG_EXISTS_ERROR(40001,"该blog不存在"),;
 
     private final int code;
 
