@@ -68,12 +68,14 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public void updateStatus(Goods goods) {
+    public void updateStatus(GoodsDTO goodsDTO) {
+        Goods goods = convertGoodsDtoToGoods(goodsDTO);
         goodsDao.updateStatus(goods);
     }
 
     @Override
-    public GoodsDTO create(Goods goods) {
+    public GoodsDTO create(GoodsDTO goodsDTO) {
+        Goods goods = convertGoodsDtoToGoods(goodsDTO);
         goods.setId(NumberUtil.genUid());
         goods.setCreateTime(DateUtil.getCurrentDateTimeStr());
         goodsDao.insert(goods);

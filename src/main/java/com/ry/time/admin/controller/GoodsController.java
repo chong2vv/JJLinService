@@ -1,7 +1,6 @@
 package com.ry.time.admin.controller;
 
 import com.ry.time.admin.model.dto.GoodsDTO;
-import com.ry.time.admin.model.entity.Goods;
 import com.ry.time.admin.model.vo.GoodsPagerRequestVO;
 import com.ry.time.admin.service.GoodsService;
 import com.ry.time.common.constant.enums.ResultErrorEnum;
@@ -55,18 +54,18 @@ public class GoodsController {
     }
 
     @RequestMapping(value = "/op", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String updateStatus(@RequestBody Goods goods) {
-        boolean existClassify = goodsService.existByGoodsId(goods.getId());
+    public String updateStatus(@RequestBody GoodsDTO goodsDTO) {
+        boolean existClassify = goodsService.existByGoodsId(goodsDTO.getId());
         if (!existClassify) {
             return ResultGenerator.genErrorResult(ResultErrorEnum.GOODS_EXISTS_ERROR);
         }
-        goodsService.updateStatus(goods);
+        goodsService.updateStatus(goodsDTO);
         return ResultGenerator.genSuccessResult();
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String create(@RequestBody Goods goods) {
-        return ResultGenerator.genSuccessResult(goodsService.create(goods));
+    public String create(@RequestBody GoodsDTO goodsDTO) {
+        return ResultGenerator.genSuccessResult(goodsService.create(goodsDTO));
     }
 
 }

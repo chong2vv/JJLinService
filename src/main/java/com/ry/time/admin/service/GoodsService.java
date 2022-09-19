@@ -1,7 +1,6 @@
 package com.ry.time.admin.service;
 
 import com.ry.time.admin.model.dto.GoodsDTO;
-import com.ry.time.admin.model.entity.Goods;
 import com.ry.time.admin.model.vo.GoodsPagerRequestVO;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -55,16 +54,16 @@ public interface GoodsService {
     /**
      * 更新商品状态
      *
-     * @param goods 商品
+     * @param goodsDTO 商品
      */
-    void updateStatus(Goods goods);
+    void updateStatus(GoodsDTO goodsDTO);
     /**
      * 创建商品
      *
-     * @param goods 商品
+     * @param goodsDTO 商品
      * @return 商品dto
      */
-    GoodsDTO create(Goods goods);
+    GoodsDTO create(GoodsDTO goodsDTO);
 
     /**
      * 获取商品的excel
