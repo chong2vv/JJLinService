@@ -19,6 +19,7 @@ public class MessagePagerRequestVO extends PagerRequestVO {
 
     private Integer status;
 
+    @Override
     public void initPager() {
         super.initPager();
     }

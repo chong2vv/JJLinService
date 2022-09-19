@@ -73,6 +73,13 @@ public interface GoodsService {
     XSSFWorkbook getGoodsTemplateExcel();
 
     /**
+     * 获取指定商品按模板生成excel
+     * @param list 生成的数据
+     * @return excel
+     */
+    XSSFWorkbook getGoodsExportExcel(List<GoodsDTO> list);
+
+    /**
      * 导入商品
      *
      * @param hssfWorkbook 文件

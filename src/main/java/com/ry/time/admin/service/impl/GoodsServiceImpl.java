@@ -9,6 +9,8 @@ import com.ry.time.admin.service.ClassifyService;
 import com.ry.time.admin.service.GoodsService;
 import com.ry.time.common.util.*;
 import lombok.RequiredArgsConstructor;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
@@ -95,6 +97,24 @@ public class GoodsServiceImpl implements GoodsService {
             file = ResourceUtils.getFile("classpath:static/goods_template.xlsx");
             FileInputStream excelFile = new FileInputStream(file);
             return new XSSFWorkbook(excelFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public XSSFWorkbook getGoodsExportExcel(List<GoodsDTO> list) {
+        File file;
+        try {
+            file = ResourceUtils.getFile("classpath:static/Over_the_bath_cloth_rack_quotation.xlsx");
+            FileInputStream excelFile = new FileInputStream(file);
+            XSSFWorkbook xssfWorkbook = new XSSFWorkbook(excelFile);
+            XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
+            XSSFRow row = sheet.createRow(4);
+            XSSFCell cell = row.createCell(0);
+            cell.setCellValue("这是第一个字段");
+            return xssfWorkbook;
         } catch (IOException e) {
             e.printStackTrace();
         }
