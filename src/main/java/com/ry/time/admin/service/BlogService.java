@@ -1,6 +1,6 @@
 package com.ry.time.admin.service;
 
-import com.ry.time.admin.model.entity.Blog;
+import com.ry.time.admin.model.dto.BlogDTO;
 import com.ry.time.admin.model.vo.BlogPagerRequestVO;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public interface BlogService {
      * @param blogPagerRequestVO blog请求信息
      * @return blog列表
      */
-    List<Blog> getBlogList(BlogPagerRequestVO blogPagerRequestVO);
+    List<BlogDTO> getBlogList(BlogPagerRequestVO blogPagerRequestVO);
 
     /**
      * 获取总数量
@@ -34,13 +34,13 @@ public interface BlogService {
      * @param id 主键
      * @return 实例对象
      */
-    Blog getBlogDetail(Long id);
+    BlogDTO getBlogDetail(Long id);
 
     /**
      * 创建新的blog对象
      *
-     * @param blog blog对象
+     * @param blogDto blog对象
      * @return blog对象
      */
-    Object createBlog(Blog blog);
+    BlogDTO createBlog(BlogDTO blogDto);
 }

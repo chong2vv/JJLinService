@@ -31,7 +31,6 @@
         <where>
             <if test="search_str != null and search_str != ''">
                 and title LIKE CONCAT('%',#{search_str},'%')
-                or content LIKE CONCAT('%',#{search_str},'%')
             </if>
         </where>
         limit #{offset}, #{count}

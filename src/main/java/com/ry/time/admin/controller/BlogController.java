@@ -1,6 +1,6 @@
 package com.ry.time.admin.controller;
 
-import com.ry.time.admin.model.entity.Blog;
+import com.ry.time.admin.model.dto.BlogDTO;
 import com.ry.time.admin.model.vo.BlogPagerRequestVO;
 import com.ry.time.admin.service.BlogService;
 import com.ry.time.common.constant.enums.ResultErrorEnum;
@@ -26,7 +26,7 @@ public class BlogController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public String getClassifyList(BlogPagerRequestVO blogPagerRequestVO) {
-        List<Blog> blogList = blogService.getBlogList(blogPagerRequestVO);
+        List<BlogDTO> blogList = blogService.getBlogList(blogPagerRequestVO);
         int count = blogService.count();
         if (blogList.isEmpty()) {
             return ResultGenerator.genSuccessPager(null, 0);
@@ -36,16 +36,16 @@ public class BlogController {
 
     @RequestMapping(value = "/detail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public String getBlogDetail(@RequestParam Long id) {
-        Blog blog = blogService.getBlogDetail(id);
+        BlogDTO blog = blogService.getBlogDetail(id);
         if (blog == null) {
-            return ResultGenerator.genErrorResult(ResultErrorEnum.CLASSIFY_EXISTS_ERROR);
+            return ResultGenerator.genErrorResult(ResultErrorEnum.BLOG_EXISTS_ERROR);
         }
         return ResultGenerator.genSuccessResult(blog);
     }
 
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String createBlog(@RequestBody Blog blog) {
+    public String createBlog(@RequestBody BlogDTO blog) {
         return ResultGenerator.genSuccessResult(blogService.createBlog(blog));
     }
 
