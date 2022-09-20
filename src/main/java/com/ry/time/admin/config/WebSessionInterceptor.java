@@ -2,6 +2,7 @@ package com.ry.time.admin.config;
 
 import com.ry.time.admin.annotation.DownloadExcel;
 import com.ry.time.common.model.ResultGenerator;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.lang.Nullable;
 import org.springframework.web.method.HandlerMethod;
@@ -33,7 +34,7 @@ public class WebSessionInterceptor implements HandlerInterceptor {
         if (handler instanceof HandlerMethod) {
             HandlerMethod detailHandlerMethod = (HandlerMethod) handler;
             DownloadExcel downloadExcel = detailHandlerMethod.getMethodAnnotation(DownloadExcel.class);
-            if (downloadExcel != null && view != null && response != null) {
+            if (downloadExcel != null && view != null && response != null && request != null) {
                 if (!view.getModelMap().containsKey(EXCEL_DATA_TYPE_NAME)) {
                     String json = ResultGenerator.genErrorResult(SYSTEM_ERROR);
                     response.setContentType("application/json; charset=utf-8");
@@ -42,8 +43,13 @@ public class WebSessionInterceptor implements HandlerInterceptor {
                     response.flushBuffer();
                     return;
                 }
+                String name = request.getParameter("fileName");
+                if (StringUtils.isBlank(name)){
+                    name = downloadExcel.fileName();
+                }
+
                 XSSFWorkbook workbook = (XSSFWorkbook) view.getModelMap().get(EXCEL_DATA_TYPE_NAME);
-                String fileName = new String(downloadExcel.fileName().getBytes("GBK"), "iso8859-1");
+                String fileName = new String(name.getBytes("GBK"), "iso8859-1");
                 response.reset();
                 // 指定下载的文件名
                 response.setHeader("Content-Disposition", "attachment;filename=" + fileName);

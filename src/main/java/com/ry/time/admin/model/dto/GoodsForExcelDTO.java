@@ -10,5 +10,6 @@ import java.util.List;
  */
 @Data
 public class GoodsForExcelDTO {
+
     private List<GoodsDTO> goods;
 }

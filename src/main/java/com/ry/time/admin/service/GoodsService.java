@@ -45,18 +45,21 @@ public interface GoodsService {
      * @return true 存在 false 不存在
      */
     boolean existByGoodsId(Long id);
+
     /**
      * 更新商品
      *
      * @param goodsDTO 商品信息
      */
     void update(GoodsDTO goodsDTO);
+
     /**
      * 更新商品状态
      *
      * @param goodsDTO 商品
      */
     void updateStatus(GoodsDTO goodsDTO);
+
     /**
      * 创建商品
      *
@@ -73,11 +76,20 @@ public interface GoodsService {
     XSSFWorkbook getGoodsTemplateExcel();
 
     /**
+     * 获取商品的excel文件
+     *
+     * @param name 文件名称
+     * @return excel
+     */
+    XSSFWorkbook getGoodsExcel(String name);
+
+    /**
      * 获取指定商品按模板生成excel
+     *
      * @param list 生成的数据
      * @return excel
      */
-    XSSFWorkbook getGoodsExportExcel(List<GoodsDTO> list);
+    String getGoodsExportExcel(List<GoodsDTO> list);
 
     /**
      * 导入商品

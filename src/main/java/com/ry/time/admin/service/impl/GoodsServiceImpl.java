@@ -9,6 +9,7 @@ import com.ry.time.admin.service.ClassifyService;
 import com.ry.time.admin.service.GoodsService;
 import com.ry.time.common.util.*;
 import lombok.RequiredArgsConstructor;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -17,7 +18,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -30,9 +33,21 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class GoodsServiceImpl implements GoodsService {
 
+    private static final String UPLOAD_FILE_PATH = "/upload/";
+
+    private static final String PATH;
+
     private final GoodsDao goodsDao;
 
     private final ClassifyService classifyService;
+
+    static {
+        try {
+            PATH = ResourceUtils.getURL("classpath:").getPath() + "static/" + UPLOAD_FILE_PATH;
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     public List<GoodsDTO> getGoodsList(GoodsPagerRequestVO goodsPagerRequestVO) {
@@ -104,17 +119,51 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public XSSFWorkbook getGoodsExportExcel(List<GoodsDTO> list) {
-        File file;
+    public XSSFWorkbook getGoodsExcel(String name) {
+        File file = new File(PATH + name);
+        if (!file.exists()) {
+            return null;
+        }
         try {
-            file = ResourceUtils.getFile("classpath:static/Over_the_bath_cloth_rack_quotation.xlsx");
             FileInputStream excelFile = new FileInputStream(file);
-            XSSFWorkbook xssfWorkbook = new XSSFWorkbook(excelFile);
+            return new XSSFWorkbook(excelFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public String getGoodsExportExcel(List<GoodsDTO> list) {
+        File templateFile;
+        try {
+            templateFile = ResourceUtils.getFile("classpath:static/Over_the_bath_cloth_rack_quotation.xlsx");
+            FileInputStream excelFileInp = new FileInputStream(templateFile);
+            XSSFWorkbook xssfWorkbook = new XSSFWorkbook(excelFileInp);
             XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
-            XSSFRow row = sheet.createRow(4);
-            XSSFCell cell = row.createCell(0);
-            cell.setCellValue("这是第一个字段");
-            return xssfWorkbook;
+            int iRow = 4;
+            XSSFRow row;
+            XSSFCell cell;
+            for (GoodsDTO goods : list) {
+                row = sheet.createRow(iRow);
+                cell = row.createCell(0);
+                cell.setCellValue("这是第一个字段");
+                cell.setCellType(CellType.STRING);
+                cell = row.createCell(1);
+                cell.setCellValue(goods.getTitle());
+                cell.setCellType(CellType.STRING);
+                iRow++;
+            }
+            String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+            String fileName = uuid + ".xlsx";
+            File excelFile = new File(PATH + fileName);
+            if (excelFile.createNewFile()){
+                OutputStream outputStream = Files.newOutputStream(excelFile.toPath());
+                xssfWorkbook.write(outputStream);
+                outputStream.flush();
+                outputStream.close();
+                return fileName;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

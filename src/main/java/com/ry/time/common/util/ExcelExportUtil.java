@@ -27,23 +27,17 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class ExcelExportUtil {
 
-    public static <T> XSSFWorkbook export(List<T> result, Class<T> o) {
-        XSSFWorkbook workbook = new XSSFWorkbook();
-        XSSFSheet sheet = workbook.createSheet();
-        // 设置表格默认列宽度为15个字节
-        sheet.setDefaultColumnWidth(15);
-        // 生成一个标题样式
-        XSSFCellStyle titleStyle = titleStyle(workbook);
-        XSSFRow row = sheet.createRow((short) 0);
+    public static <T> XSSFWorkbook export(List<T> result, Class<T> o, XSSFWorkbook workbook, int rowNum) {
+        XSSFSheet sheet = workbook.getSheetAt(0);
         //生成标题
-        List<ExcelTdNameSort> nameList = setTitleName(o, titleStyle, row);
+        List<ExcelTdNameSort> nameList = setTitleName(o);
         // 生成一个金额样式
         XSSFCellStyle amountStyle = amountStyle(workbook);
         // 生成一个百分比样式
         XSSFCellStyle percentageStyle = percentageStyle(workbook);
 
         try {
-            saveData(result, o, sheet, nameList, amountStyle, percentageStyle);
+            saveData(result, o, sheet, nameList, amountStyle, percentageStyle, rowNum);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
             return workbook;
@@ -138,13 +132,18 @@ public class ExcelExportUtil {
         Map<Integer, ExcelTdNameSort> fieldNameMap = getExcelTdNameSortMap(o);
         List<ExcelTdNameSort> nameList = new ArrayList<>();
         fieldNameMap.forEach((num, name) -> {
-            XSSFCell cell = row.createCell(num);
-            cell.setCellStyle(style);
-            cell.setCellValue(new XSSFRichTextString(name.getTitleName()));
+//            XSSFCell cell = row.createCell(num);
+//            cell.setCellStyle(style);
+//            cell.setCellValue(new XSSFRichTextString(name.getTitleName()));
             nameList.add(name);
         });
 
         return nameList;
+    }
+
+    private static <T> List<ExcelTdNameSort> setTitleName(Class<T> o) {
+        Map<Integer, ExcelTdNameSort> fieldNameMap = getExcelTdNameSortMap(o);
+        return new ArrayList<>(fieldNameMap.values());
     }
 
     /**
@@ -185,11 +184,11 @@ public class ExcelExportUtil {
      * @throws NoSuchMethodException 未找到方法名称
      */
     private static <T> void saveData(List<T> result, Class<T> o, XSSFSheet sheet, List<ExcelTdNameSort> nameList,
-                                     XSSFCellStyle amountStyle, XSSFCellStyle percentageStyle) throws NoSuchMethodException {
+                                     XSSFCellStyle amountStyle, XSSFCellStyle percentageStyle, int rowNum) throws NoSuchMethodException {
         XSSFRow row;
         XSSFCell cell;
         if (result != null && !result.isEmpty()) {
-            int iRow = 1;
+            int iRow = rowNum;
             for (T res : result) {
                 row = sheet.createRow((short) iRow);
 
@@ -258,7 +257,7 @@ public class ExcelExportUtil {
 
     private static <T> void setObjectValue(Class<T> o, XSSFRow row, T req, Integer num, ExcelTdNameSort name) throws NoSuchMethodException {
         XSSFCell cell = row.getCell(num);
-        if (cell == null){
+        if (cell == null) {
             return;
         }
         String setMethodName = name.getMethodName().replace("get", "set");

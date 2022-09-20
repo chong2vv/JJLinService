@@ -17,7 +17,6 @@ import static com.ry.time.common.constant.enums.ResultErrorEnum.PARAM_ERROR;
  * @author wangyuandong
  * @date 2022/9/17
  */
-
 @RestController
 @RequestMapping("/client/message/")
 @RequiredArgsConstructor
