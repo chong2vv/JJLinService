@@ -43,4 +43,20 @@ public interface BlogService {
      * @return blog对象
      */
     BlogDTO createBlog(BlogDTO blogDto);
+
+    /**
+     * 根据id判断文章是否存在
+     *
+     * @param id 主键id
+     * @return true 存在 false 不存在
+     */
+    boolean existByBlogId(Long id);
+
+    /**
+     * 修改分类
+     *
+     * @param blogDto 文章信息
+     * @return 1 成功
+     */
+    void update(BlogDTO blogDto);
 }

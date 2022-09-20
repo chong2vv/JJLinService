@@ -1,7 +1,10 @@
 package com.ry.time.admin.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -40,7 +43,7 @@ public class BlogDTO {
     /**
      * 文章内容
      */
-    private String body;
+    private String content;
     /**
      * 标签
      */
@@ -49,6 +52,22 @@ public class BlogDTO {
      * 文章状态
      */
     private Integer status;
+
+    /**
+     * 创建时间
+     */
+    @JsonProperty("create_at")
+    private String createTime;
+
+    /**
+     *  时间戳
+     */
+    private Long timestamp;
+
+    public Long getTimestamp() {
+        long time = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse(createTime, new ParsePosition(0)).getTime();
+        return time;
+    }
 
 }
 

@@ -41,7 +41,7 @@ public class Blog implements Serializable {
     /**
      * 文章内容
      */
-    private String body;
+    private String content;
     /**
      * 标签
      */

@@ -57,10 +57,28 @@ public class BlogServiceImpl implements BlogService {
         return convertBlogToBlogDto(blog);
     }
 
+    @Override
+    public boolean existByBlogId(Long id) {
+        Blog blog = blogDao.queryById(id);
+        return blog != null;
+    }
+
+    @Override
+    public void update(BlogDTO blogDto) {
+        Blog blog = converUpdateBlogDtoToBlog(blogDto);
+        blogDao.update(blog);
+    }
+
     private BlogDTO convertBlogToBlogDto(Blog blog) {
         BlogDTO blogDto = CommonUtil.copyVo(blog, BlogDTO.class);
         blogDto.setTags(CommonUtil.stringsToList(blog.getTags()));
         return blogDto;
+    }
+
+    private Blog converUpdateBlogDtoToBlog(BlogDTO blogDto) {
+        Blog blog = CommonUtil.copyVo(blogDto, Blog.class);
+        blog.setTags(CommonUtil.listToString(blogDto.getTags()));
+        return blog;
     }
 
     private Blog convertBlogDtoToBlog(BlogDTO blogDto) {
