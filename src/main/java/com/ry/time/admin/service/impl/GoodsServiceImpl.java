@@ -1,5 +1,6 @@
 package com.ry.time.admin.service.impl;
 
+import com.ry.time.admin.config.MultipartConfig;
 import com.ry.time.admin.dao.GoodsDao;
 import com.ry.time.admin.model.dto.GoodsDTO;
 import com.ry.time.admin.model.dto.GoodsExcelDTO;
@@ -14,8 +15,9 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -33,21 +35,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class GoodsServiceImpl implements GoodsService {
 
-    private static final String UPLOAD_FILE_PATH = "/upload/";
-
-    private static final String PATH;
-
     private final GoodsDao goodsDao;
 
     private final ClassifyService classifyService;
 
-    static {
-        try {
-            PATH = ResourceUtils.getURL("classpath:").getPath() + "static/" + UPLOAD_FILE_PATH;
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private final MultipartConfig multipartConfig;
 
     @Override
     public List<GoodsDTO> getGoodsList(GoodsPagerRequestVO goodsPagerRequestVO) {
@@ -107,11 +99,9 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public XSSFWorkbook getGoodsTemplateExcel() {
-        File file;
         try {
-            file = ResourceUtils.getFile("classpath:static/goods_template.xlsx");
-            FileInputStream excelFile = new FileInputStream(file);
-            return new XSSFWorkbook(excelFile);
+            Resource resource = new DefaultResourceLoader().getResource("classpath:static/goods_template.xlsx");
+            return new XSSFWorkbook(resource.getInputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -120,7 +110,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public XSSFWorkbook getGoodsExcel(String name) {
-        File file = new File(PATH + name);
+        File file = new File(multipartConfig.getTempUpload() + name);
         if (!file.exists()) {
             return null;
         }
@@ -135,11 +125,9 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public String getGoodsExportExcel(List<GoodsDTO> list) {
-        File templateFile;
         try {
-            templateFile = ResourceUtils.getFile("classpath:static/Over_the_bath_cloth_rack_quotation.xlsx");
-            FileInputStream excelFileInp = new FileInputStream(templateFile);
-            XSSFWorkbook xssfWorkbook = new XSSFWorkbook(excelFileInp);
+            Resource resource = new DefaultResourceLoader().getResource("classpath:static/goods_template.xlsx");
+            XSSFWorkbook xssfWorkbook = new XSSFWorkbook(resource.getInputStream());
             XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
             int iRow = 4;
             XSSFRow row;
@@ -156,7 +144,7 @@ public class GoodsServiceImpl implements GoodsService {
             }
             String uuid = UUID.randomUUID().toString().replaceAll("-", "");
             String fileName = uuid + ".xlsx";
-            File excelFile = new File(PATH + fileName);
+            File excelFile = new File(multipartConfig.getTempUpload() + fileName);
             if (excelFile.createNewFile()){
                 OutputStream outputStream = Files.newOutputStream(excelFile.toPath());
                 xssfWorkbook.write(outputStream);

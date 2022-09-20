@@ -40,3 +40,6 @@ img:
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.ry.time.admin.model.entity
+
+location:
+  upload: upload/
