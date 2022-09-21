@@ -66,6 +66,7 @@
                 and status >= 0
             </if>
         </where>
+        order by create_time desc
         limit #{offset}, #{count}
     </select>
 
@@ -145,6 +146,7 @@
         </set>
         where id = #{id}
     </update>
+
     <update id="updateStatus">
         update goods
         <set>

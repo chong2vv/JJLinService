@@ -33,6 +33,7 @@
                 and status >= 0
             </if>
         </where>
+        order by create_time desc
         limit #{offset}, #{count}
     </select>
 
@@ -40,8 +41,7 @@
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into message(id, name, title, phone, content, from_type, from_id, from_title, email, status, create_time)
         values (#{id}, #{name}, #{title}, #{phone}, #{content}, #{fromType}, #{fromId}, #{fromTitle}, #{email},
-                #{status},
-                #{createTime})
+                #{status},#{createTime})
     </insert>
 
     <!--通过主键修改数据-->
@@ -64,10 +64,10 @@
                 from_type = #{fromType},
             </if>
             <if test="fromId != null">
-                from_id = #(fromId)
+                from_id = #{fromId}
             </if>
             <if test="fromTitle != null and fromTitle != ''">
-                from_title = #(fromTitle)
+                from_title = #{fromTitle}
             </if>
             <if test="email != null and email != ''">
                 email = #{email},

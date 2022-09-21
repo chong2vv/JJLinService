@@ -33,6 +33,7 @@
                 and title LIKE CONCAT('%',#{search_str},'%')
             </if>
         </where>
+        order by create_time desc
         limit #{offset}, #{count}
     </select>
 
