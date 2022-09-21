@@ -36,6 +36,16 @@ public class ClientGoodsServiceImpl implements ClientGoodsService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public GoodsHomeDTO queryByGoodsId(Long id) {
+        Goods goods = goodsDao.queryById(id);
+        if (goods == null) {
+            return null;
+        }
+        return this.convertGoodsToGoodsHomeDTO(goods);
+    }
+
+
     /**
      * 转换Goods为GoodsHomeDTO
      *

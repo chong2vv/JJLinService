@@ -2,6 +2,7 @@ package com.ry.time.client.controller;
 
 import com.ry.time.client.model.vo.GoodsHomeDTO;
 import com.ry.time.client.service.ClientGoodsService;
+import com.ry.time.common.constant.enums.ResultErrorEnum;
 import com.ry.time.common.model.ResultGenerator;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
@@ -33,5 +34,23 @@ public class ClientGoodsController {
             return ResultGenerator.genSuccessResult(null);
         }
         return ResultGenerator.genSuccessResult(goodsHomeList);
+    }
+
+    @RequestMapping(value = "/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getList(@RequestParam(value = "classify_id", required = false) Integer classifyId) {
+        List<GoodsHomeDTO> goodsHomeList = clientGoodsService.getHomeList(classifyId);
+        if (CollectionUtils.isEmpty(goodsHomeList)) {
+            return ResultGenerator.genSuccessResult(null);
+        }
+        return ResultGenerator.genSuccessResult(goodsHomeList);
+    }
+
+    @RequestMapping(value = "/detail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getDetail(@RequestParam Long id) {
+        GoodsHomeDTO goods = clientGoodsService.queryByGoodsId(id);
+        if (goods == null) {
+            return ResultGenerator.genErrorResult(ResultErrorEnum.GOODS_EXISTS_ERROR);
+        }
+        return ResultGenerator.genSuccessResult(goods);
     }
 }
