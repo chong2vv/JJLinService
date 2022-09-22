@@ -59,6 +59,10 @@ public class Goods implements Serializable {
      */
     private String imgList;
     /**
+     * ytb视频数组，用“，”分隔
+     */
+    private String videoList;
+    /**
      * 标签
      */
     private String tags;

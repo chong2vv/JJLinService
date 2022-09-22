@@ -1,11 +1,13 @@
 package com.ry.time.client.service.impl;
 
 import com.ry.time.admin.dao.GoodsDao;
+import com.ry.time.admin.model.dto.GoodsDTO;
 import com.ry.time.admin.model.entity.Goods;
 import com.ry.time.admin.model.vo.GoodsPagerRequestVO;
 import com.ry.time.admin.service.ClassifyService;
 import com.ry.time.client.model.vo.GoodsHomeDTO;
 import com.ry.time.client.service.ClientGoodsService;
+import com.ry.time.common.util.CommonUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -49,12 +51,12 @@ public class ClientGoodsServiceImpl implements ClientGoodsService {
     }
 
     @Override
-    public GoodsHomeDTO queryByGoodsId(Long id) {
+    public GoodsDTO queryByGoodsId(Long id) {
         Goods goods = goodsDao.queryById(id);
         if (goods == null) {
             return null;
         }
-        return this.convertGoodsToGoodsHomeDTO(goods);
+        return this.convertGoodsToGoodsDTO(goods);
     }
 
 
@@ -72,5 +74,20 @@ public class ClientGoodsServiceImpl implements ClientGoodsService {
         goodsHomeDTO.setClassifyId(goods.getClassifyId());
         goodsHomeDTO.setClassify(classifyService.queryByClassifyId(goods.getClassifyId()));
         return goodsHomeDTO;
+    }
+
+    /**
+     * 转换商品实体为商品DTO
+     *
+     * @param goods 商品实体
+     * @return 商品DTO
+     */
+    private GoodsDTO convertGoodsToGoodsDTO(Goods goods) {
+        GoodsDTO goodsDTO = CommonUtil.copyVo(goods, GoodsDTO.class);
+        goodsDTO.setImgList(CommonUtil.stringsToList(goods.getImgList()));
+        goodsDTO.setVideoList(CommonUtil.stringsToList(goods.getVideoList()));
+        goodsDTO.setTags(CommonUtil.stringsToList(goods.getTags()));
+        goodsDTO.setClassify(classifyService.queryByClassifyId(goods.getClassifyId()));
+        return goodsDTO;
     }
 }

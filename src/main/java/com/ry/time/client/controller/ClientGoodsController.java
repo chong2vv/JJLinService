@@ -1,5 +1,6 @@
 package com.ry.time.client.controller;
 
+import com.ry.time.admin.model.dto.GoodsDTO;
 import com.ry.time.admin.model.vo.GoodsPagerRequestVO;
 import com.ry.time.client.model.vo.GoodsHomeDTO;
 import com.ry.time.client.service.ClientGoodsService;
@@ -52,7 +53,7 @@ public class ClientGoodsController {
 
     @RequestMapping(value = "/detail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public String getDetail(@RequestParam Long id) {
-        GoodsHomeDTO goods = clientGoodsService.queryByGoodsId(id);
+        GoodsDTO goods = clientGoodsService.queryByGoodsId(id);
         if (goods == null) {
             return ResultGenerator.genErrorResult(ResultErrorEnum.GOODS_EXISTS_ERROR);
         }

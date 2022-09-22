@@ -14,6 +14,7 @@
         <result property="timer" column="timer" jdbcType="VARCHAR"/>
         <result property="coverImg" column="cover_img" jdbcType="VARCHAR"/>
         <result property="imgList" column="img_list" jdbcType="VARCHAR"/>
+        <result property="videoList" column="video_list" jdbcType="VARCHAR"/>
         <result property="tags" column="tags" jdbcType="VARCHAR"/>
         <result property="classifyId" column="classify_id" jdbcType="INTEGER"/>
         <result property="isHomeList" column="is_home_list" jdbcType="INTEGER"/>
@@ -34,6 +35,7 @@
                timer,
                cover_img,
                img_list,
+               video_list,
                tags,
                classify_id,
                is_home_list,
@@ -46,7 +48,7 @@
     <!--查询指定行数据-->
     <select id="queryPager" parameterType="com.ry.time.admin.model.vo.GoodsPagerRequestVO" resultMap="GoodsMap">
         select
-        id, title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, tags, classify_id,
+        id, title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, video_list, tags, classify_id,
         is_home_list, status, create_time
         from goods
         <where>
@@ -83,19 +85,20 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into goods(id, title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, tags,
+        insert into goods(id, title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, video_list, tags,
                           classify_id, is_home_list, status, create_time)
         values (#{id}, #{title}, #{content}, #{excerpt}, #{size}, #{material}, #{pack}, #{qty}, #{timer}, #{coverImg},
-                #{imgList}, #{tags}, #{classifyId}, #{isHomeList}, #{status}, #{createTime})
+                #{imgList}, #{videoList}, #{tags}, #{classifyId}, #{isHomeList}, #{status}, #{createTime})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into goods(id, title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, tags,
+        insert into goods(id, title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, video_list, tags,
         classify_id, is_home_list, status, create_time)
         values
         <foreach collection="goodsList" item="goods" separator=",">
             (#{goods.id},#{goods.title}, #{goods.content}, #{goods.excerpt}, #{goods.size}, #{goods.material},
-            #{goods.pack}, #{goods.qty}, #{goods.timer}, #{goods.coverImg}, #{goods.imgList}, #{goods.tags},
+            #{goods.pack}, #{goods.qty}, #{goods.timer}, #{goods.coverImg}, #{goods.imgList}, #{goods.videoList},
+            #{goods.tags},
             #{goods.classifyId}, #{goods.isHomeList}, #{goods.status}, #{goods.createTime})
         </foreach>
     </insert>
@@ -133,6 +136,9 @@
             </if>
             <if test="imgList != null and imgList != ''">
                 img_list = #{imgList},
+            </if>
+            <if test="videoList != null and videoList != ''">
+                video_list = #{videoList},
             </if>
             <if test="tags != null and tags != ''">
                 tags = #{tags},

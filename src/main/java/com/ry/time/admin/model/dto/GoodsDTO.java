@@ -61,6 +61,11 @@ public class GoodsDTO {
     @JsonProperty("img_list")
     private List<String> imgList;
     /**
+     * YTB链接数组，用“，”分隔
+     */
+    @JsonProperty("video_list")
+    private List<String> videoList;
+    /**
      * 标签
      */
     private List<String> tags;

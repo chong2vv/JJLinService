@@ -36,6 +36,6 @@ public interface ClientGoodsService {
      * @param id 商品id
      * @return 商品详情
      */
-    GoodsHomeDTO queryByGoodsId(Long id);
+    GoodsDTO queryByGoodsId(Long id);
 
 }

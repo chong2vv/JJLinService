@@ -182,6 +182,7 @@ public class GoodsServiceImpl implements GoodsService {
     private GoodsDTO convertGoodsToGoodsDTO(Goods goods) {
         GoodsDTO goodsDTO = CommonUtil.copyVo(goods, GoodsDTO.class);
         goodsDTO.setImgList(CommonUtil.stringsToList(goods.getImgList()));
+        goodsDTO.setVideoList(CommonUtil.stringsToList(goods.getVideoList()));
         goodsDTO.setTags(CommonUtil.stringsToList(goods.getTags()));
         goodsDTO.setClassify(classifyService.queryByClassifyId(goods.getClassifyId()));
         return goodsDTO;
@@ -190,6 +191,7 @@ public class GoodsServiceImpl implements GoodsService {
     private Goods convertGoodsDtoToGoods(GoodsDTO goodsDTO) {
         Goods goods = CommonUtil.copyVo(goodsDTO, Goods.class);
         goods.setImgList(CommonUtil.listToString(goodsDTO.getImgList()));
+        goods.setVideoList(CommonUtil.listToString(goodsDTO.getVideoList()));
         goods.setTags(CommonUtil.listToString(goodsDTO.getTags()));
         return goods;
     }
