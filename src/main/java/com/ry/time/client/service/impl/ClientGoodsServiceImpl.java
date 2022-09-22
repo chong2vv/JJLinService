@@ -3,6 +3,7 @@ package com.ry.time.client.service.impl;
 import com.ry.time.admin.dao.GoodsDao;
 import com.ry.time.admin.model.entity.Goods;
 import com.ry.time.admin.model.vo.GoodsPagerRequestVO;
+import com.ry.time.admin.service.ClassifyService;
 import com.ry.time.client.model.vo.GoodsHomeDTO;
 import com.ry.time.client.service.ClientGoodsService;
 import lombok.RequiredArgsConstructor;
@@ -17,11 +18,13 @@ import java.util.stream.Collectors;
  * @author gongjiguang
  * @date 2022/9/21
  */
+
 @Service
 @RequiredArgsConstructor
 public class ClientGoodsServiceImpl implements ClientGoodsService {
 
     private final GoodsDao goodsDao;
+    private final ClassifyService classifyService;
 
     @Override
     public List<GoodsHomeDTO> getHomeList(Integer classifyId) {
@@ -30,6 +33,15 @@ public class ClientGoodsServiceImpl implements ClientGoodsService {
         goodsPagerRequestVO.setCount(6);
         goodsPagerRequestVO.setIsHomeList(1);
         goodsPagerRequestVO.setClassifyId(classifyId);
+        List<Goods> goodsList = goodsDao.queryPager(goodsPagerRequestVO);
+        return goodsList.stream()
+                .map(this::convertGoodsToGoodsHomeDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<GoodsHomeDTO> getList(GoodsPagerRequestVO goodsPagerRequestVO) {
+        goodsPagerRequestVO.setStatus(1);
         List<Goods> goodsList = goodsDao.queryPager(goodsPagerRequestVO);
         return goodsList.stream()
                 .map(this::convertGoodsToGoodsHomeDTO)
@@ -58,6 +70,7 @@ public class ClientGoodsServiceImpl implements ClientGoodsService {
         goodsHomeDTO.setTitle(goods.getTitle());
         goodsHomeDTO.setCoverImg(goods.getCoverImg());
         goodsHomeDTO.setClassifyId(goods.getClassifyId());
+        goodsHomeDTO.setClassify(classifyService.queryByClassifyId(goods.getClassifyId()));
         return goodsHomeDTO;
     }
 }

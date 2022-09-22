@@ -1,6 +1,7 @@
 package com.ry.time.client.model.vo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.ry.time.admin.model.entity.Classify;
 import lombok.Data;
 
 /**
@@ -18,6 +19,11 @@ public class GoodsHomeDTO {
 
     @JsonProperty("cover_img")
     private String coverImg;
+
+    /**
+     * 商品分类
+     */
+    private Classify classify;
 
     @JsonProperty("classify_id")
     private Integer classifyId;
