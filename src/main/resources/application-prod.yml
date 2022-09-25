@@ -1,0 +1,45 @@
+spring:
+  #数据库配置
+  datasource:
+    url: jdbc:mysql://45.77.53.198:3306/ry_time?characterEncoding=utf-8&serverTimezone=UTC
+    username: root
+    password: Wang86593642.
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #数据库连接池配置
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 1
+      min-idle: 1
+      max-active: 20
+      min-evictable-idle-time-millis: 60000
+      max-wait: 60000
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: false
+      max-pool-prepared-statement-per-connection-size: 20
+      filters: stat,wall,log4j2
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+
+server:
+  port: 8090
+
+#oss配置
+oss:
+  bucket:
+    name: ry-test-01
+  key:
+    id: YcOuEvnnVonyopxI02f2DBah2SATfYYynzntBTmH
+    secret: KZjFeHg9hsVnFD4GFNnsNUqlGraYnU39TQPoa9hC
+
+#素材访问地址
+img:
+  url: 'https://image.houseinlife.com'
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.ry.time.admin.model.entity
+
+location:
+  upload: upload/
