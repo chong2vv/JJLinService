@@ -80,6 +80,11 @@ public class GoodsDTO {
      */
     private List<String> tags;
     /**
+     * 商品富文本
+     */
+    @JsonProperty("goods_body")
+    private String goodsBody;
+    /**
      * 分类id
      */
     @JsonProperty("classify_id")

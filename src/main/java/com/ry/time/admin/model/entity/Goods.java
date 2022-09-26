@@ -71,6 +71,10 @@ public class Goods implements Serializable {
      */
     private String videoList;
     /**
+     * 商品富文本
+     */
+    private String goodsBody;
+    /**
      * 标签
      */
     private String tags;
