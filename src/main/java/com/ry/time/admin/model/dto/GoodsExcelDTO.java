@@ -77,6 +77,16 @@ public class GoodsExcelDTO {
      */
     @ExcelTdName(value = "is_home_list", sort = 12)
     private Integer isHomeList;
+    /**
+     * 封面视频地址
+     */
+    @ExcelTdName(value = "video_url", sort = 13)
+    private String videoUrl;
+    /**
+     * 封面视频图片
+     */
+    @ExcelTdName(value = "video_img", sort = 14)
+    private String videoImg;
 
 }
 

@@ -66,6 +66,16 @@ public class GoodsDTO {
     @JsonProperty("video_list")
     private List<String> videoList;
     /**
+     * 封面视频地址
+     */
+    @JsonProperty("video_url")
+    private String videoUrl;
+    /**
+     * 封面视频图片
+     */
+    @JsonProperty("video_img")
+    private String videoImg;
+    /**
      * 标签
      */
     private List<String> tags;
