@@ -25,6 +25,7 @@ public class ClientMessageServiceImpl implements ClientMessageService {
     public int createMessage(Message message) {
         message.setId(NumberUtil.genUid());
         message.setCreateTime(DateUtil.getCurrentDateTimeStr());
+        message.setStatus(0);
         return messageDao.insert(message);
     }
 }
