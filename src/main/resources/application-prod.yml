@@ -26,16 +26,15 @@ server:
   port: 8090
 
 #oss配置
-oss:
-  bucket:
-    name: ry-test-01
-  key:
-    id: YcOuEvnnVonyopxI02f2DBah2SATfYYynzntBTmH
-    secret: KZjFeHg9hsVnFD4GFNnsNUqlGraYnU39TQPoa9hC
-
-#素材访问地址
-img:
-  url: 'https://image.houseinlife.com'
+ftp:
+  host: 8.142.125.160
+  port: 21
+  username: admftp
+  password: 12ab!@
+  image:
+    directory: /data/ftp/img/
+  img:
+    domain: http://8.142.125.160/img/
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml

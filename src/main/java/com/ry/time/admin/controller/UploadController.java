@@ -1,6 +1,6 @@
 package com.ry.time.admin.controller;
 
-import com.ry.time.admin.service.UploadToOssService;
+import com.ry.time.admin.service.UploadService;
 import com.ry.time.common.constant.enums.ResultErrorEnum;
 import com.ry.time.common.model.ResultGenerator;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UploadController {
 
-    private final UploadToOssService uploadToOssService;
+    private final UploadService uploadToOssService;
 
     @RequestMapping(value = "/ossFile", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public String uploadOssFile(MultipartHttpServletRequest multipartRequest) {
@@ -40,18 +40,12 @@ public class UploadController {
                     .filter(file -> file.getSize() > 0)
                     .collect(Collectors.toList());
 
-            List<String> imgUrlList = uploadToOssService.uploadToOss(multipartFileList);
+            List<String> imgUrlList = uploadToOssService.uploadFile(multipartFileList);
             return ResultGenerator.genSuccessResult(imgUrlList);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return ResultGenerator.genErrorResult(ResultErrorEnum.FILE_ERROR);
-    }
-
-    @RequestMapping(value = "/token", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getToken() {
-        String token = uploadToOssService.getToken();
-        return ResultGenerator.genSuccessResult(token);
     }
 
 }
