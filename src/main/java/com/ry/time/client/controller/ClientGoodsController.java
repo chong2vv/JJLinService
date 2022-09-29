@@ -46,9 +46,6 @@ public class ClientGoodsController {
         goodsPagerRequestVO.initPager();
         List<GoodsHomeDTO> goodsHomeList = clientGoodsService.getList(goodsPagerRequestVO);
         int count = clientGoodsService.count(goodsPagerRequestVO.getStatus());
-        if (CollectionUtils.isEmpty(goodsHomeList)) {
-            return ResultGenerator.genSuccessPager(null, 0);
-        }
         return ResultGenerator.genSuccessPager(goodsHomeList, count);
     }
 
