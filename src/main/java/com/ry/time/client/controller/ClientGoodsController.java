@@ -45,10 +45,11 @@ public class ClientGoodsController {
         GoodsPagerRequestVO goodsPagerRequestVO = JsonUtil.mapToObj(map, GoodsPagerRequestVO.class);
         goodsPagerRequestVO.initPager();
         List<GoodsHomeDTO> goodsHomeList = clientGoodsService.getList(goodsPagerRequestVO);
+        int count = clientGoodsService.count(goodsPagerRequestVO.getStatus());
         if (CollectionUtils.isEmpty(goodsHomeList)) {
-            return ResultGenerator.genSuccessResult(null);
+            return ResultGenerator.genSuccessPager(null, 0);
         }
-        return ResultGenerator.genSuccessResult(goodsHomeList);
+        return ResultGenerator.genSuccessPager(goodsHomeList, count);
     }
 
     @RequestMapping(value = "/detail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

@@ -59,6 +59,11 @@ public class ClientGoodsServiceImpl implements ClientGoodsService {
         return this.convertGoodsToGoodsDTO(goods);
     }
 
+    @Override
+    public int count(Integer status) {
+        return goodsDao.count(status);
+    }
+
 
     /**
      * 转换Goods为GoodsHomeDTO
