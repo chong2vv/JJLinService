@@ -72,6 +72,12 @@ public class ClientGoodsServiceImpl implements ClientGoodsService {
         goodsHomeDTO.setTitle(goods.getTitle());
         goodsHomeDTO.setCoverImg(goods.getCoverImg());
         goodsHomeDTO.setClassifyId(goods.getClassifyId());
+        goodsHomeDTO.setImgList(CommonUtil.stringsToList(goods.getImgList()));
+        goodsHomeDTO.setContent(goods.getContent());
+        goodsHomeDTO.setExcerpt(goods.getExcerpt());
+        goodsHomeDTO.setTimer(goods.getTimer());
+        goodsHomeDTO.setMaterial(goods.getMaterial());
+        goodsHomeDTO.setQty(goods.getQty());
         goodsHomeDTO.setClassify(classifyService.queryByClassifyId(goods.getClassifyId()));
         return goodsHomeDTO;
     }
