@@ -15,11 +15,14 @@
         <result property="coverImg" column="cover_img" jdbcType="VARCHAR"/>
         <result property="imgList" column="img_list" jdbcType="VARCHAR"/>
         <result property="videoList" column="video_list" jdbcType="VARCHAR"/>
+        <result property="goodsBody" column="goods_body" jdbcType="VARCHAR"/>
         <result property="tags" column="tags" jdbcType="VARCHAR"/>
         <result property="classifyId" column="classify_id" jdbcType="INTEGER"/>
         <result property="isHomeList" column="is_home_list" jdbcType="INTEGER"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="videoUrl" column="video_url" jdbcType="VARCHAR"/>
+        <result property="videoImg" column="video_img" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
@@ -36,11 +39,14 @@
                cover_img,
                img_list,
                video_list,
+               goods_body,
                tags,
                classify_id,
                is_home_list,
                status,
-               create_time
+               create_time,
+               video_url,
+               video_img
         from goods
         where id = #{id}
     </select>
@@ -48,8 +54,8 @@
     <!--查询指定行数据-->
     <select id="queryPager" parameterType="com.ry.time.admin.model.vo.GoodsPagerRequestVO" resultMap="GoodsMap">
         select
-        id, title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, video_list, tags, classify_id,
-        is_home_list, status, create_time
+        id, title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, video_list, goods_body, tags, classify_id,
+        is_home_list, status, create_time, video_url, video_img
         from goods
         <where>
             <if test="searchString != null and searchString != ''">
@@ -85,21 +91,21 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into goods(id, title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, video_list, tags,
-                          classify_id, is_home_list, status, create_time)
+        insert into goods(id, title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, video_list, goods_body, tags,
+                          classify_id, is_home_list, status, create_time, video_url, video_img)
         values (#{id}, #{title}, #{content}, #{excerpt}, #{size}, #{material}, #{pack}, #{qty}, #{timer}, #{coverImg},
-                #{imgList}, #{videoList}, #{tags}, #{classifyId}, #{isHomeList}, #{status}, #{createTime})
+                #{imgList}, #{videoList}, #{goodsBody}, #{tags}, #{classifyId}, #{isHomeList}, #{status}, #{createTime}, #{videoUrl},  #{videoImg})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into goods(id, title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, video_list, tags,
-        classify_id, is_home_list, status, create_time)
+        insert into goods(id, title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, video_list, goods_body,tags,
+        classify_id, is_home_list, status, create_time, video_url, video_img)
         values
         <foreach collection="goodsList" item="goods" separator=",">
             (#{goods.id},#{goods.title}, #{goods.content}, #{goods.excerpt}, #{goods.size}, #{goods.material},
-            #{goods.pack}, #{goods.qty}, #{goods.timer}, #{goods.coverImg}, #{goods.imgList}, #{goods.videoList},
+            #{goods.pack}, #{goods.qty}, #{goods.timer}, #{goods.coverImg}, #{goods.imgList}, #{goods.videoList}, #{goods.goodsBody},
             #{goods.tags},
-            #{goods.classifyId}, #{goods.isHomeList}, #{goods.status}, #{goods.createTime})
+            #{goods.classifyId}, #{goods.isHomeList}, #{goods.status}, #{goods.createTime}), #{goods.videoUrl}), #{goods.videoImg})
         </foreach>
     </insert>
 
@@ -140,6 +146,9 @@
             <if test="videoList != null and videoList != ''">
                 video_list = #{videoList},
             </if>
+            <if test="goodsBody != null and goodsBody != ''">
+                goods_body = #{goodsBody},
+            </if>
             <if test="tags != null and tags != ''">
                 tags = #{tags},
             </if>
@@ -147,7 +156,13 @@
                 classify_id = #{classifyId},
             </if>
             <if test="isHomeList != null">
-                is_home_list = #{isHomeList}
+                is_home_list = #{isHomeList},
+            </if>
+            <if test="videoUrl != null and videoUrl != ''">
+                video_url = #{videoUrl},
+            </if>
+            <if test="videoImg != null and videoImg != ''">
+                video_img = #{videoImg},
             </if>
         </set>
         where id = #{id}

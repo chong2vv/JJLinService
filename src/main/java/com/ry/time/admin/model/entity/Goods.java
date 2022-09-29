@@ -55,6 +55,14 @@ public class Goods implements Serializable {
      */
     private String coverImg;
     /**
+     * 视频封面图
+     */
+    private String videoImg;
+    /**
+     *  封面视频地址
+     */
+    private String videoUrl;
+    /**
      * 素材和视频数组，用“，”分隔
      */
     private String imgList;
@@ -62,6 +70,10 @@ public class Goods implements Serializable {
      * ytb视频数组，用“，”分隔
      */
     private String videoList;
+    /**
+     * 商品富文本
+     */
+    private String goodsBody;
     /**
      * 标签
      */

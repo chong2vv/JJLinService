@@ -64,10 +64,10 @@
                 from_type = #{fromType},
             </if>
             <if test="fromId != null">
-                from_id = #{fromId}
+                from_id = #{fromId},
             </if>
             <if test="fromTitle != null and fromTitle != ''">
-                from_title = #{fromTitle}
+                from_title = #{fromTitle},
             </if>
             <if test="email != null and email != ''">
                 email = #{email},

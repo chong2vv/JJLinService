@@ -38,4 +38,12 @@ public interface ClientGoodsService {
      */
     GoodsDTO queryByGoodsId(Long id);
 
+    /**
+     * 商品数量
+     *
+     * @param status 状态
+     * @return 商品数量
+     */
+    int count(Integer status);
+
 }
