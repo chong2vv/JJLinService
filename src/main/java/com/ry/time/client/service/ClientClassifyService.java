@@ -5,6 +5,9 @@ import com.ry.time.admin.model.vo.ClassifyPagerRequestVO;
 
 import java.util.List;
 
+/**
+ * @author wangyuandong
+ */
 public interface ClientClassifyService {
     /**
      * 获取分类列表
