@@ -27,14 +27,14 @@ server:
 
 #oss配置
 ftp:
-  host: 8.142.125.160
+  host: 45.77.53.198
   port: 21
   username: admftp
-  password: 12ab!@
+  password: 123ABD!@#
   image:
     directory: /data/ftp/img/
   img:
-    domain: http://8.142.125.160/img/
+    domain: https://image.houseinlife.com/img/
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml

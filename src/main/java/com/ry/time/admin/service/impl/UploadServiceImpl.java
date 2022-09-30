@@ -56,6 +56,7 @@ public class UploadServiceImpl implements UploadService {
             try {
                 File local = this.uploadFile(file.getInputStream(), multipartConfig.getTempUpload(), fileName);
                 this.ftpFile(local, fileName);
+                FileUtils.delete(local);
                 imgUrlList.add(imgDomain + fileName);
             } catch (IOException e) {
                 e.printStackTrace();
