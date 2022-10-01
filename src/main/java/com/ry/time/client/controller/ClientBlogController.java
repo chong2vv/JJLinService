@@ -28,9 +28,6 @@ public class ClientBlogController {
     public String getClassifyList(BlogPagerRequestVO blogPagerRequestVO) {
         List<BlogDTO> blogList = blogService.getBlogList(blogPagerRequestVO);
         int count = blogService.count();
-        if (blogList.isEmpty()) {
-            return ResultGenerator.genSuccessPager(null, 0);
-        }
         return ResultGenerator.genSuccessPager(blogList,count);
     }
 
