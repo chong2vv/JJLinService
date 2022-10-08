@@ -14,12 +14,13 @@
         <result property="email" column="email" jdbcType="VARCHAR"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="website" column="website" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" parameterType="com.ry.time.admin.model.vo.MessagePagerRequestVO" resultMap="MessageMap">
         select
-          id, name, title, phone, content, from_type, from_id, from_title, email, status, create_time
+          id, name, title, phone, content, from_type, from_id, from_title, email, status, create_time, website
         from message
         <where>
             <if test="search_str != null and search_str != ''">
@@ -39,9 +40,9 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into message(id, name, title, phone, content, from_type, from_id, from_title, email, status, create_time)
+        insert into message(id, name, title, phone, content, from_type, from_id, from_title, email, status, create_time, website)
         values (#{id}, #{name}, #{title}, #{phone}, #{content}, #{fromType}, #{fromId}, #{fromTitle}, #{email},
-                #{status},#{createTime})
+                #{status}, #{createTime}, #{website})
     </insert>
 
     <!--通过主键修改数据-->

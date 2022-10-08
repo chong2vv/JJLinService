@@ -70,6 +70,11 @@ public class Message  {
      */
     private Long timestamp;
 
+    /**
+     * 信息来源网站 默认0为主站
+     */
+    private int website;
+
     public Long getTimestamp() {
         long time = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse(createTime, new ParsePosition(0)).getTime();
         return time;
