@@ -11,10 +11,7 @@ import com.ry.time.admin.service.GoodsService;
 import com.ry.time.common.util.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xssf.usermodel.*;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -126,7 +123,7 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public String getGoodsExportExcel(List<GoodsDTO> list) {
         try {
-            Resource resource = new DefaultResourceLoader().getResource("classpath:static/goods_template.xlsx");
+            Resource resource = new DefaultResourceLoader().getResource("classpath:static/Over_the_bath_cloth_rack_quotation.xlsx");
             XSSFWorkbook xssfWorkbook = new XSSFWorkbook(resource.getInputStream());
             XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
             int iRow = 4;
@@ -135,10 +132,23 @@ public class GoodsServiceImpl implements GoodsService {
             for (GoodsDTO goods : list) {
                 row = sheet.createRow(iRow);
                 cell = row.createCell(0);
-                cell.setCellValue("这是第一个字段");
-                cell.setCellType(CellType.STRING);
-                cell = row.createCell(1);
                 cell.setCellValue(goods.getTitle());
+                cell.setCellType(CellType.STRING);
+
+                cell = row.createCell(2);
+                cell.setCellValue(goods.getContent());
+                cell.setCellType(CellType.STRING);
+                cell = row.createCell(3);
+                cell.setCellValue(goods.getSize());
+                cell.setCellType(CellType.STRING);
+                cell = row.createCell(4);
+                cell.setCellValue(goods.getMaterial());
+                cell.setCellType(CellType.STRING);
+                cell = row.createCell(5);
+                cell.setCellValue(goods.getPack());
+                cell.setCellType(CellType.STRING);
+                cell = row.createCell(7);
+                cell.setCellValue(goods.getQty());
                 cell.setCellType(CellType.STRING);
                 iRow++;
             }
