@@ -25,6 +25,19 @@ spring:
 server:
   port: 8092
 
+
+#oss配置
+oss:
+  bucket:
+    name: ry-test-01
+  key:
+    id: YcOuEvnnVonyopxI02f2DBah2SATfYYynzntBTmH
+    secret: KZjFeHg9hsVnFD4GFNnsNUqlGraYnU39TQPoa9hC
+
+#素材访问地址
+img:
+  url: 'http://rhaxmiodp.hb-bkt.clouddn.com/'
+
 #ftp配置
 ftp:
   host: 8.142.125.160
