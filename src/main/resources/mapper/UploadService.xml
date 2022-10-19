@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ry.time.admin.dao.GoodsDao">
+<mapper namespace="com.yd.kuma.admin.dao.GoodsDao">
 
-    <resultMap type="com.ry.time.admin.model.entity.Goods" id="GoodsMap">
+    <resultMap type="com.yd.kuma.admin.model.entity.Goods" id="GoodsMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>
         <result property="content" column="content" jdbcType="VARCHAR"/>
@@ -52,7 +52,7 @@
     </select>
 
     <!--查询指定行数据-->
-    <select id="queryPager" parameterType="com.ry.time.admin.model.vo.GoodsPagerRequestVO" resultMap="GoodsMap">
+    <select id="queryPager" parameterType="com.yd.kuma.admin.model.vo.GoodsPagerRequestVO" resultMap="GoodsMap">
         select
         id, title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, video_list, goods_body, tags, classify_id,
         is_home_list, status, create_time, video_url, video_img
