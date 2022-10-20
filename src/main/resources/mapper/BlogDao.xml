@@ -58,7 +58,7 @@
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into blog(id, img, author, view, title, excerpt, content, tags, status, img_list, video_list, classify_id, create_time)
-        values (#{id}, #{img}, #{author}, #{view}, #{title}, #{excerpt}, #{content},  #{tags}, #{status}, #{imgList}, #{classifyId}, #{videoList}, #{createTime})
+        values (#{id}, #{img}, #{author}, #{view}, #{title}, #{excerpt}, #{content}, #{tags}, #{status}, #{imgList}, #{videoList}, #{classifyId}, #{createTime})
     </insert>
 
     <!--通过主键修改数据-->
