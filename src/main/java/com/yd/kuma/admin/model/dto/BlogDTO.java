@@ -1,6 +1,7 @@
 package com.yd.kuma.admin.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.yd.kuma.admin.model.entity.Classify;
 import lombok.Data;
 
 import java.text.ParsePosition;
@@ -52,13 +53,30 @@ public class BlogDTO {
      * 文章状态
      */
     private Integer status;
-
+    /**
+     * 分类id
+     */
+    @JsonProperty("classify_id")
+    private Integer classifyId;
+    /**
+     * 商品分类
+     */
+    private Classify classify;
     /**
      * 创建时间
      */
     @JsonProperty("create_at")
     private String createTime;
-
+    /**
+     * 素材和视频数组，用“，”分隔
+     */
+    @JsonProperty("img_list")
+    private List<String> imgList;
+    /**
+     * 视频数组，用“，”分隔
+     */
+    @JsonProperty("video_list")
+    private List<String> videoList;
     /**
      *  时间戳
      */

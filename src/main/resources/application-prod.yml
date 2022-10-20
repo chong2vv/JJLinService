@@ -1,7 +1,7 @@
 spring:
   #数据库配置
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/ry_time?characterEncoding=utf-8&serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:3306/YDKuma?characterEncoding=utf-8&serverTimezone=UTC
 #    url: jdbc:mysql://45.77.53.198:3306/ry_time?characterEncoding=utf-8&serverTimezone=UTC
     username: root
     password: Wang86593642.

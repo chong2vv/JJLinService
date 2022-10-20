@@ -10,15 +10,18 @@
         <result property="title" column="title" jdbcType="VARCHAR"/>
         <result property="excerpt" column="excerpt" jdbcType="VARCHAR"/>
         <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="imgList" column="img_list" jdbcType="VARCHAR"/>
+        <result property="videoList" column="video_list" jdbcType="VARCHAR"/>
         <result property="tags" column="tags" jdbcType="VARCHAR"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="classifyId" column="classify_id" jdbcType="INTEGER"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="BlogMap">
         select
-          id, img, author, view, title, excerpt, content, tags, status, create_time
+          id, img, author, view, title, excerpt, content, img_list, video_list, tags, status, classify_id, create_time
         from blog
         where id = #{id}
     </select>
@@ -26,11 +29,20 @@
     <!--查询指定行数据-->
     <select id="queryPager" resultMap="BlogMap">
         select
-          id, img, author, view, title, excerpt, content, tags, status, create_time
+          id, img, author, view, title, excerpt, content, tags, status, img_list, video_list, classify_id, create_time
         from blog
         <where>
             <if test="search_str != null and search_str != ''">
                 and title LIKE CONCAT('%',#{search_str},'%')
+            </if>
+            <if test="classifyId != null">
+                and classify_id = #{classifyId}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="status == null">
+                and status >= 0
             </if>
         </where>
         order by create_time desc
@@ -45,8 +57,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into blog(id, img, author, view, title, excerpt, content, tags, status, create_time)
-        values (#{id}, #{img}, #{author}, #{view}, #{title}, #{excerpt}, #{content},  #{tags}, #{status}, #{createTime})
+        insert into blog(id, img, author, view, title, excerpt, content, tags, status, img_list, video_list, classify_id, create_time)
+        values (#{id}, #{img}, #{author}, #{view}, #{title}, #{excerpt}, #{content},  #{tags}, #{status}, #{imgList}, #{classifyId}, #{videoList}, #{createTime})
     </insert>
 
     <!--通过主键修改数据-->
@@ -73,6 +85,15 @@
             </if>
             <if test="tags != null and tags != ''">
                 excerpt = #{tags},
+            </if>
+            <if test="imgList != null and imgList != ''">
+                img_list = #{imgList},
+            </if>
+            <if test="videoList != null and videoList != ''">
+                video_list = #{videoList},
+            </if>
+            <if test="classifyId != null">
+                classify_id = #{classifyId},
             </if>
         </set>
         where id = #{id}

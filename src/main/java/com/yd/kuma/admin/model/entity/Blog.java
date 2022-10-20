@@ -54,6 +54,18 @@ public class Blog implements Serializable {
      * 创建时间
      */
     private String createTime;
+    /**
+     * 素材和视频数组，用“，”分隔
+     */
+    private String imgList;
+    /**
+     * ytb视频数组，用“，”分隔
+     */
+    private String videoList;
+    /**
+     * 分类id
+     */
+    private Integer classifyId;
 
 }
 

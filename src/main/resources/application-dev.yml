@@ -29,14 +29,14 @@ server:
 #oss配置
 oss:
   bucket:
-    name: ry-test-01
+    name: kumadoggy
   key:
-    id: YcOuEvnnVonyopxI02f2DBah2SATfYYynzntBTmH
-    secret: KZjFeHg9hsVnFD4GFNnsNUqlGraYnU39TQPoa9hC
+    id: FY4ZgRBpnSxdChh9u8soGGNIFhxbPjUz2BxZTpUY
+    secret: TqFaMhzCV_MBbhUAyaCDIXaRtUdfehRkefIsZ86K
 
 #素材访问地址
 img:
-  url: 'http://rhaxmiodp.hb-bkt.clouddn.com/'
+  url: 'http://cdn.gewudi.com/'
 
 #ftp配置
 ftp:
