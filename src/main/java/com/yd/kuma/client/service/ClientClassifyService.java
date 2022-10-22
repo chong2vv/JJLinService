@@ -16,4 +16,12 @@ public interface ClientClassifyService {
      * @return 分类列表
      */
     List<Classify> getClassifyList(ClassifyPagerRequestVO classifyPagerRequestVO);
+
+    /**
+     * 根据id获取分类信息
+     *
+     * @param id 主键id
+     * @return 分类信息
+     */
+    Classify queryByClassifyId(Integer id);
 }

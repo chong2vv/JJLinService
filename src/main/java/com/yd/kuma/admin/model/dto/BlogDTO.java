@@ -82,8 +82,14 @@ public class BlogDTO {
      */
     private Long timestamp;
 
+    /**
+     * blog id string
+     */
+    @JsonProperty("id_string")
+    private String  idString;
+
     public Long getTimestamp() {
-        long time = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse(createTime, new ParsePosition(0)).getTime();
+        long time = (new SimpleDateFormat("yyyy-MM-dd")).parse(createTime, new ParsePosition(0)).getTime();
         return time;
     }
 

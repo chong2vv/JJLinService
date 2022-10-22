@@ -23,4 +23,11 @@ public class ClientClassifyServiceImpl implements ClientClassifyService {
         classifyPagerRequestVO.initPager();
         return classifyDao.queryPager(classifyPagerRequestVO);
     }
+
+    @Override
+    public Classify queryByClassifyId(Integer id) {
+        return classifyDao.queryById(id);
+    }
+
+
 }
