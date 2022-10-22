@@ -65,9 +65,7 @@
     <update id="update">
         update blog
         <set>
-            <if test="img != null and img != ''">
-                img = #{img},
-            </if>
+            img = #{img},
             <if test="author != null and author != ''">
                 author = #{author},
             </if>
@@ -77,21 +75,15 @@
             <if test="title != null and title != ''">
                 title = #{title},
             </if>
-            <if test="content != null and content != ''">
-                content = #{content},
-            </if>
+            content = #{content},
             <if test="status != null and status != ''">
                 status = #{status},
             </if>
             <if test="tags != null and tags != ''">
                 excerpt = #{tags},
             </if>
-            <if test="imgList != null and imgList != ''">
-                img_list = #{imgList},
-            </if>
-            <if test="videoList != null and videoList != ''">
-                video_list = #{videoList},
-            </if>
+            img_list = #{imgList},
+            video_list = #{videoList},
             <if test="classifyId != null">
                 classify_id = #{classifyId},
             </if>

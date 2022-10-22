@@ -24,6 +24,8 @@ spring:
       connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
 
 server:
+  tomcat:
+    max-http-form-post-size: 10MB
   port: 8090
 
 #oss配置
