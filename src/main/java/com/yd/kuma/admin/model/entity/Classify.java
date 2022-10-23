@@ -43,5 +43,10 @@ public class Classify implements Serializable {
     @JsonIgnore
     private String createTime;
 
+    /**
+     * 跳转类型
+     */
+    private Integer type;
+
 }
 

@@ -9,12 +9,13 @@
         <result property="status" column="status" jdbcType="INTEGER"/>
         <result property="imageUrl" column="image_url" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="ClassifyMap">
         select
-          id, title, remark, status, image_url, create_time
+          id, title, remark, status, image_url, create_time, type
         from classify
         where id = #{id}
     </select>
@@ -22,7 +23,7 @@
     <!--查询指定行数据-->
     <select id="queryPager" parameterType="com.yd.kuma.admin.model.vo.ClassifyPagerRequestVO" resultMap="ClassifyMap">
         select
-          id, title, remark, status, image_url, create_time
+          id, title, remark, status, image_url, create_time, type
         from classify
         <where>
             <if test="status != null">
@@ -48,8 +49,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into classify(title, remark, status, image_url, create_time)
-        values (#{title}, #{remark}, #{status}, #{imageUrl}, #{createTime})
+        insert into classify(title, remark, status, image_url, create_time, type)
+        values (#{title}, #{remark}, #{status}, #{imageUrl}, #{createTime}, #{type})
     </insert>
 
     <!--通过主键修改数据-->
@@ -66,7 +67,10 @@
                 image_url = #{imageUrl},
             </if>
             <if test="status != null">
-                status = #{status}
+                status = #{status},
+            </if>
+            <if test="type != null">
+                type = #{type},
             </if>
         </set>
         where id = #{id}
