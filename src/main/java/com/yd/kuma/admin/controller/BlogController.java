@@ -5,11 +5,13 @@ import com.yd.kuma.admin.model.vo.BlogPagerRequestVO;
 import com.yd.kuma.admin.service.BlogService;
 import com.yd.kuma.common.constant.enums.ResultErrorEnum;
 import com.yd.kuma.common.model.ResultGenerator;
+import com.yd.kuma.common.util.JsonUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * blog
@@ -25,7 +27,9 @@ public class BlogController {
     private final BlogService blogService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getClassifyList(BlogPagerRequestVO blogPagerRequestVO) {
+    public String getClassifyList(@RequestParam Map<String, Object> map) {
+        BlogPagerRequestVO blogPagerRequestVO = JsonUtil.mapToObj(map, BlogPagerRequestVO.class);
+        blogPagerRequestVO.initPager();
         List<BlogDTO> blogList = blogService.getBlogList(blogPagerRequestVO);
         int count = blogService.count();
         if (blogList.isEmpty()) {

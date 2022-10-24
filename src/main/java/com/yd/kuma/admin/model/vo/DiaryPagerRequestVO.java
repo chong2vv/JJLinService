@@ -7,16 +7,13 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * blog请求信息
- *
- * @author gongjiguang
- * @date 2022/9/2
+ * @Author: wangyuandong
+ * @Date: 2022/10/24 11:56
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BlogPagerRequestVO extends PagerRequestVO {
-
+public class DiaryPagerRequestVO extends PagerRequestVO {
     private String search_str;
     /**
      * 状态
@@ -27,6 +24,4 @@ public class BlogPagerRequestVO extends PagerRequestVO {
      */
     @JsonProperty("classify_id")
     private Integer classifyId;
-
-
 }

@@ -73,6 +73,11 @@ public enum ResultErrorEnum {
      * 该blog不存在
      */
     BLOG_EXISTS_ERROR(40001, "该blog不存在"),
+
+    /**
+     * 该日记不存在
+     */
+    DIARY_EXISTS_ERROR(40001, "该日记不存在"),
     ;
 
     private final int code;

@@ -27,7 +27,7 @@ public class GoodsController {
     private final GoodsService goodsService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getClassifyList(@RequestParam Map<String, Object> map) {
+    public String getGoodsList(@RequestParam Map<String, Object> map) {
         GoodsPagerRequestVO goodsPagerRequestVO = JsonUtil.mapToObj(map, GoodsPagerRequestVO.class);
         List<GoodsDTO> classifyList = goodsService.getGoodsList(goodsPagerRequestVO);
         int count = goodsService.count(goodsPagerRequestVO.getStatus());

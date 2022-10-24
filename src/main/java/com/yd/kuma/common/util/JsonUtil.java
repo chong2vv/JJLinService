@@ -1,5 +1,6 @@
 package com.yd.kuma.common.util;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
@@ -15,7 +16,6 @@ import java.util.Map;
 public class JsonUtil {
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-
     /**
      * json转换成对象
      *
