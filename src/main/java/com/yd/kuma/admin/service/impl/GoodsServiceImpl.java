@@ -1,6 +1,5 @@
 package com.yd.kuma.admin.service.impl;
 
-import com.yd.kuma.admin.config.MultipartConfig;
 import com.yd.kuma.admin.dao.GoodsDao;
 import com.yd.kuma.admin.model.dto.GoodsDTO;
 import com.yd.kuma.admin.model.dto.GoodsExcelDTO;
@@ -35,8 +34,6 @@ public class GoodsServiceImpl implements GoodsService {
     private final GoodsDao goodsDao;
 
     private final ClassifyService classifyService;
-
-    private final MultipartConfig multipartConfig;
 
     @Override
     public List<GoodsDTO> getGoodsList(GoodsPagerRequestVO goodsPagerRequestVO) {
@@ -107,64 +104,13 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public XSSFWorkbook getGoodsExcel(String name) {
-        File file = new File(multipartConfig.getTempUpload() + name);
-        if (!file.exists()) {
-            return null;
-        }
-        try {
-            FileInputStream excelFile = new FileInputStream(file);
-            return new XSSFWorkbook(excelFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
         return null;
     }
 
     @Override
     public String getGoodsExportExcel(List<GoodsDTO> list) {
-        try {
-            Resource resource = new DefaultResourceLoader().getResource("classpath:static/Over_the_bath_cloth_rack_quotation.xlsx");
-            XSSFWorkbook xssfWorkbook = new XSSFWorkbook(resource.getInputStream());
-            XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
-            int iRow = 4;
-            XSSFRow row;
-            XSSFCell cell;
-            for (GoodsDTO goods : list) {
-                row = sheet.createRow(iRow);
-                cell = row.createCell(0);
-                cell.setCellValue(goods.getTitle());
-                cell.setCellType(CellType.STRING);
 
-                cell = row.createCell(2);
-                cell.setCellValue(goods.getContent());
-                cell.setCellType(CellType.STRING);
-                cell = row.createCell(3);
-                cell.setCellValue(goods.getSize());
-                cell.setCellType(CellType.STRING);
-                cell = row.createCell(4);
-                cell.setCellValue(goods.getMaterial());
-                cell.setCellType(CellType.STRING);
-                cell = row.createCell(5);
-                cell.setCellValue(goods.getPack());
-                cell.setCellType(CellType.STRING);
-                cell = row.createCell(7);
-                cell.setCellValue(goods.getQty());
-                cell.setCellType(CellType.STRING);
-                iRow++;
-            }
-            String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-            String fileName = uuid + ".xlsx";
-            File excelFile = new File(multipartConfig.getTempUpload() + fileName);
-            if (excelFile.createNewFile()){
-                OutputStream outputStream = Files.newOutputStream(excelFile.toPath());
-                xssfWorkbook.write(outputStream);
-                outputStream.flush();
-                outputStream.close();
-                return fileName;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         return null;
     }
 

@@ -3,7 +3,7 @@ package com.yd.kuma.admin.service.impl;
 import com.yd.kuma.admin.dao.UserDao;
 import com.yd.kuma.admin.model.dto.UserDTO;
 import com.yd.kuma.admin.model.entity.UserInfo;
-import com.yd.kuma.admin.service.UploadService;
+import com.yd.kuma.admin.service.UploadToOssService;
 import com.yd.kuma.admin.service.UserService;
 import com.yd.kuma.common.model.PagerRequestVO;
 import com.yd.kuma.common.util.CommonUtil;
@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
 
-    private final UploadService uploadService;
+    private final UploadToOssService uploadService;
 
     @Override
     public List<UserDTO> getUserList(PagerRequestVO pagerRequestVO) {
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
             userInfo.setRole(role);
         }
         if (StringUtils.isBlank(userInfo.getAvatar())){
-            userInfo.setAvatar(uploadService.getImgDomain() + "/default_avatar.png");
+            userInfo.setAvatar("http://cdn.gewudi.com/kuma/%E5%A4%B4%E5%83%8F%20%E5%A5%B3%E5%AD%A9.png");
         }
         if (userInfo.getStatus() == null){
             userInfo.setStatus(1);

@@ -1,6 +1,5 @@
 package com.yd.kuma.admin.controller;
 
-import com.yd.kuma.admin.service.UploadService;
 import com.yd.kuma.admin.service.UploadToOssService;
 import com.yd.kuma.common.constant.enums.ResultErrorEnum;
 import com.yd.kuma.common.model.ResultGenerator;

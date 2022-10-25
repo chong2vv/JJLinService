@@ -40,17 +40,6 @@ oss:
 img:
   url: 'http://cdn.gewudi.com/'
 
-#ftp配置
-ftp:
-  host: 8.142.125.160
-  port: 21
-  username: admftp
-  password: 12ab!@
-  image:
-    directory: /data/ftp/img/
-  img:
-    domain: http://8.142.125.160/img/
-
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.ry.time.admin.model.entity
