@@ -48,14 +48,6 @@ public class ClientDiaryController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public String createDiary(@RequestBody DiaryDTO diaryDTO) {
-        if (diaryDTO == null) {
-            return ResultGenerator.genErrorResult(ResultErrorEnum.DIARY_EMPTY_ERROR);
-        }
-
-        if (userService.queryByUserId(Long.valueOf(diaryDTO.getUid())) == null) {
-            return ResultGenerator.genErrorResult(ResultErrorEnum.DIARY_UID_ERROR);
-        }
-
-        return ResultGenerator.genSuccessResult(diaryService.createDiary(diaryDTO, Long.valueOf(diaryDTO.getUid())));
+        return ResultGenerator.genSuccessResult(diaryService.createDiary(diaryDTO));
     }
 }

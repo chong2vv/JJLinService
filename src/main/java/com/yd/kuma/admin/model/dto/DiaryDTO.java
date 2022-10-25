@@ -70,10 +70,6 @@ public class DiaryDTO {
      *  时间戳
      */
     private Long timestamp;
-    /**
-     *  用户uid
-     */
-    private String uid;
 
     /**
      * blog id string

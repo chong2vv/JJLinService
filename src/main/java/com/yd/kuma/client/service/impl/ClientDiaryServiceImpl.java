@@ -25,10 +25,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ClientDiaryServiceImpl implements ClientDiaryService {
     private final DiaryDao diaryDao;
-
     private final ClientClassifyService classifyService;
 
-    private final ClientUserService clientUserService;
 
     @Override
     public List<DiaryDTO> getDiaryList(DiaryPagerRequestVO diaryPagerRequestVO) {
@@ -54,8 +52,8 @@ public class ClientDiaryServiceImpl implements ClientDiaryService {
     }
 
     @Override
-    public DiaryDTO createDiary(DiaryDTO diaryDTO, Long uid) {
-        Diary diary = convertDiaryDtoToDiary(diaryDTO, uid);
+    public DiaryDTO createDiary(DiaryDTO diaryDTO) {
+        Diary diary = convertDiaryDtoToDiary(diaryDTO);
         diaryDao.insert(diary);
         return convertDiaryToDiaryDto(diary);
     }
@@ -68,15 +66,15 @@ public class ClientDiaryServiceImpl implements ClientDiaryService {
         diaryDTO.setClassify(classifyService.queryByClassifyId(diary.getClassifyId()));
         return diaryDTO;
     }
-
-    private Diary convertDiaryDtoToDiary(DiaryDTO diaryDTO, Long uid) {
+    private Diary convertDiaryDtoToDiary(DiaryDTO diaryDTO) {
         Diary diary = CommonUtil.copyVo(diaryDTO, Diary.class);
         diary.setId(NumberUtil.genUid());
         diary.setCreateTime(DateUtil.getCurrentDateTimeStr());
         diary.setImgList(CommonUtil.listToString(diaryDTO.getImgList()));
         diary.setVideoList(CommonUtil.listToString(diaryDTO.getVideoList()));
-        diary.setAuthor(clientUserService.queryByUserId(uid).getNickname());
         diary.setTags(CommonUtil.listToString(diaryDTO.getTags()));
+        diary.setContent("");
+        diary.setStatus(1);
         return diary;
     }
 }
