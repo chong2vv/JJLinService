@@ -31,4 +31,13 @@ public interface ClientDiaryService {
      * @return 实例对象
      */
     DiaryDTO getDiaryDetail(Long id);
+
+    /**
+     * 创建新的diary对象
+     *
+     * @param diaryDTO diary对象
+     * @param uid 用户uid
+     * @return diary对象
+     */
+    DiaryDTO createDiary(DiaryDTO diaryDTO, Long uid);
 }

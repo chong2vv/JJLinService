@@ -33,4 +33,9 @@ public class UserDTO {
      * 用户状态 -1:删除 0:冻结 1:正常
      */
     private Integer status;
+
+    /**
+     * 用户id strubf
+     */
+    private String uid;
 }

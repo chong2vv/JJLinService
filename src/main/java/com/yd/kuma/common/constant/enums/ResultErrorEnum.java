@@ -77,7 +77,17 @@ public enum ResultErrorEnum {
     /**
      * 该日记不存在
      */
-    DIARY_EXISTS_ERROR(40001, "该日记不存在"),
+    DIARY_EXISTS_ERROR(50001, "该日记不存在"),
+
+    /**
+     * 该日记不能为空
+     */
+    DIARY_EMPTY_ERROR(50002, "该日记不能为空"),
+
+    /**
+     * 该日记用户不能为空
+     */
+    DIARY_UID_ERROR(50003, "用户不能为空"),
     ;
 
     private final int code;

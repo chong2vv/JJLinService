@@ -6,15 +6,13 @@ import com.yd.kuma.admin.model.vo.BlogPagerRequestVO;
 import com.yd.kuma.admin.model.vo.DiaryPagerRequestVO;
 import com.yd.kuma.client.service.ClientBlogService;
 import com.yd.kuma.client.service.ClientDiaryService;
+import com.yd.kuma.client.service.ClientUserService;
 import com.yd.kuma.common.constant.enums.ResultErrorEnum;
 import com.yd.kuma.common.model.ResultGenerator;
 import com.yd.kuma.common.util.JsonUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -28,6 +26,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ClientDiaryController {
     private final ClientDiaryService diaryService;
+    private final ClientUserService userService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public String getDiaryList(@RequestParam Map<String, Object> map) {
@@ -45,5 +44,18 @@ public class ClientDiaryController {
             return ResultGenerator.genErrorResult(ResultErrorEnum.DIARY_EXISTS_ERROR);
         }
         return ResultGenerator.genSuccessResult(diaryDTO);
+    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String createDiary(@RequestBody DiaryDTO diaryDTO) {
+        if (diaryDTO == null) {
+            return ResultGenerator.genErrorResult(ResultErrorEnum.DIARY_EMPTY_ERROR);
+        }
+
+        if (userService.queryByUserId(Long.valueOf(diaryDTO.getUid())) == null) {
+            return ResultGenerator.genErrorResult(ResultErrorEnum.DIARY_UID_ERROR);
+        }
+
+        return ResultGenerator.genSuccessResult(diaryService.createDiary(diaryDTO, Long.valueOf(diaryDTO.getUid())));
     }
 }

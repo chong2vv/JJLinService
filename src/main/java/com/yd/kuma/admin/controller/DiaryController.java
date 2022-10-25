@@ -40,7 +40,7 @@ public class DiaryController  {
     }
 
     @RequestMapping(value = "/detail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getBlogDetail(@RequestParam Long id) {
+    public String getDiaryDetail(@RequestParam Long id) {
         DiaryDTO diaryDTO = diaryService.getDiaryDetail(id);
         if (diaryDTO == null) {
             return ResultGenerator.genErrorResult(ResultErrorEnum.DIARY_EXISTS_ERROR);
@@ -50,7 +50,7 @@ public class DiaryController  {
 
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String createBlog(@RequestBody DiaryDTO diaryDTO) {
+    public String createDiary(@RequestBody DiaryDTO diaryDTO) {
         return ResultGenerator.genSuccessResult(diaryService.createDiary(diaryDTO));
     }
 

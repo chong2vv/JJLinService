@@ -48,7 +48,7 @@ public interface UserService {
     UserDTO queryByUserName(String username, String password);
 
     /**
-     * 通过手机号查询单条数据
+     * 通过id查询单条数据
      *
      * @param id 用户uid
      * @return 实例对象

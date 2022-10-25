@@ -5,8 +5,12 @@ import com.yd.kuma.admin.model.dto.DiaryDTO;
 import com.yd.kuma.admin.model.entity.Diary;
 import com.yd.kuma.admin.model.vo.DiaryPagerRequestVO;
 import com.yd.kuma.admin.service.ClassifyService;
+import com.yd.kuma.client.service.ClientClassifyService;
 import com.yd.kuma.client.service.ClientDiaryService;
+import com.yd.kuma.client.service.ClientUserService;
 import com.yd.kuma.common.util.CommonUtil;
+import com.yd.kuma.common.util.DateUtil;
+import com.yd.kuma.common.util.NumberUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +26,9 @@ import java.util.stream.Collectors;
 public class ClientDiaryServiceImpl implements ClientDiaryService {
     private final DiaryDao diaryDao;
 
-    private final ClassifyService classifyService;
+    private final ClientClassifyService classifyService;
+
+    private final ClientUserService clientUserService;
 
     @Override
     public List<DiaryDTO> getDiaryList(DiaryPagerRequestVO diaryPagerRequestVO) {
@@ -47,6 +53,13 @@ public class ClientDiaryServiceImpl implements ClientDiaryService {
         return convertDiaryToDiaryDto(diary);
     }
 
+    @Override
+    public DiaryDTO createDiary(DiaryDTO diaryDTO, Long uid) {
+        Diary diary = convertDiaryDtoToDiary(diaryDTO, uid);
+        diaryDao.insert(diary);
+        return convertDiaryToDiaryDto(diary);
+    }
+
     private DiaryDTO convertDiaryToDiaryDto(Diary diary) {
         DiaryDTO diaryDTO = CommonUtil.copyVo(diary, DiaryDTO.class);
         diaryDTO.setTags(CommonUtil.stringsToList(diary.getTags()));
@@ -54,5 +67,16 @@ public class ClientDiaryServiceImpl implements ClientDiaryService {
         diaryDTO.setVideoList(CommonUtil.stringsToList(diary.getVideoList()));
         diaryDTO.setClassify(classifyService.queryByClassifyId(diary.getClassifyId()));
         return diaryDTO;
+    }
+
+    private Diary convertDiaryDtoToDiary(DiaryDTO diaryDTO, Long uid) {
+        Diary diary = CommonUtil.copyVo(diaryDTO, Diary.class);
+        diary.setId(NumberUtil.genUid());
+        diary.setCreateTime(DateUtil.getCurrentDateTimeStr());
+        diary.setImgList(CommonUtil.listToString(diaryDTO.getImgList()));
+        diary.setVideoList(CommonUtil.listToString(diaryDTO.getVideoList()));
+        diary.setAuthor(clientUserService.queryByUserId(uid).getNickname());
+        diary.setTags(CommonUtil.listToString(diaryDTO.getTags()));
+        return diary;
     }
 }
