@@ -3,7 +3,6 @@ package com.yd.kuma.admin.service.impl;
 import com.yd.kuma.admin.dao.UserDao;
 import com.yd.kuma.admin.model.dto.UserDTO;
 import com.yd.kuma.admin.model.entity.UserInfo;
-import com.yd.kuma.admin.service.UploadToOssService;
 import com.yd.kuma.admin.service.UserService;
 import com.yd.kuma.common.model.PagerRequestVO;
 import com.yd.kuma.common.util.CommonUtil;
@@ -26,8 +25,6 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
-
-    private final UploadToOssService uploadService;
 
     @Override
     public List<UserDTO> getUserList(PagerRequestVO pagerRequestVO) {
