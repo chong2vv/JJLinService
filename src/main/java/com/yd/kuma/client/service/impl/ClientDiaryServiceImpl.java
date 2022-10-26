@@ -64,6 +64,7 @@ public class ClientDiaryServiceImpl implements ClientDiaryService {
         diaryDTO.setImgList(CommonUtil.stringsToList(diary.getImgList()));
         diaryDTO.setVideoList(CommonUtil.stringsToList(diary.getVideoList()));
         diaryDTO.setClassify(classifyService.queryByClassifyId(diary.getClassifyId()));
+        diaryDTO.setIdString(Long.toString(diary.getId()));
         return diaryDTO;
     }
     private Diary convertDiaryDtoToDiary(DiaryDTO diaryDTO) {
