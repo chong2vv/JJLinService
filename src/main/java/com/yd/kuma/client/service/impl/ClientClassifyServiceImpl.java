@@ -21,6 +21,7 @@ public class ClientClassifyServiceImpl implements ClientClassifyService {
     @Override
     public List<Classify> getClassifyList(ClassifyPagerRequestVO classifyPagerRequestVO) {
         classifyPagerRequestVO.initPager();
+        classifyPagerRequestVO.setStatus(1);
         return classifyDao.queryPager(classifyPagerRequestVO);
     }
 
