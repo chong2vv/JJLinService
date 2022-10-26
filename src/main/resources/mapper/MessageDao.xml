@@ -29,7 +29,7 @@
                 and status >= 0
             </if>
             <if test="uid != null and uid != ''">
-                uid != #{ uid }
+                and uid != #{ uid }
             </if>
         </where>
         order by create_time desc
