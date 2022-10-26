@@ -46,5 +46,6 @@ public interface MessageDao {
      * @return 消息总数
      */
     int count();
+
 }
 
