@@ -51,5 +51,15 @@ public class ClientDiaryController {
         return ResultGenerator.genSuccessResult(diaryService.createDiary(diaryDTO));
     }
 
+    @RequestMapping(value = "/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String updateDiary(@RequestBody DiaryDTO diaryDTO) {
+        boolean isDiary = diaryService.existByDiaryId(diaryDTO.getId());
+        if (!isDiary) {
+            return ResultGenerator.genErrorResult(ResultErrorEnum.DIARY_EXISTS_ERROR);
+        }
+        diaryService.update(diaryDTO);
+        return ResultGenerator.genSuccessResult();
+    }
+
 
 }

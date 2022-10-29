@@ -58,6 +58,26 @@ public class ClientDiaryServiceImpl implements ClientDiaryService {
         return convertDiaryToDiaryDto(diary);
     }
 
+    @Override
+    public boolean existByDiaryId(Long id) {
+        Diary diary = diaryDao.queryById(id);
+        return diary != null;
+    }
+
+    @Override
+    public void update(DiaryDTO diaryDTO) {
+        Diary diary = converUpdateDiaryDtoToDiary(diaryDTO);
+        diaryDao.update(diary);
+    }
+
+    private Diary converUpdateDiaryDtoToDiary(DiaryDTO diaryDTO) {
+        Diary diary = CommonUtil.copyVo(diaryDTO, Diary.class);
+        diary.setTags(CommonUtil.listToString(diaryDTO.getTags()));
+        diary.setImgList(CommonUtil.listToString(diaryDTO.getImgList()));
+        diary.setVideoList(CommonUtil.listToString(diaryDTO.getVideoList()));
+        return diary;
+    }
+
     private DiaryDTO convertDiaryToDiaryDto(Diary diary) {
         DiaryDTO diaryDTO = CommonUtil.copyVo(diary, DiaryDTO.class);
         diaryDTO.setTags(CommonUtil.stringsToList(diary.getTags()));

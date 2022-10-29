@@ -39,4 +39,19 @@ public interface ClientDiaryService {
      * @return diary对象
      */
     DiaryDTO createDiary(DiaryDTO diaryDTO);
+
+    /**
+     * 根据id判断文章是否存在
+     *
+     * @param id 主键id
+     * @return true 存在 false 不存在
+     */
+    boolean existByDiaryId(Long id);
+
+    /**
+     * 修改分类
+     *
+     * @param diaryDTO 文章信息
+     */
+    void update(DiaryDTO diaryDTO);
 }
