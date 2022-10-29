@@ -53,5 +53,13 @@ public interface DiaryDao {
      * @return 影响行数
      */
     int update(Diary diary);
+
+    /**
+     * 更新数据状态
+     *
+     * @param diary 实例对象
+     * @return 影响行数
+     */
+    int updateStatus(Diary diary);
 }
 

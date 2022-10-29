@@ -50,4 +50,6 @@ public class ClientDiaryController {
     public String createDiary(@RequestBody DiaryDTO diaryDTO) {
         return ResultGenerator.genSuccessResult(diaryService.createDiary(diaryDTO));
     }
+
+
 }

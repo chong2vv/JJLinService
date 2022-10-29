@@ -72,6 +72,12 @@ public class BlogServiceImpl implements BlogService {
         blogDao.update(blog);
     }
 
+    @Override
+    public void updateStatus(BlogDTO blogDTO) {
+        Blog blog = converUpdateBlogDtoToBlog(blogDTO);
+        blogDao.updateStatus(blog);
+    }
+
     private BlogDTO convertBlogToBlogDto(Blog blog) {
         BlogDTO blogDto = CommonUtil.copyVo(blog, BlogDTO.class);
         blogDto.setTags(CommonUtil.stringsToList(blog.getTags()));

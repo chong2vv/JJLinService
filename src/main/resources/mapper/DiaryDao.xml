@@ -88,5 +88,13 @@
         where id = #{id}
     </update>
 
+    <update id="updateStatus" parameterType="com.yd.kuma.admin.model.entity.Diary">
+        update diary
+        <set>
+            status = #{status},
+        </set>
+        where id = #{id}
+    </update>
+
 </mapper>
 

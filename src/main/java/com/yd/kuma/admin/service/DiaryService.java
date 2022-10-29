@@ -59,5 +59,11 @@ public interface DiaryService {
      * @return 1 成功
      */
     void update(DiaryDTO diaryDTO);
+
+    /**
+     * 更新状态
+     * @param diaryDTO
+     */
+    void updateStatus(DiaryDTO diaryDTO);
 }
 

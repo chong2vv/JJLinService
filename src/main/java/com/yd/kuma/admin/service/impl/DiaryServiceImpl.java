@@ -71,6 +71,12 @@ public class DiaryServiceImpl implements DiaryService {
         diaryDao.update(diary);
     }
 
+    @Override
+    public void updateStatus(DiaryDTO diaryDTO) {
+        Diary diary = converUpdateDiaryDtoToDiary(diaryDTO);
+        diaryDao.updateStatus(diary);
+    }
+
     private DiaryDTO convertDiaryToDiaryDto(Diary diary) {
         DiaryDTO diaryDTO = CommonUtil.copyVo(diary, DiaryDTO.class);
         diaryDTO.setTags(CommonUtil.stringsToList(diary.getTags()));

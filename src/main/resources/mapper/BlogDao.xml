@@ -91,5 +91,13 @@
         where id = #{id}
     </update>
 
+    <update id="updateStatus" parameterType="com.yd.kuma.admin.model.entity.Blog">
+        update blog
+        <set>
+            status = #{status},
+        </set>
+        where id = #{id}
+    </update>
+
 </mapper>
 

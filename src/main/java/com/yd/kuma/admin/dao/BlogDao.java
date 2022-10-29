@@ -53,5 +53,13 @@ public interface BlogDao {
      * @return 影响行数
      */
     int update(Blog blog);
+
+    /**
+     * 更新数据
+     *
+     * @param blog 实例对象
+     * @return 影响行数
+     */
+    int updateStatus(Blog blog);
 }
 
