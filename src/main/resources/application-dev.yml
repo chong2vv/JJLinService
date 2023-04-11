@@ -1,9 +1,9 @@
 spring:
   #数据库配置
   datasource:
-    url: jdbc:mysql://182.92.154.139:3306/YDKuma?characterEncoding=utf-8&serverTimezone=UTC
-    username: test
-    password: 123456
+    url: jdbc:mysql://8.142.125.160:3306/YDKuma?characterEncoding=utf-8&serverTimezone=UTC
+    username: root
+    password: xinke308!
     driver-class-name: com.mysql.cj.jdbc.Driver
     #数据库连接池配置
     type: com.alibaba.druid.pool.DruidDataSource

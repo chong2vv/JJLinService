@@ -51,6 +51,8 @@ public class UserController {
         if (user.getStatus() != 1) {
             return ResultGenerator.genErrorResult(ResultErrorEnum.STATUS_ERROR);
         }
+
+//        user.setUid(user.getId().toString());
         return ResultGenerator.genSuccessResult(user);
     }
 

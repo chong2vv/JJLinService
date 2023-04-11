@@ -97,6 +97,7 @@ public class UserServiceImpl implements UserService {
     private UserDTO convertUserInfoToUserDTO(UserInfo userInfo) {
         UserDTO userDTO = CommonUtil.copyVo(userInfo, UserDTO.class);
         userDTO.setRoles(CommonUtil.stringsToList(userInfo.getRole()));
+        userDTO.setUid(userDTO.getId().toString());
         return userDTO;
     }
 
