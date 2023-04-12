@@ -55,7 +55,7 @@ public class BlogController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public String updateBlog(@RequestBody BlogDTO blog) {
-        Boolean isBlog = blogService.existByBlogId(blog.getId());
+        boolean isBlog = blogService.existByBlogId(blog.getId());
         if (!isBlog) {
             return ResultGenerator.genErrorResult(ResultErrorEnum.BLOG_EXISTS_ERROR);
         }

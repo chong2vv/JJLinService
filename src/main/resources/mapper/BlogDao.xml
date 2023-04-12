@@ -80,7 +80,7 @@
                 status = #{status},
             </if>
             <if test="tags != null and tags != ''">
-                excerpt = #{tags},
+                tags = #{tags},
             </if>
             img_list = #{imgList},
             video_list = #{videoList},
