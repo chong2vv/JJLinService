@@ -36,10 +36,10 @@ public class ClientUserController {
     @RequestMapping(value = "/info", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public String info(@RequestParam Long id) {
         UserDTO user =  clientUserService.queryByUserId(id);
-        user.setUid(user.getId().toString());
         if (user == null) {
             return ResultGenerator.genErrorResult(ResultErrorEnum.USER_ERROR);
         }
+        user.setUid(user.getId().toString());
         return ResultGenerator.genSuccessResult(user);
     }
 }
