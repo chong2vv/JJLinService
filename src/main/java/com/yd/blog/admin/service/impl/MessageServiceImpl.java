@@ -1,0 +1,48 @@
+package com.yd.blog.admin.service.impl;
+
+import com.yd.blog.admin.dao.MessageDao;
+import com.yd.blog.admin.model.entity.Message;
+import com.yd.blog.admin.model.vo.MessagePagerRequestVO;
+import com.yd.blog.admin.service.MessageService;
+import com.yd.blog.common.util.DateUtil;
+import com.yd.blog.common.util.NumberUtil;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/**
+ * MessageService实现
+ *
+ * @author wangyuandong
+ * @date 2022/9/7
+ */
+@Service
+@RequiredArgsConstructor
+public class MessageServiceImpl implements MessageService {
+
+    private final MessageDao messageDao;
+
+    @Override
+    public List<Message> getMessageList(MessagePagerRequestVO messagePagerRequestVO) {
+        messagePagerRequestVO.initPager();
+        return messageDao.queryAllByLimit(messagePagerRequestVO);
+    }
+
+    @Override
+    public void createMessage(Message message) {
+        message.setId(NumberUtil.genUid());
+        message.setCreateTime(DateUtil.getCurrentDateTimeStr());
+        messageDao.insert(message);
+    }
+
+    @Override
+    public void updateMessage(Message message) {
+        messageDao.update(message);
+    }
+
+    @Override
+    public int getMessageCount() {
+        return messageDao.count();
+    }
+}

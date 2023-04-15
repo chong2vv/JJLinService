@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yd.kuma.admin.dao.GoodsDao">
+<mapper namespace="com.yd.blog.admin.dao.ProjectDao">
 
-    <resultMap type="com.yd.kuma.admin.model.entity.Goods" id="GoodsMap">
+    <resultMap type="com.yd.blog.admin.model.entity.Project" id="ProjectMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>
         <result property="content" column="content" jdbcType="VARCHAR"/>
         <result property="excerpt" column="excerpt" jdbcType="VARCHAR"/>
-        <result property="size" column="size" jdbcType="VARCHAR"/>
-        <result property="material" column="material" jdbcType="VARCHAR"/>
-        <result property="pack" column="pack" jdbcType="VARCHAR"/>
-        <result property="qty" column="qty" jdbcType="VARCHAR"/>
-        <result property="timer" column="timer" jdbcType="VARCHAR"/>
         <result property="coverImg" column="cover_img" jdbcType="VARCHAR"/>
         <result property="imgList" column="img_list" jdbcType="VARCHAR"/>
         <result property="videoList" column="video_list" jdbcType="VARCHAR"/>
-        <result property="goodsBody" column="goods_body" jdbcType="VARCHAR"/>
+        <result property="projectBody" column="project_body" jdbcType="VARCHAR"/>
         <result property="tags" column="tags" jdbcType="VARCHAR"/>
         <result property="classifyId" column="classify_id" jdbcType="INTEGER"/>
         <result property="isHomeList" column="is_home_list" jdbcType="INTEGER"/>
@@ -26,20 +21,15 @@
     </resultMap>
 
     <!--查询单个-->
-    <select id="queryById" resultMap="GoodsMap">
+    <select id="queryById" resultMap="ProjectMap">
         select id,
                title,
                content,
                excerpt,
-               size,
-               material,
-               pack,
-               qty,
-               timer,
                cover_img,
                img_list,
                video_list,
-               goods_body,
+               project_body,
                tags,
                classify_id,
                is_home_list,
@@ -47,16 +37,16 @@
                create_time,
                video_url,
                video_img
-        from goods
+        from project
         where id = #{id}
     </select>
 
     <!--查询指定行数据-->
-    <select id="queryPager" parameterType="com.yd.kuma.admin.model.vo.GoodsPagerRequestVO" resultMap="GoodsMap">
+    <select id="queryPager" parameterType="com.yd.blog.admin.model.vo.ProjectPagerRequestVO" resultMap="ProjectMap">
         select
-        id, title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, video_list, goods_body, tags, classify_id,
+        id, title, content, excerpt, cover_img, img_list, video_list, project_body, tags, classify_id,
         is_home_list, status, create_time, video_url, video_img
-        from goods
+        from project
         <where>
             <if test="searchString != null and searchString != ''">
                 and (title like #{keyword} or content like #{keyword})
@@ -81,7 +71,7 @@
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Integer">
         select count(1)
-        from goods
+        from project
         <where>
             <if test="status != null">
                 and status = #{status}
@@ -91,27 +81,26 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into goods(id, title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, video_list, goods_body, tags,
+        insert into project(id, title, content, excerpt, cover_img, img_list, video_list, project_body, tags,
                           classify_id, is_home_list, status, create_time, video_url, video_img)
-        values (#{id}, #{title}, #{content}, #{excerpt}, #{size}, #{material}, #{pack}, #{qty}, #{timer}, #{coverImg},
-                #{imgList}, #{videoList}, #{goodsBody}, #{tags}, #{classifyId}, #{isHomeList}, #{status}, #{createTime}, #{videoUrl},  #{videoImg})
+        values (#{id}, #{title}, #{content}, #{excerpt}, #{coverImg},
+                #{imgList}, #{videoList}, #{projectBody}, #{tags}, #{classifyId}, #{isHomeList}, #{status}, #{createTime}, #{videoUrl},  #{videoImg})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into goods(id, title, content, excerpt, size, material, pack, qty, timer, cover_img, img_list, video_list, goods_body,tags,
+        insert into project(id, title, content, excerpt, cover_img, img_list, video_list, project_body,tags,
         classify_id, is_home_list, status, create_time, video_url, video_img)
         values
-        <foreach collection="goodsList" item="goods" separator=",">
-            (#{goods.id},#{goods.title}, #{goods.content}, #{goods.excerpt}, #{goods.size}, #{goods.material},
-            #{goods.pack}, #{goods.qty}, #{goods.timer}, #{goods.coverImg}, #{goods.imgList}, #{goods.videoList}, #{goods.goodsBody},
-            #{goods.tags},
-            #{goods.classifyId}, #{goods.isHomeList}, #{goods.status}, #{goods.createTime}), #{goods.videoUrl}), #{goods.videoImg})
+        <foreach collection="projectList" item="project" separator=",">
+            (#{project.id},#{project.title}, #{project.content}, #{project.excerpt}, #{project.coverImg}, #{project.imgList}, #{project.videoList}, #{project.projectBody},
+            #{project.tags},
+            #{project.classifyId}, #{project.isHomeList}, #{project.status}, #{project.createTime}), #{project.videoUrl}), #{project.videoImg})
         </foreach>
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update goods
+        update project
         <set>
             <if test="title != null and title != ''">
                 title = #{title},
@@ -122,21 +111,6 @@
             <if test="excerpt != null and excerpt != ''">
                 excerpt = #{excerpt},
             </if>
-            <if test="size != null and size != ''">
-                size = #{size},
-            </if>
-            <if test="material != null and material != ''">
-                material = #{material},
-            </if>
-            <if test="pack != null and pack != ''">
-                pack = #{pack},
-            </if>
-            <if test="qty != null and qty != ''">
-                qty = #{qty},
-            </if>
-            <if test="timer != null and timer != ''">
-                timer = #{timer},
-            </if>
             <if test="coverImg != null and coverImg != ''">
                 cover_img = #{coverImg},
             </if>
@@ -146,8 +120,8 @@
             <if test="videoList != null and videoList != ''">
                 video_list = #{videoList},
             </if>
-            <if test="goodsBody != null and goodsBody != ''">
-                goods_body = #{goodsBody},
+            <if test="projectBody != null and projectBody != ''">
+                project_body = #{projectBody},
             </if>
             <if test="tags != null and tags != ''">
                 tags = #{tags},
@@ -169,7 +143,7 @@
     </update>
 
     <update id="updateStatus">
-        update goods
+        update project
         <set>
             <if test="status != null">
                 status = #{status}

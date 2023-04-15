@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yd.kuma.admin.dao.UserDao">
+<mapper namespace="com.yd.blog.admin.dao.UserDao">
 
-    <resultMap type="com.yd.kuma.admin.model.entity.UserInfo" id="UserMap">
+    <resultMap type="com.yd.blog.admin.model.entity.UserInfo" id="UserMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="role" column="roles" jdbcType="VARCHAR"/>
         <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
