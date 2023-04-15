@@ -1,7 +1,7 @@
 spring:
   #数据库配置
   datasource:
-    url: jdbc:mysql://8.142.125.160:3306/YDKuma?characterEncoding=utf-8&serverTimezone=UTC
+    url: jdbc:mysql://8.142.125.160:3306/YDBlog?characterEncoding=utf-8&serverTimezone=UTC
     username: root
     password: xinke308!
     driver-class-name: com.mysql.cj.jdbc.Driver
