@@ -27,7 +27,7 @@ public class CategoriesServiceImpl implements CategoriesService {
     @Override
     public List<Categories> getCategoriesList(CategoriesPagerRequestVO categoriesPagerRequestVO) {
         categoriesPagerRequestVO.initPager();
-        return CategoriesDao.queryPager(categoriesPagerRequestVO);
+        return categoriesDao.queryPager(categoriesPagerRequestVO);
     }
 
     @Override

@@ -25,7 +25,7 @@ spring:
 server:
   tomcat:
     max-http-form-post-size: 10MB
-  port: 8092
+  port: 8096
 
 
 #oss配置

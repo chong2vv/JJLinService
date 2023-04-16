@@ -1,16 +1,12 @@
 package com.yd.blog.admin.controller;
 
-import com.yd.blog.admin.entity.Categories;
 import com.yd.blog.admin.model.entity.Categories;
 import com.yd.blog.admin.model.vo.CategoriesPagerRequestVO;
 import com.yd.blog.admin.service.CategoriesService;
 import com.yd.blog.common.constant.enums.ResultErrorEnum;
 import com.yd.blog.common.model.ResultGenerator;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;

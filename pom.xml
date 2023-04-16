@@ -11,8 +11,8 @@
     <groupId>com.ry.time</groupId>
     <artifactId>yd_kuma_server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>yd_kuma_server</name>
-    <description>yd_kuma_server</description>
+    <name>yd_blog_server</name>
+    <description>yd_blog_server</description>
     <properties>
         <java.version>1.8</java.version>
         <lombok.version>1.18.22</lombok.version>
