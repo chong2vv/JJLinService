@@ -43,6 +43,10 @@ public class ProjectHomeDTO {
     @JsonProperty("classify_id")
     private Integer classifyId;
 
+    @JsonProperty("project_url")
+    private String projectUrl;
+
+
     /**
      * 素材和视频数组，用“，”分隔
      */

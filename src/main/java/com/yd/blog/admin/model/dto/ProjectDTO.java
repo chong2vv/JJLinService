@@ -51,6 +51,11 @@ public class ProjectDTO {
     @JsonProperty("video_url")
     private String videoUrl;
     /**
+     * 项目外链
+     */
+    @JsonProperty("project_url")
+    private String projectUrl;
+    /**
      * 封面视频图片
      */
     @JsonProperty("video_img")

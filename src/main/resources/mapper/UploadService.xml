@@ -18,6 +18,7 @@
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="videoUrl" column="video_url" jdbcType="VARCHAR"/>
         <result property="videoImg" column="video_img" jdbcType="VARCHAR"/>
+        <result property="projectUrl" column="project_url" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
@@ -36,6 +37,7 @@
                status,
                create_time,
                video_url,
+               project_url,
                video_img
         from project
         where id = #{id}
@@ -45,7 +47,7 @@
     <select id="queryPager" parameterType="com.yd.blog.admin.model.vo.ProjectPagerRequestVO" resultMap="ProjectMap">
         select
         id, title, content, excerpt, cover_img, img_list, video_list, project_body, tags, classify_id,
-        is_home_list, status, create_time, video_url, video_img
+        is_home_list, status, create_time, video_url, project_url, video_img
         from project
         <where>
             <if test="searchString != null and searchString != ''">
@@ -82,19 +84,21 @@
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into project(id, title, content, excerpt, cover_img, img_list, video_list, project_body, tags,
-                          classify_id, is_home_list, status, create_time, video_url, video_img)
+                          classify_id, is_home_list, status, create_time, video_url, project_url, video_img)
         values (#{id}, #{title}, #{content}, #{excerpt}, #{coverImg},
-                #{imgList}, #{videoList}, #{projectBody}, #{tags}, #{classifyId}, #{isHomeList}, #{status}, #{createTime}, #{videoUrl},  #{videoImg})
+                #{imgList}, #{videoList}, #{projectBody}, #{tags}, #{classifyId}, #{isHomeList}, #{status},
+                #{createTime}, #{videoUrl}, #{projectUrl}, #{videoImg})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
         insert into project(id, title, content, excerpt, cover_img, img_list, video_list, project_body,tags,
-        classify_id, is_home_list, status, create_time, video_url, video_img)
+        classify_id, is_home_list, status, create_time, video_url, project_url, video_img)
         values
         <foreach collection="projectList" item="project" separator=",">
             (#{project.id},#{project.title}, #{project.content}, #{project.excerpt}, #{project.coverImg}, #{project.imgList}, #{project.videoList}, #{project.projectBody},
             #{project.tags},
-            #{project.classifyId}, #{project.isHomeList}, #{project.status}, #{project.createTime}), #{project.videoUrl}), #{project.videoImg})
+            #{project.classifyId}, #{project.isHomeList}, #{project.status}, #{project.createTime}),
+            #{project.videoUrl}), #{project.projectUrl},#{project.videoImg})
         </foreach>
     </insert>
 
@@ -134,6 +138,9 @@
             </if>
             <if test="videoUrl != null and videoUrl != ''">
                 video_url = #{videoUrl},
+            </if>
+            <if test="projectUrl != null and projectUrl != ''">
+                project_url = #{projectUrl},
             </if>
             <if test="videoImg != null and videoImg != ''">
                 video_img = #{videoImg},

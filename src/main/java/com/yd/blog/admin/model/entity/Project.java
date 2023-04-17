@@ -43,6 +43,10 @@ public class Project implements Serializable {
      */
     private String videoUrl;
     /**
+     *  项目外链
+     */
+    private String projectUrl;
+    /**
      * 素材和视频数组，用“，”分隔
      */
     private String imgList;
