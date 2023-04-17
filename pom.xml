@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.ry.time</groupId>
-    <artifactId>yd_kuma_server</artifactId>
+    <artifactId>yd_blog_server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>yd_blog_server</name>
     <description>yd_blog_server</description>

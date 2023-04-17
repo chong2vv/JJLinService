@@ -88,6 +88,17 @@ public enum ResultErrorEnum {
      * 该日记用户不能为空
      */
     DIARY_UID_ERROR(50003, "用户不能为空"),
+
+    /**
+     * tag不存在
+     */
+    TAG_EXISTS_ERROR(60001, "tag不存在"),
+
+    /**
+     * tag已经存在
+     */
+    TAG_CREATE_EXISTS_ERROR(60002, "tag名已存在"),
+
     ;
 
     private final int code;

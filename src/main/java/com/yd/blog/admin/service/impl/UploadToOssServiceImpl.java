@@ -97,7 +97,7 @@ public class UploadToOssServiceImpl implements UploadToOssService {
         String uuid = UUID.randomUUID().toString().replaceAll("-", "");
         String suffix = fileName != null && fileName.contains(".") ? fileName.substring(fileName.lastIndexOf(".")) : "";
 //        return "test/" + uuid + suffix.toLowerCase();
-        return "kuma/" + uuid + suffix.toLowerCase();
+        return "blog/" + uuid + suffix.toLowerCase();
     }
 
     @Value("${oss.bucket.name}")

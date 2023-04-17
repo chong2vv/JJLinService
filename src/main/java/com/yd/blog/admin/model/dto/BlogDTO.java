@@ -1,6 +1,7 @@
 package com.yd.blog.admin.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.yd.blog.admin.model.entity.Categories;
 import com.yd.blog.admin.model.entity.Classify;
 import lombok.Data;
 
@@ -61,7 +62,7 @@ public class BlogDTO {
     /**
      * 项目分类
      */
-    private Classify classify;
+    private Categories categories;
     /**
      * 创建时间
      */

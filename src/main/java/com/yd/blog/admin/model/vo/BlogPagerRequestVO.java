@@ -17,7 +17,16 @@ import lombok.EqualsAndHashCode;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BlogPagerRequestVO extends PagerRequestVO {
 
+    /**
+     * 关键词
+     */
     private String search_str;
+
+    /**
+     * tag标签搜索
+     */
+    private String search_tag;
+
     /**
      * 状态
      */

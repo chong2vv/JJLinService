@@ -31,14 +31,14 @@ server:
 #oss配置
 oss:
   bucket:
-    name: kumadoggy
+    name: blogyd
   key:
     id: FY4ZgRBpnSxdChh9u8soGGNIFhxbPjUz2BxZTpUY
     secret: TqFaMhzCV_MBbhUAyaCDIXaRtUdfehRkefIsZ86K
 
 #素材访问地址
 img:
-  url: 'https://zip.gewudi.com/'
+  url: 'https://bcdn.gewudi.com/'
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml

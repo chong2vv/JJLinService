@@ -5,6 +5,7 @@ import com.yd.blog.admin.model.dto.BlogDTO;
 import com.yd.blog.admin.model.entity.Blog;
 import com.yd.blog.admin.model.vo.BlogPagerRequestVO;
 import com.yd.blog.client.service.ClientBlogService;
+import com.yd.blog.client.service.ClientCategoriesService;
 import com.yd.blog.client.service.ClientClassifyService;
 import com.yd.blog.common.util.CommonUtil;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class ClientBlogServiceImpl implements ClientBlogService {
 
     private final BlogDao blogDao;
 
-    private final ClientClassifyService classifyService;
+    private final ClientCategoriesService categoriesService;
     @Override
     public List<BlogDTO> getBlogList(BlogPagerRequestVO blogPagerRequestVO) {
         blogPagerRequestVO.initPager();
@@ -53,7 +54,7 @@ public class ClientBlogServiceImpl implements ClientBlogService {
         BlogDTO blogDto = CommonUtil.copyVo(blog, BlogDTO.class);
         blogDto.setTags(CommonUtil.stringsToList(blog.getTags()));
         blogDto.setIdString(Long.toString(blog.getId()));
-        blogDto.setClassify(classifyService.queryByClassifyId(blog.getClassifyId()));
+        blogDto.setCategories(categoriesService.queryByCategoriesId(blog.getClassifyId()));
         blogDto.setImgList(CommonUtil.stringsToList(blog.getImgList()));
         blogDto.setVideoList(CommonUtil.stringsToList(blog.getVideoList()));
         return blogDto;

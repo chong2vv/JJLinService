@@ -5,6 +5,7 @@ import com.yd.blog.admin.model.dto.BlogDTO;
 import com.yd.blog.admin.model.entity.Blog;
 import com.yd.blog.admin.model.vo.BlogPagerRequestVO;
 import com.yd.blog.admin.service.BlogService;
+import com.yd.blog.admin.service.CategoriesService;
 import com.yd.blog.admin.service.ClassifyService;
 import com.yd.blog.common.util.CommonUtil;
 import com.yd.blog.common.util.DateUtil;
@@ -27,7 +28,7 @@ public class BlogServiceImpl implements BlogService {
 
     private final BlogDao blogDao;
 
-    private final ClassifyService classifyService;
+    private final CategoriesService categoriesService;
 
     @Override
     public List<BlogDTO> getBlogList(BlogPagerRequestVO blogPagerRequestVO) {
@@ -83,7 +84,7 @@ public class BlogServiceImpl implements BlogService {
         blogDto.setTags(CommonUtil.stringsToList(blog.getTags()));
         blogDto.setImgList(CommonUtil.stringsToList(blog.getImgList()));
         blogDto.setVideoList(CommonUtil.stringsToList(blog.getVideoList()));
-        blogDto.setClassify(classifyService.queryByClassifyId(blog.getClassifyId()));
+        blogDto.setCategories(categoriesService.queryByCategoriesId(blog.getClassifyId()));
         return blogDto;
     }
 

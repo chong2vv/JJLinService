@@ -10,8 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * blog
@@ -72,5 +71,11 @@ public class BlogController {
         blogService.updateStatus(blog);
         return ResultGenerator.genSuccessResult();
     }
+
+//    @RequestMapping(value = "/hot-tags", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public String getHotTags(@RequestParam Map<String, Object> map) {
+//        List<String> tagList = Collections.singletonList("");
+//        return ResultGenerator.genSuccessPager(tagList,tagList.size());
+//    }
 
 }
