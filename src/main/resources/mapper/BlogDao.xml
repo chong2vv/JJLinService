@@ -36,7 +36,7 @@
                 and (title LIKE CONCAT('%',#{search_str},'%') or content LIKE CONCAT('%',#{search_str},'%'))
             </if>
             <if test="classifyId != null">
-                and classify_id = #{classifyId}
+                and categories_id = #{classifyId}
             </if>
             <if test="search_tag != null">
                 and tags LIKE CONCAT('%',#{search_tag},'%')
@@ -88,7 +88,7 @@
             img_list = #{imgList},
             video_list = #{videoList},
             <if test="classifyId != null">
-                classify_id = #{classifyId},
+                categories_id = #{classifyId},
             </if>
         </set>
         where id = #{id}
