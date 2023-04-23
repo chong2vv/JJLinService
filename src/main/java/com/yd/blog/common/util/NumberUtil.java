@@ -17,6 +17,8 @@ public class NumberUtil extends NumberUtils {
 
     private static final int SINCE_NUMBER_MAX = 100;
 
+    private static final double RANDOM_NUMBER_MIN = 0.1;
+
     /**
      * 匹配手机号正则
      */
@@ -56,7 +58,7 @@ public class NumberUtil extends NumberUtils {
     public static int genRandomNum(int length) {
         int num = 1;
         double random = Math.random();
-        if (random < 0.1) {
+        if (random < RANDOM_NUMBER_MIN) {
             random = random + 0.1;
         }
         for (int i = 0; i < length; i++) {
