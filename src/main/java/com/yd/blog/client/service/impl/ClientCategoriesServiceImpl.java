@@ -28,6 +28,17 @@ public class ClientCategoriesServiceImpl implements ClientCategoriesService {
     }
 
     /**
+     * @param categoriesPagerRequestVO 分页请求对象
+     * @return List
+     */
+    @Override
+    public List<Categories> getCategoriesHomeList(CategoriesPagerRequestVO categoriesPagerRequestVO) {
+        categoriesPagerRequestVO.initPager();
+        categoriesPagerRequestVO.setStatus(1);
+        return categoriesDao.getCategoryCounts(categoriesPagerRequestVO);
+    }
+
+    /**
      * @param id 主键id
      * @return Categories
      */

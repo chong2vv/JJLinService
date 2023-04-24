@@ -23,6 +23,15 @@ public interface CategoriesDao {
      */
     Categories queryById(Integer id);
 
+
+    /**
+     * 查询指定行数据
+     *
+     * @param vo 分类请求信息
+     * @return 对象列表
+     */
+    List<Categories> getCategoryCounts(CategoriesPagerRequestVO vo);
+
     /**
      * 查询指定行数据
      *

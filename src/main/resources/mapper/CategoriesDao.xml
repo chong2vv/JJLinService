@@ -20,6 +20,20 @@
         where id = #{id}
     </select>
 
+    <select id="getCategoryCounts" resultMap="CategoriesMap">
+        select
+            c.id, c.title, remark, c.status, c.image_url, c.create_time, c.type, COUNT(b.id) AS blogCount
+        from categories c
+        left join blog b on c.id = b.categories_id
+        <where>
+            <if test="status == null">
+                and c.status >= 0
+            </if>
+        </where>
+        GROUP BY c.id;
+    </select>
+
+
     <!--查询指定行数据-->
     <select id="queryPager" parameterType="com.yd.blog.admin.model.vo.CategoriesPagerRequestVO" resultMap="CategoriesMap">
         select

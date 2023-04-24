@@ -26,4 +26,13 @@ public class ClientCategoriesController {
         }
         return ResultGenerator.genSuccessResult(categoriesList);
     }
+
+    @RequestMapping(value = "/home_list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getHomeCategoriesList(CategoriesPagerRequestVO categoriesPagerRequestVO) {
+        List<Categories> categoriesList = categoriesService.getCategoriesHomeList(categoriesPagerRequestVO);
+        if (categoriesList.isEmpty()) {
+            return ResultGenerator.genSuccessResult(null);
+        }
+        return ResultGenerator.genSuccessResult(categoriesList);
+    }
 }
