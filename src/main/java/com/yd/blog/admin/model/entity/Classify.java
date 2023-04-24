@@ -48,5 +48,11 @@ public class Classify implements Serializable {
      */
     private Integer type;
 
+    /**
+     * 项目数
+     */
+    @JsonProperty("project_count")
+    private Integer projectCount;
+
 }
 

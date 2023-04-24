@@ -36,6 +36,19 @@
         limit #{offset}, #{count}
     </select>
 
+    <select id="getClassIfyCounts" resultMap="ClassifyMap">
+        select
+        c.id, c.title, remark, c.status, c.image_url, c.create_time, c.type, COUNT(p.id) AS projectCount
+        from classify c
+        left join project p on c.id = p.classify_id
+        <where>
+            <if test="status == null">
+                and c.status >= 0
+            </if>
+        </where>
+        GROUP BY c.id;
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Integer">
         select count(1)

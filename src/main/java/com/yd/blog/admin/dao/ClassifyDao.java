@@ -32,6 +32,14 @@ public interface ClassifyDao {
     List<Classify> queryPager(ClassifyPagerRequestVO vo);
 
     /**
+     * 查询指定行数据
+     *
+     * @param vo 分类请求信息
+     * @return 对象列表
+     */
+    List<Classify> getClassIfyCounts(ClassifyPagerRequestVO vo);
+
+    /**
      * 统计总行数
      *
      * @param status 状态

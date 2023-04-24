@@ -48,6 +48,9 @@ public class Categories implements Serializable {
      */
     private Integer type;
 
+    /**
+     * 博客数
+     */
     @JsonProperty("blog_count")
     private Integer blogCount;
 
