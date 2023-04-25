@@ -66,6 +66,10 @@ public class Blog implements Serializable {
      * 分类id
      */
     private Integer classifyId;
+    /**
+     * 是否首页推荐
+     */
+    private Integer isHomeList;
 
 }
 

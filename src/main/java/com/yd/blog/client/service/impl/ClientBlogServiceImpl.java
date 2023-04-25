@@ -37,8 +37,17 @@ public class ClientBlogServiceImpl implements ClientBlogService {
     }
 
     @Override
-    public int count() {
-        return 0;
+    public int count(int status) {
+        return blogDao.count(status);
+    }
+
+    /**
+     * @param status 状态
+     * @return 数量
+     */
+    @Override
+    public int homeListCount() {
+        return blogDao.homeCount();
     }
 
     @Override

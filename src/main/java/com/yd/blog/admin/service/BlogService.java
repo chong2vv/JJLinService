@@ -26,7 +26,7 @@ public interface BlogService {
      *
      * @return 数量
      */
-    int count();
+    int count(int status);
 
     /**
      * 通过ID查询单条数据

@@ -30,7 +30,7 @@ public class BlogController {
         BlogPagerRequestVO blogPagerRequestVO = JsonUtil.mapToObj(map, BlogPagerRequestVO.class);
         blogPagerRequestVO.initPager();
         List<BlogDTO> blogList = blogService.getBlogList(blogPagerRequestVO);
-        int count = blogService.count();
+        int count = blogService.count(blogPagerRequestVO.getStatus());
         if (blogList.isEmpty()) {
             return ResultGenerator.genSuccessPager(null, 0);
         }

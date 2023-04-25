@@ -82,6 +82,11 @@ public class BlogDTO {
      *  时间戳
      */
     private Long timestamp;
+    /**
+     * 是否首页推荐
+     */
+    @JsonProperty("is_home_list")
+    private Integer isHomeList;
 
     /**
      * blog id string

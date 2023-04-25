@@ -35,6 +35,11 @@ public class BlogPagerRequestVO extends PagerRequestVO {
      */
     @JsonProperty("classify_id")
     private Integer classifyId;
+    /**
+     * 是否首页推荐
+     */
+    @JsonProperty("is_home_list")
+    private Integer isHomeList;
 
 
 }

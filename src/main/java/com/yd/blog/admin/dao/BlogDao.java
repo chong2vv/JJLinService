@@ -36,7 +36,14 @@ public interface BlogDao {
      *
      * @return 总行数
      */
-    int count();
+    int count(int status);
+
+    /**
+     * 统计总行数
+     *
+     * @return 总行数
+     */
+    int homeCount();
 
     /**
      * 新增数据

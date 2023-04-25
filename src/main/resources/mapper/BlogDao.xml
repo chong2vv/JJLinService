@@ -12,6 +12,7 @@
         <result property="content" column="content" jdbcType="VARCHAR"/>
         <result property="imgList" column="img_list" jdbcType="VARCHAR"/>
         <result property="videoList" column="video_list" jdbcType="VARCHAR"/>
+        <result property="isHomeList" column="is_home_list" jdbcType="INTEGER"/>
         <result property="tags" column="tags" jdbcType="VARCHAR"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
         <result property="classifyId" column="categories_id" jdbcType="INTEGER"/>
@@ -21,7 +22,8 @@
     <!--查询单个-->
     <select id="queryById" resultMap="BlogMap">
         select
-          id, img, author, view, title, excerpt, content, img_list, video_list, tags, status, categories_id, create_time
+          id, img, author, view, title, excerpt, content, img_list, video_list, tags, status, is_home_list,
+          categories_id, create_time
         from blog
         where id = #{id}
     </select>
@@ -29,7 +31,8 @@
     <!--查询指定行数据-->
     <select id="queryPager" resultMap="BlogMap">
         select
-          id, img, author, view, title, excerpt, content, tags, status, img_list, video_list, categories_id, create_time
+          id, img, author, view, title, excerpt, content, tags, status, img_list, video_list, is_home_list, categories_id,
+        create_time
         from blog
         <where>
             <if test="search_str != null and search_str != ''">
@@ -40,6 +43,9 @@
             </if>
             <if test="search_tag != null">
                 and tags LIKE CONCAT('%',#{search_tag},'%')
+            </if>
+            <if test="isHomeList != null">
+                and is_home_list = #{isHomeList}
             </if>
             <if test="status != null">
                 and status = #{status}
@@ -56,12 +62,28 @@
     <select id="count" resultType="java.lang.Integer">
         select count(1)
         from blog
+        <where>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <select id="homeCount" resultType="java.lang.Integer">
+        select count(1)
+        from blog
+        <where>
+            and status = 1
+            and is_home_list = 1
+        </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into blog(id, img, author, view, title, excerpt, content, tags, status, img_list, video_list, categories_id, create_time)
-        values (#{id}, #{img}, #{author}, #{view}, #{title}, #{excerpt}, #{content}, #{tags}, #{status}, #{imgList}, #{videoList}, #{classifyId}, #{createTime})
+        insert into blog(id, img, author, view, title, excerpt, content, tags, status, img_list, video_list,
+                         categories_id, create_time, is_home_list)
+        values (#{id}, #{img}, #{author}, #{view}, #{title}, #{excerpt}, #{content}, #{tags}, #{status}, #{imgList},
+                #{videoList}, #{classifyId}, #{createTime}, #{isHomeList})
     </insert>
 
     <!--通过主键修改数据-->
@@ -81,6 +103,9 @@
             content = #{content},
             <if test="status != null and status != ''">
                 status = #{status},
+            </if>
+            <if test="isHomeList != null">
+                is_home_list = #{isHomeList},
             </if>
             <if test="tags != null and tags != ''">
                 tags = #{tags},

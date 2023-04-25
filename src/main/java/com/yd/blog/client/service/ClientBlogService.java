@@ -24,7 +24,15 @@ public interface ClientBlogService {
      *
      * @return 数量
      */
-    int count();
+    int count(int status);
+
+    /**
+     * 获取首页推荐总数量
+     *
+     * @return 数量
+     */
+    int homeListCount();
+
 
     /**
      * 通过ID查询单条数据
