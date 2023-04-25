@@ -21,6 +21,10 @@ public class ProjectPagerRequestVO extends PagerRequestVO {
     @JsonProperty("search_str")
     private String searchString;
     /**
+     * tag标签搜索
+     */
+    private String search_tag;
+    /**
      * 状态
      */
     private Integer status;

@@ -21,7 +21,6 @@ public class BlogPagerRequestVO extends PagerRequestVO {
      * 关键词
      */
     private String search_str;
-
     /**
      * tag标签搜索
      */

@@ -29,4 +29,13 @@ public class ClientClassifyController {
         }
         return ResultGenerator.genSuccessResult(classifyList);
     }
+
+    @RequestMapping(value = "/home_list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getHomeClassifyList(ClassifyPagerRequestVO classifyPagerRequestVO) {
+        List<Classify> classifyList = classifyService.getHomeClassifyList(classifyPagerRequestVO);
+        if (classifyList.isEmpty()) {
+            return ResultGenerator.genSuccessResult(null);
+        }
+        return ResultGenerator.genSuccessResult(classifyList);
+    }
 }

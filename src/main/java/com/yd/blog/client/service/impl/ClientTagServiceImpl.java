@@ -24,6 +24,7 @@ public class ClientTagServiceImpl implements ClientTagService {
     @Override
     public List<Tag> queryByPage(TagPagerRequestVO tagPagerRequestVO) {
         tagPagerRequestVO.initPager();
+        tagPagerRequestVO.setStatus(1);
         return tagDao.queryAllByLimit(tagPagerRequestVO);
     }
 }

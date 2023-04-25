@@ -53,6 +53,9 @@
             <if test="searchString != null and searchString != ''">
                 and (title like #{keyword} or content like #{keyword})
             </if>
+            <if test="search_tag != null and search_tag != '' and search_tag != '全部'">
+                and tags LIKE CONCAT('%',#{search_tag},'%')
+            </if>
             <if test="classifyId != null">
                 and classify_id = #{classifyId}
             </if>

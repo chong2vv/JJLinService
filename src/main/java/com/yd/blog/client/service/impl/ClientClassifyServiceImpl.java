@@ -25,6 +25,17 @@ public class ClientClassifyServiceImpl implements ClientClassifyService {
         return classifyDao.queryPager(classifyPagerRequestVO);
     }
 
+    /**
+     * @param classifyPagerRequestVO 分页请求对象
+     * @return List
+     */
+    @Override
+    public List<Classify> getHomeClassifyList(ClassifyPagerRequestVO classifyPagerRequestVO) {
+        classifyPagerRequestVO.initPager();
+        classifyPagerRequestVO.setStatus(1);
+        return classifyDao.getClassIfyCounts(classifyPagerRequestVO);
+    }
+
     @Override
     public Classify queryByClassifyId(Integer id) {
         return classifyDao.queryById(id);
