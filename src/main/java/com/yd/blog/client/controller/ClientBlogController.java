@@ -28,6 +28,7 @@ public class ClientBlogController {
      * 首页显示的值
      */
     static final int HOME_LIST_STATE = 1;
+    static final int HOME_LIST_COUNT = 5;
 
     private final ClientBlogService blogService;
 
@@ -44,6 +45,7 @@ public class ClientBlogController {
     public String getPostBlogList(@RequestParam Map<String, Object> map) {
         BlogPagerRequestVO blogPagerRequestVO = JsonUtil.mapToObj(map, BlogPagerRequestVO.class);
         blogPagerRequestVO.initPager();
+        blogPagerRequestVO.setCount(HOME_LIST_COUNT);
         blogPagerRequestVO.setIsHomeList(HOME_LIST_STATE);
         List<BlogDTO> blogList = blogService.getBlogList(blogPagerRequestVO);
         int count = blogService.homeListCount();
