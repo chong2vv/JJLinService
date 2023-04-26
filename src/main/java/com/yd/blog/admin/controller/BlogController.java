@@ -26,9 +26,8 @@ public class BlogController {
     private final BlogService blogService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getClassifyList(@RequestParam Map<String, Object> map) {
+    public String getBlogList(@RequestParam Map<String, Object> map) {
         BlogPagerRequestVO blogPagerRequestVO = JsonUtil.mapToObj(map, BlogPagerRequestVO.class);
-        blogPagerRequestVO.initPager();
         List<BlogDTO> blogList = blogService.getBlogList(blogPagerRequestVO);
         int count = blogService.count(blogPagerRequestVO.getStatus());
         if (blogList.isEmpty()) {

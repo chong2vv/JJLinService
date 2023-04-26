@@ -18,14 +18,15 @@ import lombok.EqualsAndHashCode;
 public class BlogPagerRequestVO extends PagerRequestVO {
 
     /**
-     * 关键词
+     * 模糊搜索
      */
-    private String search_str;
+    @JsonProperty("search_str")
+    private String searchString;
     /**
      * tag标签搜索
      */
-    private String search_tag;
-
+    @JsonProperty("search_tag")
+    private String searchTag;
     /**
      * 状态
      */

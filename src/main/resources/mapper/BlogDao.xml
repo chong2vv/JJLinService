@@ -35,14 +35,14 @@
         create_time
         from blog
         <where>
-            <if test="search_str != null and search_str != ''">
-                and (title LIKE CONCAT('%',#{search_str},'%') or content LIKE CONCAT('%',#{search_str},'%'))
+            <if test="searchString != null and searchString != ''">
+                and (title LIKE CONCAT('%',#{searchString},'%') or content LIKE CONCAT('%',#{searchString},'%'))
             </if>
             <if test="classifyId != null">
                 and categories_id = #{classifyId}
             </if>
-            <if test="search_tag != null">
-                and tags LIKE CONCAT('%',#{search_tag},'%')
+            <if test="searchTag != null">
+                and tags LIKE CONCAT('%',#{searchTag},'%')
             </if>
             <if test="isHomeList != null">
                 and is_home_list = #{isHomeList}
@@ -56,6 +56,20 @@
         </where>
         order by create_time desc
         limit #{offset}, #{count}
+    </select>
+
+    <select id="groupByYearMonth" resultType="java.util.Map">
+        select
+            YEAR(create_time) AS year, MONTH(create_time) AS month, COUNT(*) AS count
+        from blog
+        group by year, month
+    </select>
+
+    <select id="groupByYear" resultType="java.util.Map">
+        select
+            YEAR(create_time) AS year, COUNT(*) AS count
+        from blog
+        group by year
     </select>
 
     <!--统计总行数-->

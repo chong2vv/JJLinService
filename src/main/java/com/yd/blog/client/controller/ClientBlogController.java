@@ -1,5 +1,6 @@
 package com.yd.blog.client.controller;
 
+import com.yd.blog.admin.model.dto.BlogArchiveDTO;
 import com.yd.blog.admin.model.dto.BlogDTO;
 import com.yd.blog.admin.model.vo.BlogPagerRequestVO;
 import com.yd.blog.client.service.ClientBlogService;
@@ -35,7 +36,6 @@ public class ClientBlogController {
     @RequestMapping(value = "/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public String getBlogList(@RequestParam Map<String, Object> map) {
         BlogPagerRequestVO blogPagerRequestVO = JsonUtil.mapToObj(map, BlogPagerRequestVO.class);
-        blogPagerRequestVO.initPager();
         List<BlogDTO> blogList = blogService.getBlogList(blogPagerRequestVO);
         int count = blogService.count(1);
         return ResultGenerator.genSuccessPager(blogList,count);
@@ -52,7 +52,18 @@ public class ClientBlogController {
         return ResultGenerator.genSuccessPager(blogList,count);
     }
 
+    @RequestMapping(value = "/archive_list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getArchiveBlogList() {
+        List<BlogArchiveDTO> blogList = blogService.groupByYearMonth();
+        return ResultGenerator.genSuccessResult(blogList);
+    }
 
+    @RequestMapping(value = "/archive_year_list", method = RequestMethod.GET, produces =
+            MediaType.APPLICATION_JSON_VALUE)
+    public String getArchiveYearBlogList() {
+        List<BlogArchiveDTO> blogList = blogService.groupByYear();
+        return ResultGenerator.genSuccessResult(blogList);
+    }
 
     @RequestMapping(value = "/detail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public String getBlogDetail(@RequestParam Long id) {

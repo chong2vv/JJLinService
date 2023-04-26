@@ -1,5 +1,6 @@
 package com.yd.blog.client.service;
 
+import com.yd.blog.admin.model.dto.BlogArchiveDTO;
 import com.yd.blog.admin.model.dto.BlogDTO;
 import com.yd.blog.admin.model.vo.BlogPagerRequestVO;
 
@@ -33,6 +34,10 @@ public interface ClientBlogService {
      */
     int homeListCount();
 
+
+    List<BlogArchiveDTO> groupByYearMonth();
+
+    List<BlogArchiveDTO> groupByYear();
 
     /**
      * 通过ID查询单条数据

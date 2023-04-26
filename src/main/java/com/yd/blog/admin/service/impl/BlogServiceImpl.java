@@ -41,7 +41,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public int count(int status) {
+    public int count(Integer status) {
         return blogDao.count(status);
     }
 

@@ -5,6 +5,7 @@ import com.yd.blog.admin.model.vo.BlogPagerRequestVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 博客(Blog)表数据库访问层
@@ -36,7 +37,21 @@ public interface BlogDao {
      *
      * @return 总行数
      */
-    int count(int status);
+    int count(Integer status);
+
+    /**
+     * 归档数据
+     *
+     * @return 数据
+     */
+    List<Map<String, Object>> groupByYearMonth();
+
+    /**
+     * 归档数据
+     *
+     * @return 数据
+     */
+    List<Map<String, Object>> groupByYear();
 
     /**
      * 统计总行数

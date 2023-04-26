@@ -1,6 +1,7 @@
 package com.yd.blog.client.service.impl;
 
 import com.yd.blog.admin.dao.BlogDao;
+import com.yd.blog.admin.model.dto.BlogArchiveDTO;
 import com.yd.blog.admin.model.dto.BlogDTO;
 import com.yd.blog.admin.model.entity.Blog;
 import com.yd.blog.admin.model.vo.BlogPagerRequestVO;
@@ -8,10 +9,12 @@ import com.yd.blog.client.service.ClientBlogService;
 import com.yd.blog.client.service.ClientCategoriesService;
 import com.yd.blog.client.service.ClientClassifyService;
 import com.yd.blog.common.util.CommonUtil;
+import com.yd.blog.common.util.JsonUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -42,7 +45,6 @@ public class ClientBlogServiceImpl implements ClientBlogService {
     }
 
     /**
-     * @param status 状态
      * @return 数量
      */
     @Override
@@ -67,5 +69,31 @@ public class ClientBlogServiceImpl implements ClientBlogService {
         blogDto.setImgList(CommonUtil.stringsToList(blog.getImgList()));
         blogDto.setVideoList(CommonUtil.stringsToList(blog.getVideoList()));
         return blogDto;
+    }
+
+    /**
+     * @return 归档数组
+     */
+    @Override
+    public List<BlogArchiveDTO> groupByYearMonth() {
+        List<Map<String, Object>> list = blogDao.groupByYearMonth();
+        return list.stream()
+                .map(this::convertMapToBlogArchiveDto)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * @return 归档
+     */
+    @Override
+    public List<BlogArchiveDTO> groupByYear() {
+        List<Map<String, Object>> list = blogDao.groupByYear();
+        return list.stream()
+                .map(this::convertMapToBlogArchiveDto)
+                .collect(Collectors.toList());
+    }
+
+    private BlogArchiveDTO convertMapToBlogArchiveDto(Map<String, Object> map) {
+        return JsonUtil.mapToObj(map, BlogArchiveDTO.class);
     }
 }

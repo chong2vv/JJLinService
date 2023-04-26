@@ -1,9 +1,11 @@
 package com.yd.blog.admin.service;
 
+import com.yd.blog.admin.model.dto.BlogArchiveDTO;
 import com.yd.blog.admin.model.dto.BlogDTO;
 import com.yd.blog.admin.model.vo.BlogPagerRequestVO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * blog的业务接口
@@ -26,7 +28,7 @@ public interface BlogService {
      *
      * @return 数量
      */
-    int count(int status);
+    int count(Integer status);
 
     /**
      * 通过ID查询单条数据
