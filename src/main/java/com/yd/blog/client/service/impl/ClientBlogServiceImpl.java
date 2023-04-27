@@ -39,6 +39,18 @@ public class ClientBlogServiceImpl implements ClientBlogService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * @param blogPagerRequestVO 请求参数，年、月
+     * @return 日志列表
+     */
+    @Override
+    public List<BlogDTO> getArchiveBlogList(BlogPagerRequestVO blogPagerRequestVO) {
+        List<Blog> blogList = blogDao.findByYearMonth(blogPagerRequestVO);
+        return blogList.stream()
+                .map(this::convertBlogToBlogDto)
+                .collect(Collectors.toList());
+    }
+
     @Override
     public int count(int status) {
         return blogDao.count(status);

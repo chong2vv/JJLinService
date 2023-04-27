@@ -72,6 +72,20 @@
         group by year
     </select>
 
+    <select id="findByYearMonth" resultMap="BlogMap">
+        select
+            id, img, author, view, title, excerpt, content, tags, status, img_list, video_list, is_home_list, categories_id,
+            create_time
+        from
+            blog
+        <where>
+            <if test="year != null and month != null">
+                YEAR(create_time) = #{year} AND MONTH(create_time) = #{month}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Integer">
         select count(1)

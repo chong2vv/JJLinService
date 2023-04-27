@@ -54,6 +54,13 @@ public interface BlogDao {
     List<Map<String, Object>> groupByYear();
 
     /**
+     * 按年月返回日志列表
+     * @param blogPagerRequestVO 请求参数
+     * @return 日志列表
+     */
+    List<Blog> findByYearMonth(BlogPagerRequestVO blogPagerRequestVO);
+
+    /**
      * 统计总行数
      *
      * @return 总行数

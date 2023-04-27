@@ -42,5 +42,9 @@ public class BlogPagerRequestVO extends PagerRequestVO {
     @JsonProperty("is_home_list")
     private Integer isHomeList;
 
+    private Integer year;
+
+    private Integer month;
+
 
 }

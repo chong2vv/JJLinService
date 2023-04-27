@@ -21,6 +21,13 @@ public interface ClientBlogService {
     List<BlogDTO> getBlogList(BlogPagerRequestVO blogPagerRequestVO);
 
     /**
+     * 获取归档后的日志列表
+     * @param blogPagerRequestVO 请求参数，年、月
+     * @return 日志列表
+     */
+    List<BlogDTO> getArchiveBlogList(BlogPagerRequestVO blogPagerRequestVO);
+
+    /**
      * 获取总数量
      *
      * @return 数量
@@ -35,8 +42,16 @@ public interface ClientBlogService {
     int homeListCount();
 
 
+    /**
+     * 按年月归档
+     * @return 日志列表
+     */
     List<BlogArchiveDTO> groupByYearMonth();
 
+    /**
+     * 按年归档
+     * @return 日志列表
+     */
     List<BlogArchiveDTO> groupByYear();
 
     /**

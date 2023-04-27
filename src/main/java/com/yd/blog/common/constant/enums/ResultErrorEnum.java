@@ -75,6 +75,11 @@ public enum ResultErrorEnum {
     BLOG_EXISTS_ERROR(40001, "该blog不存在"),
 
     /**
+     * 该blog不存在
+     */
+    BLOG_ARGUMENT_ERROR(40002, "参数错误，不能为空"),
+
+    /**
      * 该日记不存在
      */
     DIARY_EXISTS_ERROR(50001, "该日记不存在"),

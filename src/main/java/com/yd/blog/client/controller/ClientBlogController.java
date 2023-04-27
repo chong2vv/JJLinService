@@ -41,6 +41,17 @@ public class ClientBlogController {
         return ResultGenerator.genSuccessPager(blogList,count);
     }
 
+    @RequestMapping(value = "/year_list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getYearBlogList(@RequestParam Map<String, Object> map) {
+        BlogPagerRequestVO blogPagerRequestVO = JsonUtil.mapToObj(map, BlogPagerRequestVO.class);
+        if (blogPagerRequestVO.getYear() == null || blogPagerRequestVO.getMonth() == null) {
+            return ResultGenerator.genErrorResult(ResultErrorEnum.BLOG_ARGUMENT_ERROR);
+        }
+        blogPagerRequestVO.setStatus(HOME_LIST_STATE);
+        List<BlogDTO> blogList = blogService.getArchiveBlogList(blogPagerRequestVO);
+        return ResultGenerator.genSuccessResult(blogList);
+    }
+
     @RequestMapping(value = "/post_list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public String getPostBlogList(@RequestParam Map<String, Object> map) {
         BlogPagerRequestVO blogPagerRequestVO = JsonUtil.mapToObj(map, BlogPagerRequestVO.class);
