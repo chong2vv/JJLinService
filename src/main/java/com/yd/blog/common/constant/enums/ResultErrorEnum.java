@@ -70,12 +70,17 @@ public enum ResultErrorEnum {
     EXPORT_PROJECT_ERROR(30002, "导入项目失败"),
 
     /**
+     * 项目参数错误
+     */
+    PROJECT_ARGUMENT_ERROR(30002, "参数错误，不能为空"),
+
+    /**
      * 该blog不存在
      */
     BLOG_EXISTS_ERROR(40001, "该blog不存在"),
 
     /**
-     * 该blog不存在
+     * 日志产讯参数错误
      */
     BLOG_ARGUMENT_ERROR(40002, "参数错误，不能为空"),
 

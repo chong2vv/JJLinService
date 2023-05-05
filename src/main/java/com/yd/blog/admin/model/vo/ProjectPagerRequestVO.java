@@ -43,4 +43,14 @@ public class ProjectPagerRequestVO extends PagerRequestVO {
     public String getKeyword() {
         return "%" + searchString + "%";
     }
+
+    /**
+     * 查询年
+     */
+    private Integer year;
+
+    /**
+     * 查询月份
+     */
+    private Integer month;
 }

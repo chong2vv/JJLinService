@@ -1,6 +1,7 @@
 package com.yd.blog.client.service.impl;
 
 import com.yd.blog.admin.dao.ProjectDao;
+import com.yd.blog.admin.model.dto.ProjectArchiveDTO;
 import com.yd.blog.admin.model.dto.ProjectDTO;
 import com.yd.blog.admin.model.entity.Project;
 import com.yd.blog.admin.model.vo.ProjectPagerRequestVO;
@@ -8,10 +9,12 @@ import com.yd.blog.admin.service.ClassifyService;
 import com.yd.blog.client.model.vo.ProjectHomeDTO;
 import com.yd.blog.client.service.ClientProjectService;
 import com.yd.blog.common.util.CommonUtil;
+import com.yd.blog.common.util.JsonUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -50,6 +53,21 @@ public class ClientProjectServiceImpl implements ClientProjectService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * 按年月归档查询
+     *
+     * @param projectPagerRequestVO 查询条件
+     * @return 对象数组
+     */
+    @Override
+    public List<ProjectHomeDTO> getArchiveByYearMonthList(ProjectPagerRequestVO projectPagerRequestVO) {
+        projectPagerRequestVO.setStatus(1);
+        List<Project> projectList = projectDao.findByYearMonth(projectPagerRequestVO);
+        return projectList.stream()
+                .map(this::convertProjectToProjectHomeDTO)
+                .collect(Collectors.toList());
+    }
+
     @Override
     public ProjectDTO queryByProjectId(Long id) {
         Project project = projectDao.queryById(id);
@@ -57,6 +75,14 @@ public class ClientProjectServiceImpl implements ClientProjectService {
             return null;
         }
         return this.convertProjectToProjectDTO(project);
+    }
+
+    @Override
+    public List<ProjectArchiveDTO> groupByYearMonth() {
+        List<Map<String, Object>> list = projectDao.groupByYearMonth();
+        return list.stream()
+                .map(this::convertMapToBlogArchiveDto)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -97,5 +123,9 @@ public class ClientProjectServiceImpl implements ClientProjectService {
         projectDTO.setTags(CommonUtil.stringsToList(project.getTags()));
         projectDTO.setClassify(classifyService.queryByClassifyId(project.getClassifyId()));
         return projectDTO;
+    }
+
+    private ProjectArchiveDTO convertMapToBlogArchiveDto(Map<String, Object> map) {
+        return JsonUtil.mapToObj(map, ProjectArchiveDTO.class);
     }
 }

@@ -1,5 +1,6 @@
 package com.yd.blog.client.service;
 
+import com.yd.blog.admin.model.dto.ProjectArchiveDTO;
 import com.yd.blog.admin.model.dto.ProjectDTO;
 import com.yd.blog.admin.model.vo.ProjectPagerRequestVO;
 import com.yd.blog.client.model.vo.ProjectHomeDTO;
@@ -31,12 +32,25 @@ public interface ClientProjectService {
     List<ProjectHomeDTO> getList(ProjectPagerRequestVO projectPagerRequestVO);
 
     /**
+     * 按归档年月返回数据
+     * @param projectPagerRequestVO 查询条件
+     * @return 对象数组
+     */
+    List<ProjectHomeDTO> getArchiveByYearMonthList(ProjectPagerRequestVO projectPagerRequestVO);
+
+    /**
      * 项目详情
      *
      * @param id 项目id
      * @return 项目详情
      */
     ProjectDTO queryByProjectId(Long id);
+
+    /**
+     * 项目归档
+     * @return 归档数据
+     */
+    List<ProjectArchiveDTO> groupByYearMonth();
 
     /**
      * 项目数量

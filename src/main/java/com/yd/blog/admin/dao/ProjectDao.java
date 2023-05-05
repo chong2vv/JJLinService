@@ -5,6 +5,7 @@ import com.yd.blog.admin.model.vo.ProjectPagerRequestVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 项目(Project)表数据库访问层
@@ -38,6 +39,20 @@ public interface ProjectDao {
      * @return 总行数
      */
     int count(Integer status);
+
+    /**
+     * 统计分组
+     *
+     * @return 分组数据
+     */
+    List<Map<String, Object>> groupByYearMonth();
+
+    /**
+     * 查询具体年月
+     * @param projectPagerRequestVO 查询条件
+     * @return 对象列表
+     */
+    List<Project> findByYearMonth(ProjectPagerRequestVO projectPagerRequestVO);
 
     /**
      * 新增数据

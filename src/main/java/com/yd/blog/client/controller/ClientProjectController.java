@@ -1,5 +1,6 @@
 package com.yd.blog.client.controller;
 
+import com.yd.blog.admin.model.dto.ProjectArchiveDTO;
 import com.yd.blog.admin.model.dto.ProjectDTO;
 import com.yd.blog.admin.model.vo.ProjectPagerRequestVO;
 import com.yd.blog.client.model.vo.ProjectHomeDTO;
@@ -47,6 +48,22 @@ public class ClientProjectController {
         List<ProjectHomeDTO> projectHomeList = clientProjectService.getList(projectPagerRequestVO);
         int count = clientProjectService.count(projectPagerRequestVO.getStatus());
         return ResultGenerator.genSuccessPager(projectHomeList, count);
+    }
+
+    @RequestMapping(value = "/year_list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getYearList(@RequestParam Map<String, Object> map) {
+        ProjectPagerRequestVO projectPagerRequestVO = JsonUtil.mapToObj(map, ProjectPagerRequestVO.class);
+        if (projectPagerRequestVO.getYear() == null || projectPagerRequestVO.getMonth() == null) {
+            return ResultGenerator.genErrorResult(ResultErrorEnum.PROJECT_ARGUMENT_ERROR);
+        }
+        List<ProjectHomeDTO> projectHomeList = clientProjectService.getArchiveByYearMonthList(projectPagerRequestVO);
+        return ResultGenerator.genSuccessResult(projectHomeList);
+    }
+
+    @RequestMapping(value = "/archive_list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getArchiveList() {
+        List<ProjectArchiveDTO> list = clientProjectService.groupByYearMonth();
+        return ResultGenerator.genSuccessResult(list);
     }
 
     @RequestMapping(value = "/detail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

@@ -58,14 +58,12 @@ public interface BlogService {
      * 修改分类
      *
      * @param blogDto 文章信息
-     * @return 1 成功
      */
     void update(BlogDTO blogDto);
 
     /**
      * 变更状态
      *
-     * @param blogDTO
      */
     void updateStatus(BlogDTO blogDTO);
 }
