@@ -52,5 +52,17 @@ public class BlogPagerRequestVO extends PagerRequestVO {
      */
     private Integer month;
 
+    public void setYear(Integer year) {
+        if (year == null || year == 0) {
+            return;
+        }
+        this.year = year;
+    }
 
+    public void setMonth(Integer month) {
+        if (month == null || month ==0) {
+            return;
+        }
+        this.month = month;
+    }
 }

@@ -47,6 +47,11 @@ public class BlogDTO {
      */
     private String content;
     /**
+     * 文章内容
+     */
+    @JsonProperty("mark_content")
+    private String markContent;
+    /**
      * 标签
      */
     private List<String> tags;

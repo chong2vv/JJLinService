@@ -70,6 +70,10 @@ public class Blog implements Serializable {
      * 是否首页推荐
      */
     private Integer isHomeList;
+    /**
+     * mark文档
+     */
+    private String markContent;
 
 }
 
