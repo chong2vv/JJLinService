@@ -8,11 +8,11 @@
         <version>2.7.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.ry.time</groupId>
-    <artifactId>yd_blog_server</artifactId>
+    <groupId>com.yd.jjlin</groupId>
+    <artifactId>yd_jj_server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>yd_blog_server</name>
-    <description>yd_blog_server</description>
+    <name>yd_jj_server</name>
+    <description>yd_jj_server</description>
     <properties>
         <java.version>1.8</java.version>
         <lombok.version>1.18.22</lombok.version>

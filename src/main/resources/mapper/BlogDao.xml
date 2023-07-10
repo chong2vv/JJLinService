@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yd.blog.admin.dao.BlogDao">
+<mapper namespace="com.yd.JJLin.admin.dao.BlogDao">
 
-    <resultMap type="com.yd.blog.admin.model.entity.Blog" id="BlogMap">
+    <resultMap type="com.yd.JJLin.admin.model.entity.Blog" id="BlogMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="img" column="img" jdbcType="VARCHAR"/>
         <result property="author" column="author" jdbcType="VARCHAR"/>
@@ -149,7 +149,7 @@
         where id = #{id}
     </update>
 
-    <update id="updateStatus" parameterType="com.yd.blog.admin.model.entity.Blog">
+    <update id="updateStatus" parameterType="com.yd.JJLin.admin.model.entity.Blog">
         update blog
         <set>
             status = #{status},

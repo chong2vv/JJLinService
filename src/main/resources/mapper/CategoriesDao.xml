@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yd.blog.admin.dao.CategoriesDao">
+<mapper namespace="com.yd.JJLin.admin.dao.CategoriesDao">
 
-    <resultMap type="com.yd.blog.admin.model.entity.Categories" id="CategoriesMap">
+    <resultMap type="com.yd.JJLin.admin.model.entity.Categories" id="CategoriesMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>
         <result property="remark" column="remark" jdbcType="VARCHAR"/>
@@ -35,7 +35,7 @@
 
 
     <!--查询指定行数据-->
-    <select id="queryPager" parameterType="com.yd.blog.admin.model.vo.CategoriesPagerRequestVO" resultMap="CategoriesMap">
+    <select id="queryPager" parameterType="com.yd.JJLin.admin.model.vo.CategoriesPagerRequestVO" resultMap="CategoriesMap">
         select
         id, title, remark, status, image_url, create_time, type
         from categories
@@ -90,7 +90,7 @@
         where id = #{id}
     </update>
 
-    <update id="updateStatus" parameterType="com.yd.blog.admin.model.entity.Categories">
+    <update id="updateStatus" parameterType="com.yd.JJLin.admin.model.entity.Categories">
         update categories
         <set>
             <if test="status != null">
